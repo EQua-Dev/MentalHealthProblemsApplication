@@ -1,0 +1,148 @@
+<resources>
+    <string name="app_name">Mental Health Problems Application</string>
+
+    <string name="title_activity_home">Home</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="sign_in_subtitle">Enter details to log in</string>
+    <string name="account_btn_login">Log In</string>
+    <string name="account_log_in_forgot_password_prompt">Forgotten Password? Reset Password here</string>
+    <string name="sign_in_email">Username</string>
+    <string name="account_not_logged_in_create_account">First Time User? Register here</string>
+    <string name="sign_in_password">Password</string>
+    <string name="sign_up_title">Register</string>
+    <string name="sign_up_subtitle">Enter details to sign up</string>
+    <string name="sign_up_email">Email</string>
+    <string name="sign_up_first_name">First Name</string>
+    <string name="sign_up_last_name">Last Name</string>
+    <string name="sign_up_password">Password</string>
+    <string name="sign_up_confirm_password">Retype Password</string>
+    <string name="sign_up_phone_number">Phone Number</string>
+    <string name="sign_up_license_number">Enter Your License Number</string>
+    <string name="sign_up_login_prompt">Have an account? Login Here</string>
+    <string name="account_btn_sign_up">Register</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="title_activity_landing">Landing</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_tracking_maps">TrackingMapsActivity</string>
+    <string name="landing_button_client_role">Client With Addiction Problem</string>
+    <string name="sign_in_title">Login Screen</string>
+    <string name="forgot_password_title">Forgot Password\n</string>
+    <string name="forgot_password_subtitle">Enter Registered Email to Reset Password</string>
+    <string name="account_forgot_password_log_in_prompt">Remembered Password</string>
+    <string name="account_btn_reset_password">Send Reset Link</string>
+    <string name="sign_up_facility_name">Enter Facility Name</string>
+    <string name="sign_up_facility_physical_address">Enter Facility Physical Address</string>
+    <string name="sign_up_facility_email">Enter Facility Email Address</string>
+    <string name="sign_up_facility_phone_number">Enter Facility Phone Number</string>
+    <string name="landing_button_facility_role">Rehabilitation Facility</string>
+    <string name="sign_up_address">Enter Your Address</string>
+    <string name="my_address">Here</string>
+    <string name="book_rehab">Place Request for Chosen Service</string>
+    <string name="book_appointment_title">Place Request for Service</string>
+    <string name="book_appointment_service">Select Service</string>
+    <string name="book_appointment_date">Select Date</string>
+    <string name="book_appointment_time">Select Appointment Time</string>
+    <string name="book_appointment_description">Request Text</string>
+    <string name="confirm_appointment_book">Confirm Book</string>
+    <string name="facility_navigation_profile">Profile</string>
+    <string name="facility_navigation_customer_requests">Customer Requests</string>
+    <string name="facility_navigation_feedback"><![CDATA[Ratings & Feedback]]></string>
+    <string name="facility_navigation_invoice"><![CDATA[Notification & Invoice]]></string>
+    <string name="user_request_title">User Request</string>
+    <string name="btn_accept_customer_request">Accept</string>
+    <string name="btn_reject_customer_request">Reject</string>
+    <string name="profile_title">Facility Profile</string>
+    <string name="profile_name">Facility Name</string>
+    <string name="profile_email">Facility Email</string>
+    <string name="profile_address">Facility Address</string>
+    <string name="profile_phone">Facility Phone Number</string>
+    <string name="profile_date_joined">Date Joined</string>
+    <string name="facility_edit_profile">Edit Profile</string>
+    <string name="profile_services">Services</string>
+    <string name="feedback_placeholder"><![CDATA[Place Feedback & Ratings]]></string>
+    <string name="invoice_placeholder">View Invoices / Provide Payment</string>
+    <string name="wallet_placeholder">Digital Wallet</string>
+    <string name="notification_placeholder">View Notification</string>
+    <string name="facility_add_service_title">Add Service to Facility Profile</string>
+    <string name="facility_add_service_category">Category</string>
+    <string name="facility_add_service_description">Service Name</string>
+    <string name="facility_add_service_price">Service Price (€)</string>
+    <string name="facility_add_service_discounted_price">Discounted Price (%) (leave empty if nil)</string>
+    <string name="add_service_available_places">Service Available Places</string>
+    <string name="facility_add_service_start_end_date">Start-End Date (if applicable)</string>
+    <string name="facility_add_service_schedule">Service Schedule (if applicable)</string>
+    <string name="facility_add_service_submit_button">Submit</string>
+    <string name="facility_add_service_next_service_button">Next Service</string>
+    <string name="facility_customer_request_generate_invoice">Generate Invoice</string>
+    <string name="facility_customer_request_rejected">rejected</string>
+    <string name="txt_reject_customer_request">Reject Request</string>
+    <string name="facility_schedule_meeting_title">Schedule Meeting</string>
+    <string name="facility_schedule_meeting_date">Schedule Meeting Start Date</string>
+    <string name="facility_schedule_meeting_time">Schedule Meeting Start Time</string>
+    <string name="facility_confirm_meeting_schedule">Confirm Meeting Schedule</string>
+    <string name="facility_generated_invoice_customer_details_title">Customer Details</string>
+    <string name="facility_generated_invoice_facility_details_title">Facility Details</string>
+    <string name="facility_generated_invoice_request_details_title">Request Details</string>
+    <string name="facility_generated_invoice_confirm_button">Create Invoice</string>
+    <string name="facility_new_record_title">Invoice Bank Record</string>
+    <string name="facility_new_record_bank_name">Bank Name</string>
+    <string name="facility_new_record_account_iban">Account IBAN</string>
+    <string name="facility_new_record_account_holder_name">Account Holder Name</string>
+    <string name="facility_new_record_confirm_btn">Confirm Invoice Generation</string>
+    <string name="txt_invoice_status_not_generated">not generated</string>
+    <string name="txt_invoice_status_generated">generated</string>
+    <string name="txt_invoice_payment_status_paid">paid</string>
+    <string name="txt_invoice_payment_status_not_paid">not paid</string>
+    <string name="client_generated_invoice_payment_button">Provide Payment</string>
+    <string name="menu_logout">Logout</string>
+    <string name="facility_submit_update_profile">Submit</string>
+    <string name="facility_update_profile_title">Update Profile</string>
+    <string name="facility_update_profile_phone_number">New Contact Number</string>
+    <string name="facility_cancel_update_profile">Cancel</string>
+    <string name="btn_client_booking_response_detail_okay">Okay</string>
+    <string name="password_does_not_match">Entered Password and Retyped password do not match, please retype the correct value</string>
+    <string name="create_digital_wallet">Create Digital Wallet</string>
+    <string name="fund_digital_wallet">Fund Digital Wallet</string>
+    <string name="fund_digital_wallet_amount_title">"Amount ($): "</string>
+    <string name="fund_digital_wallet_amount">Enter amount</string>
+    <string name="fund_wallet_proceed">Proceed</string>
+    <string name="fund_wallet_cancel">Cancel</string>
+    <string name="rating_customer_name">Enter Your Name</string>
+    <string name="rate_text">Choose your rating</string>
+    <string name="rating_feedback_prompt">Enter your feedback</string>
+    <string name="feedback_submit">Send</string>
+    <string name="rating_title">Give Your Feedback</string>
+    <string name="client_notification_view_btn">View Details</string>
+    <string name="client_notification_rate_btn">Rate Service</string>
+    <string name="client_rating_feedback_text">Type your feedback</string>
+    <string name="ignore">Ignore Text</string>
+    <string name="cannot_get_address_auto">Address not found. Enter address manually.</string>
+    <string name="irish_number_required">Phone number must have irish country code</string>
+    <string name="house_keeping_facility_role">Company User</string>
+    <string name="single_parent_role">User With Mental Health Problems</string>
+
+    <string-array name="service_available_places_option">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="service_categories">
+        <item>Inpatient Treatment</item>
+        <item>Outpatient Treatment</item>
+        <item>Detoxification Services</item>
+        <item>Counselling Services</item>
+        <item>AA 12-step Program</item>
+        <item>Cognitive Behavioural Therapy (CBT)</item>
+        <item>Spiritual/Religious Services</item>
+    </string-array>
+</resources>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".auth.FacilitySignUp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/tv_sign_up_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_mini"
+            android:layout_marginTop="@dimen/padding_mini"
+            android:layout_marginEnd="@dimen/padding_mini"
+            android:text="@string/sign_up_title"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_xxl" />
+
+        <TextView
+            android:id="@+id/tv_sign_up_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_sign_up_title"
+            android:textColor="@color/black"
+            android:text="@string/sign_up_subtitle"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_s" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_sign_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            app:cardElevation="@dimen/padding_mini">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_sign_up_facility_name"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_mini"
+                    android:layout_marginEnd="@dimen/padding_mini"
+                    android:padding="@dimen/padding_mini"
+                    android:hint="@string/sign_up_facility_name"
+                    android:textColorHint="@color/custom_facility_accent_color">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/sign_up_facility_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/sign_up_first_name"
+                        android:importantForAutofill="no"
+                        android:inputType="textPersonName"
+                        android:labelFor="@id/sign_up_facility_name" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_mini"
+                android:weightSum="3">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_sign_up_facility_physical_address"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.6"
+                    android:layout_marginStart="@dimen/padding_mini"
+                    android:layout_marginEnd="@dimen/padding_mini"
+                    android:padding="@dimen/padding_mini"
+                    android:hint="@string/sign_up_facility_physical_address"
+                    android:textColorHint="@color/custom_facility_accent_color">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/sign_up_facility_physical_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/sign_up_facility_physical_address"
+                        android:importantForAutofill="no"
+                        android:inputType="textPersonName"
+                        android:labelFor="@id/sign_up_facility_physical_address" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/sign_up_facility_address_select_my_location"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:contentDescription="@string/sign_up_address"
+                    android:padding="@dimen/padding_mini"
+                    android:text="@string/my_address"
+                    android:textColor="@color/custom_facility_accent_color" />
+
+            </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_sign_up_facility_email"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_mini"
+                    android:layout_marginEnd="@dimen/padding_mini"
+                    android:padding="@dimen/padding_mini"
+                    android:hint="@string/sign_up_facility_email"
+                    android:textColorHint="@color/custom_facility_accent_color">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/sign_up_facility_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/sign_up_facility_email"
+                        android:importantForAutofill="no"
+                        android:inputType="textEmailAddress"
+                        android:labelFor="@id/sign_up_facility_email" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_sign_up_facility_phone_number"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_mini"
+                    android:layout_marginEnd="@dimen/padding_mini"
+                    android:padding="@dimen/padding_mini"
+                    android:hint="@string/sign_up_facility_phone_number"
+                    android:textColorHint="@color/custom_facility_accent_color">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/sign_up_facility_phone_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/sign_up_facility_phone_number"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:labelFor="@id/sign_up_facility_phone_number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_sign_up_facility_password"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_mini"
+                    android:layout_marginEnd="@dimen/padding_mini"
+                    android:padding="@dimen/padding_mini"
+                    android:hint="@string/sign_up_password"
+                    android:textColorHint="@color/custom_facility_accent_color"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/custom_facility_accent_color">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/sign_up_facility_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/sign_up_password"
+                        android:importantForAutofill="no"
+                        android:inputType="textPassword"
+                        android:labelFor="@id/sign_up_password" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_sign_up_facility_confirm_password"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_mini"
+                    android:layout_marginEnd="@dimen/padding_mini"
+                    android:padding="@dimen/padding_mini"
+                    android:hint="@string/sign_up_confirm_password"
+                    android:textColorHint="@color/custom_facility_accent_color"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/custom_facility_accent_color">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/sign_up_facility_confirm_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/sign_up_confirm_password"
+                        android:importantForAutofill="no"
+                        android:inputType="textPassword"
+                        android:labelFor="@id/sign_in_password" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <Button
+            android:id="@+id/account_signup_facility_btn_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/card_sign_up"
+            android:layout_marginStart="@dimen/padding_mini"
+            android:layout_marginTop="@dimen/padding_mini"
+            android:layout_marginEnd="@dimen/padding_mini"
+            android:layout_marginBottom="@dimen/padding_mini"
+            android:backgroundTint="@color/custom_facility_accent_color"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/account_btn_sign_up" />
+
+
+        <TextView
+            android:id="@+id/account_facility_create_account_log_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/account_signup_facility_btn_signup"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/sign_up_login_prompt"
+            android:textColor="@color/custom_facility_accent_color"
+            android:textSize="@dimen/text_s" />
+
+
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".LandingFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="@dimen/text_xl"
+        android:textAlignment="center"
+        android:layout_margin="@dimen/margin_midi"
+        android:padding="@dimen/padding_mini"
+        android:textStyle="bold"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/landing_button_client_role"
+        android:layout_width="@dimen/button_width_xxl"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="@dimen/padding_mini"
+        android:layout_marginTop="@dimen/padding_mini"
+        android:layout_marginEnd="@dimen/padding_mini"
+        android:layout_marginBottom="@dimen/padding_mini"
+        app:backgroundTint="@color/custom_client_accent_color"
+        android:text="@string/single_parent_role"
+        app:cornerRadius="@dimen/padding_mini" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/landing_button_facility_role"
+        android:layout_width="@dimen/button_width_xxl"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/landing_button_client_role"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="@dimen/padding_mini"
+        android:layout_marginTop="@dimen/padding_mini"
+        android:layout_marginEnd="@dimen/padding_mini"
+        android:layout_marginBottom="@dimen/padding_mini"
+        android:text="@string/house_keeping_facility_role"
+        app:backgroundTint="@color/custom_facility_accent_color"
+        app:cornerRadius="@dimen/padding_mini" />
+
+</RelativeLayout>

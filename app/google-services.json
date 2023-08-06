@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "183765329212",
+    "project_id": "coursera-replica-project",
+    "storage_bucket": "coursera-replica-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183765329212:android:20eee90d9b1a59f4742a39",
+        "android_client_info": {
+          "package_name": "com.androidstrike.schoolprojects.courserareplicaproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183765329212-80ibpoqa8f2f7h3a1jhb2l95qq7hkm03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1hIhbCP-flDxk5MEJC68oibA8KJcsRrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183765329212-80ibpoqa8f2f7h3a1jhb2l95qq7hkm03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183765329212:android:831c57b659b79566742a39",
+        "android_client_info": {
+          "package_name": "com.androidstrike.schoolprojects.mentalhealthproblemsapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183765329212-80ibpoqa8f2f7h3a1jhb2l95qq7hkm03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1hIhbCP-flDxk5MEJC68oibA8KJcsRrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183765329212-80ibpoqa8f2f7h3a1jhb2l95qq7hkm03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
