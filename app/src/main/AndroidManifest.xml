@@ -16,6 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MentalHealthProblemsApplication"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC_gGHbGrjj7vMEZ_w9tWGJDjRb3x1bggU" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

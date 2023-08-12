@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/margin_midi">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/facility_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_xl"
+            tools:text="New Rehab Centre" />
+
+        <TextView
+            android:id="@+id/facility_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/facility_name"
+            android:layout_marginStart="@dimen/padding_mini"
+            android:layout_marginTop="@dimen/padding_mini"
+            android:layout_marginEnd="@dimen/padding_mini"
+            android:layout_marginBottom="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            android:textColor="@color/black"
+            tools:text="@tools:sample/cities" />
+
+        <TextView
+            android:id="@+id/facility_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/facility_address"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            android:textColor="@color/black"
+            tools:text="rehab@email.com" />
+
+
+        <ImageView
+            android:id="@+id/img_map_facility_direction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/facility_name"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/padding_mini"
+            android:contentDescription="@string/sign_up_facility_physical_address"
+            android:padding="@dimen/padding_mini"
+            app:srcCompat="@drawable/ic_directions" />
+
+
+        <ImageView
+            android:id="@+id/img_map_facility_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/facility_address"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/padding_mini"
+            android:contentDescription="@string/sign_up_facility_email"
+            android:padding="@dimen/padding_mini"
+            app:srcCompat="@drawable/ic_email" />
+
+
+        <TextView
+            android:id="@+id/facility_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/facility_email"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            android:textColor="@color/black"
+            tools:text="@tools:sample/us_phones" />
+
+
+        <ImageView
+            android:id="@+id/img_map_facility_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/facility_email"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/padding_mini"
+            android:contentDescription="@string/sign_up_facility_phone_number"
+            android:padding="@dimen/padding_mini"
+            app:srcCompat="@drawable/ic_phone" />
+
+
+        <TextView
+            android:id="@+id/book_appointment_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/facility_phone"
+            android:layout_marginStart="@dimen/margin_midi"
+            android:layout_marginTop="@dimen/margin_midi"
+            android:layout_marginEnd="@dimen/margin_midi"
+            android:layout_marginBottom="@dimen/margin_midi"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/book_appointment_title"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_l" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_select_service"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/book_appointment_title"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini">
+
+            <AutoCompleteTextView
+                android:id="@+id/auto_complete_select_service"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:drawablePadding="@dimen/padding_midi"
+                android:hint="@string/book_appointment_service"
+                android:padding="@dimen/padding_maxi" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_select_specialist"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_input_layout_select_service"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini">
+
+            <AutoCompleteTextView
+                android:id="@+id/auto_complete_select_specialist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:drawablePadding="@dimen/padding_midi"
+                android:hint="@string/book_appointment_specialist"
+                android:padding="@dimen/padding_maxi" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_select_specific_service"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_input_layout_select_specialist"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini">
+
+            <AutoCompleteTextView
+                android:id="@+id/auto_complete_select_specific_service"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:drawablePadding="@dimen/padding_midi"
+                android:hint="@string/book_appointment_specific_service"
+                android:padding="@dimen/padding_maxi" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/text_input_layout_book_appointment_date"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/text_input_layout_select_specific_service"-->
+<!--            android:layout_margin="@dimen/padding_mini"-->
+<!--            android:hint="@string/book_appointment_date">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/book_appointment_date"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="@dimen/padding_mini"-->
+<!--                android:contentDescription="@string/book_appointment_date"-->
+<!--                android:importantForAutofill="no"-->
+<!--                android:labelFor="@id/book_appointment_date"-->
+<!--                android:padding="@dimen/padding_maxi" />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/text_input_layout_book_appointment_time"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/text_input_layout_book_appointment_date"-->
+<!--            android:layout_margin="@dimen/margin_mini"-->
+<!--            android:hint="@string/book_appointment_time">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/book_appointment_time"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="@dimen/padding_mini"-->
+<!--                android:contentDescription="@string/book_appointment_date"-->
+<!--                android:importantForAutofill="no"-->
+<!--                android:labelFor="@id/book_appointment_date"-->
+<!--                android:padding="@dimen/padding_maxi" />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/book_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_input_layout_select_specific_service"
+            android:layout_marginStart="@dimen/margin_midi"
+            android:layout_marginTop="@dimen/margin_midi"
+            android:layout_marginEnd="@dimen/margin_midi"
+            android:layout_marginBottom="@dimen/margin_midi"
+            app:cornerRadius="@dimen/margin_mini"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/book_rehab"
+            app:backgroundTint="@color/custom_client_accent_color" />
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

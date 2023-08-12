@@ -47,8 +47,8 @@ class ClientSignUp : Fragment() {
     private lateinit var userLastName: String
     private lateinit var userEmail: String
     private lateinit var userPhoneNumber: String
-    private lateinit var userAddress: String
-    private lateinit var userCountryCode: String
+//    private lateinit var userAddress: String
+//    private lateinit var userCountryCode: String
 
     //    private lateinit var userAddressLongitude: String
 //    private lateinit var userAddressLatitude: String
@@ -59,7 +59,7 @@ class ClientSignUp : Fragment() {
 
     var firstNameOkay = false
     var lastNameOkay = false
-    var addressOkay = false
+    //var addressOkay = false
     var passwordOkay = false
     var emailOkay = false
     var phoneNumberOkay = false
@@ -119,29 +119,17 @@ class ClientSignUp : Fragment() {
             }
         }
 
-        binding.signUpAddress.setOnFocusChangeListener { v, hasFocus ->
-            val addressLayout = v as TextInputEditText
-            val addressText = addressLayout.text.toString()
-            userAddress = addressText
-            if (!hasFocus) {
-                if (userAddress.isEmpty()) {
-                    binding.textInputLayoutSignUpAddress.error =
-                        "Enter last name" // Display an error message
-                } else {
-                    binding.textInputLayoutSignUpAddress.error = null // Clear any previous error
-                    addressOkay = true
-                }
-            }
-        }
 
         binding.signUpPhoneNumber.setOnFocusChangeListener { v, hasFocus ->
             val phoneNumberLayout = v as TextInputEditText
             val phoneNumberText = phoneNumberLayout.text.toString()
             userPhoneNumber = phoneNumberText
             if (!hasFocus) {
-                if (userPhoneNumber.isEmpty() || userPhoneNumber.length < resources.getInteger(R.integer.phone_number_length)) {
+
+
+                if (userPhoneNumber.isEmpty() || userPhoneNumber.length < resources.getInteger(R.integer.phone_number_length) || !userPhoneNumber.startsWith("083")|| !userPhoneNumber.startsWith("085")|| !userPhoneNumber.startsWith("086")|| !userPhoneNumber.startsWith("087")|| !userPhoneNumber.startsWith("089")) {
                     binding.textInputLayoutSignUpPhoneNumber.error =
-                        "Phone number must be ${resources.getInteger(R.integer.phone_number_length)} characters" // Display an error message
+                       resources.getString(R.string.invalid_phone_number)
                 } else {
                     binding.textInputLayoutSignUpPhoneNumber.error =
                         null // Clear any previous error
@@ -196,41 +184,29 @@ class ClientSignUp : Fragment() {
             }
         }
 
-        binding.signUpAddressSelectMyLocation.setOnClickListener {
-            checkLocationPermission()
-        }
-
-        userCountryCode = binding.countryCodePicker.defaultCountryCodeWithPlus
-        binding.countryCodePicker.setOnCountryChangeListener {
-            userCountryCode = binding.countryCodePicker.selectedCountryCodeWithPlus
-            binding.countryCodePicker.setNumberAutoFormattingEnabled(true)
-        }
-        //userPhoneNumber = "$userCountryCode${binding.signUpPhoneNumber.text.toString().trim()}"
 
         binding.accountSignupBtnSignup.setOnClickListener {
 
-            Log.d(TAG, "onViewCreated: $userCountryCode")
-            
+//            Log.d(TAG, "onViewCreated: $userCountryCode")
+
             userFirstName = binding.signUpFirstName.text.toString().trim()
             userLastName = binding.signUpLastName.text.toString().trim()
             userEmail = binding.signUpEmail.text.toString().trim()
-            userAddress = binding.signUpAddress.text.toString().trim()
             userPassword = binding.signUpPassword.text.toString().trim()
             userConfirmPassword = binding.signUpConfirmPassword.text.toString().trim()
-            userPhoneNumber = "$userCountryCode${binding.signUpPhoneNumber.text.toString().trim()}"
+            userPhoneNumber = binding.signUpPhoneNumber.text.toString().trim()
             //userAddressLongitude, userAddressLatitude
 
-            if (userCountryCode != Common.IRISH_CODE)
-                requireContext().toast(resources.getString(R.string.irish_number_required))
+//            if (userCountryCode != Common.IRISH_CODE)
+//                requireContext().toast(resources.getString(R.string.irish_number_required))
 
-            if (!firstNameOkay || !lastNameOkay || !emailOkay || !addressOkay || !phoneNumberOkay || !passwordOkay || !confirmPasswordOkay) {
+            if (!firstNameOkay || !lastNameOkay || !emailOkay || !phoneNumberOkay || !passwordOkay || !confirmPasswordOkay) {
                 requireContext().toast("Invalid input")
             }
             if (
                 userFirstName.isEmpty() ||
                 userLastName.isEmpty() ||
                 userEmail.isEmpty() ||
-                userAddress.isEmpty() ||
                 userPassword.isEmpty() ||
                 userConfirmPassword.isEmpty() ||
                 userPhoneNumber.isEmpty()
@@ -241,7 +217,6 @@ class ClientSignUp : Fragment() {
                     userFirstName,
                     userLastName,
                     userEmail,
-                    userAddress,
                     userPassword,
                     //userAddressLongitude, userAddressLatitude,
                     userPhoneNumber
@@ -257,9 +232,7 @@ class ClientSignUp : Fragment() {
     private fun registerClient(
         userFirstName: String,
         userLastName: String,
-        userEmail: String,
-        userAddress: String,
-        userPassword: String,
+        userEmail: String, userPassword: String,
 //        userAddressLongitude: String,
 //        userAddressLatitude: String,
         userPhoneNumber: String
@@ -276,7 +249,6 @@ class ClientSignUp : Fragment() {
                         userFirstName,
                         userLastName,
                         userEmail,
-                        userAddress,
 //                        userAddressLongitude,
 //                        userAddressLatitude,
                         newUserId!!,
@@ -302,7 +274,6 @@ class ClientSignUp : Fragment() {
         userFirstName: String,
         userLastName: String,
         userEmail: String,
-        userAddress: String,
 //        userAddressLongitude: String,
 //        userAddressLatitude: String,
         newUserId: String,
@@ -313,7 +284,6 @@ class ClientSignUp : Fragment() {
             userFirstName,
             userLastName,
             userEmail,
-            userAddress,
 //            userAddressLongitude,
 //            userAddressLatitude,
             newUserId,
@@ -338,7 +308,6 @@ class ClientSignUp : Fragment() {
         userFirstName: String,
         userLastName: String,
         userEmail: String,
-        userAddress: String,
 //        userAddressLongitude: String,
 //        userAddressLatitude: String,
         newUserId: String,
@@ -350,7 +319,6 @@ class ClientSignUp : Fragment() {
             userFirstName = userFirstName,
             userLastName = userLastName,
             userEmail = userEmail,
-            userAddress = userAddress,
             //userAddressLongitude = userAddressLongitude,
             //userAddressLatitude = userAddressLatitude,
             dateJoined = dateJoined,
@@ -358,27 +326,27 @@ class ClientSignUp : Fragment() {
         )
     }
 
-    private fun getAddressFromLocation(location: Location) = try {
-        val addresses: List<Address> = geocoder.getFromLocation(
-            location.latitude,
-            location.longitude,
-            1
-        )!!
-
-        if (addresses.isNotEmpty()) {
-            val address: Address = addresses[0]
-            val fullAddress: String = address.getAddressLine(0)
-            // Do something with the address
-//            binding.signUpAddress.setText(fullAddress)
-//            userAddressLongitude = location.longitude.toString()
-//            userAddressLatitude = location.latitude.toString()
-        } else {
-            requireContext().toast("Location not found!")
-        }
-    } catch (e: IOException) {
-        e.printStackTrace()
-        // Handle the exception
-    }
+//    private fun getAddressFromLocation(location: Location) = try {
+//        val addresses: List<Address> = geocoder.getFromLocation(
+//            location.latitude,
+//            location.longitude,
+//            1
+//        )!!
+//
+//        if (addresses.isNotEmpty()) {
+//            val address: Address = addresses[0]
+//            val fullAddress: String = address.getAddressLine(0)
+//            // Do something with the address
+////            binding.signUpAddress.setText(fullAddress)
+////            userAddressLongitude = location.longitude.toString()
+////            userAddressLatitude = location.latitude.toString()
+//        } else {
+//            requireContext().toast("Location not found!")
+//        }
+//    } catch (e: IOException) {
+//        e.printStackTrace()
+//        // Handle the exception
+//    }
 
 
     private fun isPasswordValid(password: String): Boolean {
@@ -443,12 +411,12 @@ class ClientSignUp : Fragment() {
                 val currentLocation = getAddressFromLocation(location.latitude, location.longitude)
 //            userAddressLatitude = location.latitude.toString()
 //            userAddressLongitude = location.longitude.toString()
-                binding.signUpAddress.setText(
-                    getAddressFromLocation(
-                        location.latitude,
-                        location.longitude
-                    )
-                )
+//                binding.signUpAddress.setText(
+//                    getAddressFromLocation(
+//                        location.latitude,
+//                        location.longitude
+//                    )
+//                )
                 Log.d(TAG, "getLocation: $currentLocation")
                 Log.d(TAG, "getLocation: ${location.latitude}")
                 hideProgress()
@@ -492,7 +460,6 @@ class ClientSignUp : Fragment() {
             }
             .show()
     }
-
 
 
     private fun getAddressFromLocation(latitude: Double, longitude: Double): String {

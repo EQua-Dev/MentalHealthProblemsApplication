@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.MentalHealthProblemsApplication" parent="Base.Theme.MentalHealthProblemsApplication" />
+    <style name="TabTextAppearance" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

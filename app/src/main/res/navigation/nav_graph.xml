@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/landingFragment">
+    app:startDestination="@id/splashScreen">
 
     <fragment
         android:id="@+id/landingFragment"
@@ -61,21 +61,21 @@
         <argument
             android:name="role"
             app:argType="string" />
-<!--        <action-->
-<!--            android:id="@+id/action_signIn_to_mapsFragment"-->
-<!--            app:destination="@id/mapsFragment" />-->
+        <action
+            android:id="@+id/action_signIn_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
 <!--        <action-->
 <!--            android:id="@+id/action_signIn_to_facilityBaseScreen"-->
 <!--            app:destination="@id/facilityBaseScreen" />-->
-<!--        <action-->
-<!--            android:id="@+id/action_signIn_to_clientBaseScreen"-->
-<!--            app:destination="@id/clientBaseScreen" />-->
+        <action
+            android:id="@+id/action_signIn_to_clientBaseScreen"
+            app:destination="@id/clientBaseScreen" />
     </fragment>
-<!--    <fragment-->
-<!--        android:id="@+id/mapsFragment"-->
-<!--        android:name="com.androidstrike.trackit.client.landing.MapsFragment"-->
-<!--        android:label="fragment_maps"-->
-<!--        tools:layout="@layout/fragment_maps" />-->
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.landing.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
 <!--    <fragment-->
 <!--        android:id="@+id/facilityBaseScreen"-->
 <!--        android:name="com.androidstrike.trackit.facility.base.FacilityBaseScreen"-->
@@ -88,13 +88,22 @@
 <!--            android:id="@+id/action_facilityBaseScreen_to_landingFragment"-->
 <!--            app:destination="@id/landingFragment" />-->
 <!--    </fragment>-->
-<!--    <fragment-->
-<!--        android:id="@+id/clientBaseScreen"-->
-<!--        android:name="com.androidstrike.trackit.client.base.ClientBaseScreen"-->
-<!--        android:label="fragment_client_base_screen"-->
-<!--        tools:layout="@layout/fragment_client_base_screen" >-->
-<!--        <action-->
-<!--            android:id="@+id/action_clientBaseScreen_to_landingFragment"-->
-<!--            app:destination="@id/landingFragment" />-->
-<!--    </fragment>-->
+    <fragment
+        android:id="@+id/clientBaseScreen"
+        android:name="com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.base.ClientBaseScreen"
+        android:label="fragment_client_base_screen"
+        tools:layout="@layout/fragment_client_base_screen" >
+        <action
+            android:id="@+id/action_clientBaseScreen_to_landingFragment"
+            app:destination="@id/landingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="com.androidstrike.schoolprojects.mentalhealthproblemsapplication.SplashScreen"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreen_to_landingFragment"
+            app:destination="@id/landingFragment" />
+    </fragment>
 </navigation>

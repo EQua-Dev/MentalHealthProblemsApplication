@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardElevation="@dimen/padding_mini"
+    android:layout_margin="@dimen/padding_mini"
+    app:cardCornerRadius="@dimen/padding_mini">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/date/ddmmyy"
+            android:id="@+id/txt_client_booking_response_detail_date_created"
+            android:padding="@dimen/padding_mini"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/date/hhmm"
+            android:id="@+id/txt_client_booking_response_detail_time_created"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/padding_mini"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/lorem/random"
+            tools:lines="3"
+            android:layout_below="@id/txt_client_booking_response_detail_date_created"
+            android:justificationMode="inter_word"
+            android:id="@+id/txt_client_booking_result_detail_description"
+            android:padding="@dimen/padding_mini"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_client_booking_response_detail_okay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_client_booking_result_detail_description"
+            android:layout_marginStart="@dimen/margin_midi"
+            android:layout_marginTop="@dimen/margin_midi"
+            android:layout_marginEnd="@dimen/margin_midi"
+            android:layout_marginBottom="@dimen/margin_midi"
+            android:text="@string/btn_client_booking_response_detail_okay"
+            app:backgroundTint="@color/custom_client_accent_color" />
+
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

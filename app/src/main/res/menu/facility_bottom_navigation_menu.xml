@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/facility_navigation_customer_requests"
+        android:title="@string/facility_navigation_customer_requests"
+        android:orderInCategory="1"/>
+    <item
+        android:id="@+id/facility_navigation_profile"
+        android:title="@string/facility_navigation_profile"
+        android:orderInCategory="0"/>
+
+    <item
+        android:id="@+id/facility_navigation_feedback"
+        android:title="@string/facility_navigation_feedback"
+        android:orderInCategory="3"/>
+    <item
+        android:id="@+id/facility_navigation_invoice"
+        android:title="@string/facility_navigation_invoice"
+        android:orderInCategory="2"/>
+</menu>

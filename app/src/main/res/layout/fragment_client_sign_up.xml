@@ -89,75 +89,13 @@
                         android:labelFor="@id/sign_up_last_name" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/padding_mini"
-                    android:weightSum="3">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/text_input_layout_sign_up_address"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:layout_marginStart="@dimen/padding_mini"
-                        android:layout_marginEnd="@dimen/padding_mini"
-                        android:padding="@dimen/padding_mini"
-                        android:hint="@string/sign_up_address"
-                        android:textColorHint="@color/custom_client_accent_color">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/sign_up_address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:contentDescription="@string/sign_up_email"
-                            android:importantForAutofill="no"
-                            android:inputType="textPersonName"
-                            android:labelFor="@id/sign_up_address" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-                    <TextView
-                        android:id="@+id/sign_up_address_select_my_location"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:contentDescription="@string/sign_up_address"
-                        android:padding="@dimen/padding_mini"
-                        android:text="@string/my_address"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/custom_client_accent_color" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="4"
-                    android:layout_margin="@dimen/padding_mini"
-                    android:padding="@dimen/padding_mini"
-                    android:orientation="horizontal">
-
-                    <com.hbb20.CountryCodePicker
-                        android:id="@+id/countryCodePicker"
-                        android:layout_width="0dp"
-                        android:layout_gravity="center"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
-                        app:ccp_countryPreference="IE,NG,GB"
-                        app:ccp_defaultNameCode="IE"/>
 
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/text_input_layout_sign_up_phone_number"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2.5"
                     android:layout_marginStart="@dimen/padding_mini"
                     android:layout_marginEnd="@dimen/padding_mini"
                     android:padding="@dimen/padding_mini"
@@ -174,7 +112,6 @@
                         android:maxLength="@integer/phone_number_length"
                         android:labelFor="@id/sign_up_phone_number" />
                 </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/text_input_layout_sign_up_email"

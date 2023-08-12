@@ -81,14 +81,7 @@ class SignIn : Fragment() {
         }
 
         binding.accountLogInBtnLogin.setOnClickListener {
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                binding.textInputLayoutSignInEmail.error =
-                    "Enter valid email" // Display an error message
-            } else {
-                binding.textInputLayoutSignInEmail.error = null // Clear any previous error
                 signIn(email, password)
-
-            }
 
         }
     }
@@ -128,9 +121,9 @@ class SignIn : Fragment() {
                                         withContext(Dispatchers.Main){
                                         }
                                     }
-                                    requireContext().toast("Sign In Success")
-//                                    val navToHome = SignInDirections.actionSignInToClientBaseScreen()
-//                                    findNavController().navigate(navToHome)
+//                                    requireContext().toast("Sign In Success")
+                                    val navToHome = SignInDirections.actionSignInToClientBaseScreen()
+                                    findNavController().navigate(navToHome)
                                 }else{
                                     CoroutineScope(Dispatchers.IO).launch {
                                         val facilityRef = Common.facilityCollectionRef.document(

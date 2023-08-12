@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".client.landing.FeedbackRating">
+
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/rating_title"-->
+<!--        android:textSize="@dimen/text_xl"-->
+<!--        android:textAlignment="center"-->
+<!--        android:layout_margin="@dimen/margin_midi"/>-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_centerInParent="true">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/client_rating_facility_name"-->
+<!--            android:layout_marginStart="@dimen/padding_mini"-->
+<!--            android:layout_marginEnd="@dimen/padding_mini"-->
+<!--            android:padding="@dimen/padding_mini"-->
+<!--            tools:text="Rehab Facility Name"/>-->
+
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/client_rating_facility_phone_number"-->
+<!--            android:layout_marginStart="@dimen/padding_mini"-->
+<!--            android:layout_marginEnd="@dimen/padding_mini"-->
+<!--            android:padding="@dimen/padding_mini"-->
+<!--            tools:text="@tools:sample/us_phones"/>-->
+
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/client_rating_facility_email"-->
+<!--            android:layout_marginStart="@dimen/padding_mini"-->
+<!--            android:layout_marginEnd="@dimen/padding_mini"-->
+<!--            android:padding="@dimen/padding_mini"-->
+<!--            tools:text="rehab@email.com"/>-->
+
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/client_rating_client_name"-->
+<!--            android:layout_marginStart="@dimen/padding_mini"-->
+<!--            android:layout_marginEnd="@dimen/padding_mini"-->
+<!--            android:padding="@dimen/padding_mini"-->
+<!--            tools:text="@tools:sample/full_names"/>-->
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/rate_text"-->
+<!--            android:padding="@dimen/padding_mini"-->
+<!--            android:layout_margin="@dimen/padding_mini"-->
+<!--            android:textColor="@color/black"/>-->
+
+<!--        <com.iarcuschin.simpleratingbar.SimpleRatingBar-->
+<!--            android:id="@+id/client_rating_bar"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:srb_numberOfStars="5"-->
+<!--            app:srb_starSize="24dp"-->
+<!--            app:srb_borderColor="#C0C0C0"-->
+<!--            app:srb_fillColor="@color/custom_facility_accent_color"-->
+<!--            android:layout_marginStart="@dimen/margin_midi"/>-->
+
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/text_input_layout_client_rating_feedback_text"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="@dimen/padding_mini"-->
+<!--            android:layout_marginEnd="@dimen/padding_mini"-->
+<!--            android:padding="@dimen/padding_mini"-->
+<!--            android:hint="@string/client_rating_feedback_text"-->
+<!--            android:textColorHint="@color/custom_facility_accent_color">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/client_rating_feedback_text"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:contentDescription="@string/client_rating_feedback_text"-->
+<!--                android:importantForAutofill="no"-->
+<!--                android:inputType="textMultiLine"-->
+<!--                android:lines="4"-->
+<!--                android:labelFor="@id/client_rating_feedback_text" />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/client_rating_submit_button"-->
+<!--            android:layout_width="@dimen/button_width_xxl"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="@dimen/padding_mini"-->
+<!--            android:layout_marginTop="@dimen/padding_mini"-->
+<!--            android:layout_marginEnd="@dimen/padding_mini"-->
+<!--            android:layout_marginBottom="@dimen/padding_mini"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:backgroundTint="@color/custom_facility_accent_color"-->
+<!--            android:padding="@dimen/padding_mini"-->
+<!--            android:text="@string/feedback_submit" />-->
+
+
+
+
+<!--    </LinearLayout>-->
+
+</RelativeLayout>

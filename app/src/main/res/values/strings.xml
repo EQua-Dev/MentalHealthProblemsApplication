@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mental Health Problems Application</string>
+    <string name="app_name">Safe Space</string>
 
     <string name="title_activity_home">Home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -12,17 +12,17 @@
     <string name="sign_in_subtitle">Enter details to log in</string>
     <string name="account_btn_login">Log In</string>
     <string name="account_log_in_forgot_password_prompt">Forgotten Password? Reset Password here</string>
-    <string name="sign_in_email">Username</string>
+    <string name="sign_in_email">Email Address</string>
     <string name="account_not_logged_in_create_account">First Time User? Register here</string>
     <string name="sign_in_password">Password</string>
     <string name="sign_up_title">Register</string>
     <string name="sign_up_subtitle">Enter details to sign up</string>
     <string name="sign_up_email">Email</string>
-    <string name="sign_up_first_name">First Name</string>
-    <string name="sign_up_last_name">Last Name</string>
+    <string name="sign_up_first_name">Customer First Name</string>
+    <string name="sign_up_last_name">Customer Last Name</string>
     <string name="sign_up_password">Password</string>
     <string name="sign_up_confirm_password">Retype Password</string>
-    <string name="sign_up_phone_number">Phone Number</string>
+    <string name="sign_up_phone_number">Mobile Number</string>
     <string name="sign_up_license_number">Enter Your License Number</string>
     <string name="sign_up_login_prompt">Have an account? Login Here</string>
     <string name="account_btn_sign_up">Register</string>
@@ -39,7 +39,7 @@
     <string name="forgot_password_title">Forgot Password\n</string>
     <string name="forgot_password_subtitle">Enter Registered Email to Reset Password</string>
     <string name="account_forgot_password_log_in_prompt">Remembered Password</string>
-    <string name="account_btn_reset_password">Send Reset Link</string>
+    <string name="account_btn_reset_password">Send Reset Password Link</string>
     <string name="sign_up_facility_name">Enter Facility Name</string>
     <string name="sign_up_facility_physical_address">Enter Facility Physical Address</string>
     <string name="sign_up_facility_email">Enter Facility Email Address</string>
@@ -49,7 +49,7 @@
     <string name="my_address">Here</string>
     <string name="book_rehab">Place Request for Chosen Service</string>
     <string name="book_appointment_title">Place Request for Service</string>
-    <string name="book_appointment_service">Select Service</string>
+    <string name="book_appointment_service">Select Type of Provided Service</string>
     <string name="book_appointment_date">Select Date</string>
     <string name="book_appointment_time">Select Appointment Time</string>
     <string name="book_appointment_description">Request Text</string>
@@ -130,19 +130,40 @@
     <string name="irish_number_required">Phone number must have irish country code</string>
     <string name="house_keeping_facility_role">Company User</string>
     <string name="single_parent_role">User With Mental Health Problems</string>
+    <string name="book_appointment_specialist">Select Specialist</string>
+    <string name="book_appointment_specific_service">Select Specific Service</string>
+    <string name="service_type">Service Type: %s</string>
+    <string name="service_specialist_name">Service Specialist Name: %s</string>
+    <string name="service_name">Service Name: %s</string>
+    <string name="service_details">Service Details: %s (%s)</string>
+    <string name="service_price">Service Price: €%s</string>
+    <string name="service_discount_price">Discounted Price: €%s</string>
+    <string name="available_places">Available Places: %s</string>
+    <string name="service_start_date">Service Start Date</string>
+    <string name="request_text">Dear Sirs,\n\nMy name is %s, %s, %s. I require your provided service %s, starting from %s.\n\nPlease let me know if you can accommodate my request.\n\nDate Created: %s\nTime Created: %s</string>
+    <string name="submit_request">Submit Request</string>
+    <string name="invalid_phone_number">A Valid Irish Number should start with 083, 085, 086, 087, 089 and be in total length of 10 digits.</string>
 
     <string-array name="service_available_places_option">
         <item>Yes</item>
         <item>No</item>
     </string-array>
 
-    <string-array name="service_categories">
-        <item>Inpatient Treatment</item>
-        <item>Outpatient Treatment</item>
-        <item>Detoxification Services</item>
+    <string-array name="therapy_service">
         <item>Counselling Services</item>
-        <item>AA 12-step Program</item>
         <item>Cognitive Behavioural Therapy (CBT)</item>
-        <item>Spiritual/Religious Services</item>
+        <item>Support Group Meetings</item>
+        <item>Mediation and Relaxation Sessions</item>
     </string-array>
+       <string-array name="med_pro_service">
+        <item>Initial Meeting for Disorder Diagnosis</item>
+        <item>Follow up Meeting after diagnosis placed</item>
+        <item>Treatment with Prescribed Medication After Diagnosis</item>
+    </string-array>
+
+    <string-array name="provided_service">
+        <item>Meeting with Medical Professional</item>
+        <item>Therapy</item>
+    </string-array>
+
 </resources>
