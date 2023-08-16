@@ -45,8 +45,8 @@ fun hideProgress() {
 
 
 //snack bar function
-fun View.snackbar(message: String, action: (() -> Unit)? = null) {
-    val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_LONG)
+fun View.snackBar(message: String, action: (() -> Unit)? = null) {
+    val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_LONG).setTextColor(resources.getColor(R.color.red)).setBackgroundTint(Color.TRANSPARENT)
     action?.let {
         snackbar.setAction("Okay") {
             it()

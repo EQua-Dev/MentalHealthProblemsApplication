@@ -15,7 +15,7 @@
     <string name="sign_in_email">Email Address</string>
     <string name="account_not_logged_in_create_account">First Time User? Register here</string>
     <string name="sign_in_password">Password</string>
-    <string name="sign_up_title">Register</string>
+    <string name="sign_up_title">Customer Registration Screen</string>
     <string name="sign_up_subtitle">Enter details to sign up</string>
     <string name="sign_up_email">Email</string>
     <string name="sign_up_first_name">Customer First Name</string>
@@ -35,7 +35,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_tracking_maps">TrackingMapsActivity</string>
     <string name="landing_button_client_role">Client With Addiction Problem</string>
-    <string name="sign_in_title">Login Screen</string>
+    <string name="sign_in_title">Login Screen for Customer</string>
     <string name="forgot_password_title">Forgot Password\n</string>
     <string name="forgot_password_subtitle">Enter Registered Email to Reset Password</string>
     <string name="account_forgot_password_log_in_prompt">Remembered Password</string>
@@ -143,6 +143,10 @@
     <string name="request_text">Dear Sirs,\n\nMy name is %s, %s, %s. I require your provided service %s, starting from %s.\n\nPlease let me know if you can accommodate my request.\n\nDate Created: %s\nTime Created: %s</string>
     <string name="submit_request">Submit Request</string>
     <string name="invalid_phone_number">A Valid Irish Number should start with 083, 085, 086, 087, 089 and be in total length of 10 digits.</string>
+    <string name="user_records_not_found">Username and password do not match. Please try again</string>
+    <string name="invalid_email">A Valid Email Address should contain a valid email domain (gmail.com, hotmail.com, yahoo.com, outlook.com, live.com) and has the @ sign before it</string>
+    <string name="invalid_password">A Strong Password Should be minimum of 8 characters in length, Containing upper and lower case letters, special characters and digits.</string>
+    <string name="app_home_screen">Application Home Screen</string>
 
     <string-array name="service_available_places_option">
         <item>Yes</item>

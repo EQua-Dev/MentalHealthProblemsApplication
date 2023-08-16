@@ -125,9 +125,10 @@ class ClientSignUp : Fragment() {
             val phoneNumberText = phoneNumberLayout.text.toString()
             userPhoneNumber = phoneNumberText
             if (!hasFocus) {
+                val isIrishNumber = userPhoneNumber.startsWith("083")|| userPhoneNumber.startsWith("085")|| userPhoneNumber.startsWith("086")|| userPhoneNumber.startsWith("087")|| userPhoneNumber.startsWith("089")
 
 
-                if (userPhoneNumber.isEmpty() || userPhoneNumber.length < resources.getInteger(R.integer.phone_number_length) || !userPhoneNumber.startsWith("083")|| !userPhoneNumber.startsWith("085")|| !userPhoneNumber.startsWith("086")|| !userPhoneNumber.startsWith("087")|| !userPhoneNumber.startsWith("089")) {
+                if (userPhoneNumber.isEmpty() || userPhoneNumber.length < resources.getInteger(R.integer.phone_number_length) || !isIrishNumber) {
                     binding.textInputLayoutSignUpPhoneNumber.error =
                        resources.getString(R.string.invalid_phone_number)
                 } else {
@@ -148,7 +149,7 @@ class ClientSignUp : Fragment() {
                     passwordOkay = true
                 } else {
                     binding.textInputLayoutSignUpPassword.error =
-                        "Password must contain at least one digit, uppercase, lowercase, special character and 8 characters" // Display an error message
+                        resources.getString(R.string.invalid_password) // Display an error message
                 }
             }
         }
@@ -179,7 +180,7 @@ class ClientSignUp : Fragment() {
                     emailOkay = true
                 } else {
                     binding.textInputLayoutSignUpEmail.error =
-                        "Enter valid email" // Display an error message
+                        resources.getString(R.string.invalid_email) // Display an error message
                 }
             }
         }

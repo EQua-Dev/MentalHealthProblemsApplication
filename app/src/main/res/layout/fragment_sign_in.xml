@@ -4,18 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/logo_background"
     tools:context=".auth.SignIn">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_in_title"
-            android:textAlignment="center"
-            android:layout_margin="@dimen/padding_mini"
-            android:padding="@dimen/padding_mini"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/text_xxl"
-            android:id="@+id/tv_sign_in_title"/>
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@drawable/app_logo"
+        android:contentDescription="@string/app_name"
+        android:id="@+id/sign_in_app_logo"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:id="@+id/sign_in_app_name"
+        android:padding="@dimen/padding_mini"
+        android:layout_below="@id/sign_in_app_logo"
+        android:textSize="@dimen/text_s"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_sign_in_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_mini"
+        android:layout_marginTop="@dimen/padding_mini"
+        android:layout_marginEnd="@dimen/padding_mini"
+        android:layout_marginBottom="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:text="@string/sign_in_title"
+        android:textAlignment="center"
+        android:textColor="@color/custom_client_accent_color"
+        android:textSize="@dimen/text_l"
+        android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_sign_in_subtitle"

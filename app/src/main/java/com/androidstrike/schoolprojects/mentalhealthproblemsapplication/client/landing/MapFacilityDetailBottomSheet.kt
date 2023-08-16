@@ -345,7 +345,8 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
                 clientName,
                 clientPhoneNumber,
                 clientEmailAddress,
-                tvServiceDetails.text.toString(),
+                "${bookService.selectedAppointmentSpecificServiceName} (${bookService.selectedAppointmentSpecificServiceName})",
+                //tvServiceDetails.text.toString(),
                 serviceStartDate,
                 dateCreated,
                 timeCreated

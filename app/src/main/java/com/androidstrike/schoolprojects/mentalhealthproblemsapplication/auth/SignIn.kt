@@ -2,7 +2,6 @@ package com.androidstrike.schoolprojects.mentalhealthproblemsapplication.auth
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +15,7 @@ import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Co
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.clientName
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.enable
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.showProgressDialog
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.snackBar
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.toast
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.visible
 import com.google.firebase.auth.ktx.auth
@@ -162,7 +162,8 @@ class SignIn : Fragment() {
                 } else {
                     //pbLoading.visible(false)
                     hideProgress()
-                    activity?.toast(it.exception?.message.toString())
+                    requireView().snackBar(resources.getString(R.string.user_records_not_found))
+                    //activity?.toast(it.exception?.message.toString())
                 }
             }
     }

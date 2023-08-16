@@ -1,7 +1,6 @@
 package com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.clientnotification
 
 import android.app.Dialog
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,11 +16,9 @@ import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.R
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.databinding.FragmentClientNotificationBinding
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.BookService
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Facility
-import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Service
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.SpecificService
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common
-import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.getDate
-import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.snackbar
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.snackBar
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.toast
 import com.androidstrike.trackit.client.clientnotification.ClientBookingResponseScreenAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
@@ -129,7 +126,7 @@ class ClientNotification : Fragment() {
                         if(responseState == "accepted")
                             launchDetailDialog(model)
                         else
-                            requireView().snackbar("Your request is still pending")
+                            requireView().snackBar("Your request is still pending")
                     }
 
                     holder.clientBookingResponseRateServiceButton.setOnClickListener {
