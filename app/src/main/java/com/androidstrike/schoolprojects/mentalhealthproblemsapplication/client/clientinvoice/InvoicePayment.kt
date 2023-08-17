@@ -108,9 +108,9 @@ class InvoicePayment : Fragment() {
                     getFacilityDetails(model.facilityId)
 
 
-                    val clientBaseFragment = parentFragment
-                    val clientTabLayout =
-                        clientBaseFragment!!.view?.findViewById<TabLayout>(R.id.client_base_tab_title)
+//                    val clientBaseFragment = parentFragment
+//                    val clientTabLayout =
+//                        clientBaseFragment!!.view?.findViewById<TabLayout>(R.id.client_base_tab_title)
 
 
                     getServiceDetails(model.facilityId, model.selectedAppointmentServiceID)
@@ -125,7 +125,7 @@ class InvoicePayment : Fragment() {
 
                     holder.itemView.setOnClickListener {
 
-                        launchInvoiceDetailsDialog(model, clientTabLayout)
+                        //launchInvoiceDetailsDialog(model, clientTabLayout)
 //                        requireContext().toast("${model.scheduledTime} clicked!")
                         Log.d("EQUA", "onBindViewHolder: ${requestingClient.userFirstName} ${requestingClient.userLastName}")
                     }

@@ -93,9 +93,9 @@ class ClientNotification : Fragment() {
                 ) {
 
 
-                    val clientBaseFragment = parentFragment
-                    val clientTabLayout =
-                        clientBaseFragment!!.view?.findViewById<TabLayout>(R.id.client_base_tab_title)
+//                    val clientBaseFragment = parentFragment
+//                    val clientTabLayout =
+//                        clientBaseFragment!!.view?.findViewById<TabLayout>(R.id.client_base_tab_title)
 
 
                     Log.d("EQUA", "onBindViewHolder: ${model.clientId}")
@@ -130,15 +130,15 @@ class ClientNotification : Fragment() {
                     }
 
                     holder.clientBookingResponseRateServiceButton.setOnClickListener {
-                        val ratingsTab = clientTabLayout?.getTabAt(4)
-                        ratingsTab?.let {
-                            val fragment = clientBaseFragment as Fragment // Replace with your own fragment class
-                            val args = Bundle()
-                            args.putString("serviceId", model.selectedAppointmentServiceID)
-                            fragment.arguments = args
-                        }
-                        Common.serviceToRate = model.selectedAppointmentServiceID
-                        clientTabLayout?.getTabAt(4)?.select()
+//                        val ratingsTab = clientTabLayout?.getTabAt(4)
+//                        ratingsTab?.let {
+//                            val fragment = clientBaseFragment as Fragment // Replace with your own fragment class
+//                            val args = Bundle()
+//                            args.putString("serviceId", model.selectedAppointmentServiceID)
+//                            fragment.arguments = args
+//                        }
+//                        Common.serviceToRate = model.selectedAppointmentServiceID
+//                        clientTabLayout?.getTabAt(4)?.select()
                     }
 
                 }
