@@ -15,6 +15,14 @@ object Common {
     const val SERVICES = "Services"
     const val SPECIALISTS = "Specialists"
     const val SPECIFIC_SERVICE = "Specific Service"
+    private const val WALLET_REF = "Customer Digital Wallets"
+    const val WALLET_HISTORY_REF = "Wallet History"
+
+    const val REASON_ACCOUNT_FUND = "Account Fund"
+
+    const val DATE_FORMAT_LONG = "EEE, dd MMM, yyyy | hh:mm a"
+
+
 
     var serviceToRate = ""
 
@@ -24,6 +32,7 @@ object Common {
     val facilityCollectionRef = Firebase.firestore.collection("Facilities")
     val appointmentsCollectionRef = Firebase.firestore.collection("Appointments")
     val servicesCollectionRef = Firebase.firestore.collection("Services")
+    val walletCollectionRef = Firebase.firestore.collection(WALLET_REF)
     val feedbackCollectionRef = Firebase.firestore.collection("Feedbacks")
 
     fun convertTimeStampToDate(time: Long): Date {

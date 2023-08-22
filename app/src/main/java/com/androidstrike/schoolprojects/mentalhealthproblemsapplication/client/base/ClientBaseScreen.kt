@@ -44,13 +44,12 @@ class ClientBaseScreen : Fragment() {
 
             //binding.clientToolBar.title = Common.clientName
              val tabTitles = listOf(
-                            "Home Screen",
-                            "Digital Wallet",
-                            "View Notification",
-                            "View Invoice",
-                            "Place Feedback"
+                            "🏠Home Screen",
+                            "💳Digital Wallet",
+                            "🚨View Notification",
+                            "🧾View Invoice",
+                            "⭐️Place Feedback"
                         )
-            toolBarDropDownMenu.setText(tabTitles[0])
             toolBarDropDownMenu.setText(tabTitles[0])
             val menuArrayAdapter =
                 ArrayAdapter(requireContext(), R.layout.drop_down_item, tabTitles)
@@ -70,24 +69,6 @@ class ClientBaseScreen : Fragment() {
                 val selectedItem =
                     menuArrayAdapter.getItem(position) // Get the selected item
                 clientLandingViewPager.currentItem = position
-
-//                when(selectedItem){
-//                    "Home Screen" -> {
-//
-//                    }
-//                    "Digital Wallet" -> {
-//
-//                    }
-//                    "View Notification" -> {
-//
-//                    }
-//                    "View Invoice" -> {
-//
-//                    }
-//                    "Place Feedback" -> {
-//
-//                    }
-//                }
             }
 
 

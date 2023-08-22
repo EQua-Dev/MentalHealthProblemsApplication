@@ -15,17 +15,19 @@
         android:text="@string/wallet_placeholder" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/create_digital_wallet"
         android:layout_width="@dimen/button_width_xxl"
         android:layout_height="wrap_content"
-        android:text="@string/create_digital_wallet"
-        app:backgroundTint="@color/custom_client_accent_color"
         android:layout_centerInParent="true"
-        android:id="@+id/create_digital_wallet"/>
+        app:cornerRadius="@dimen/margin_mini"
+        android:text="@string/create_digital_wallet"
+        app:backgroundTint="@color/custom_client_accent_color" />
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="@dimen/button_width_xxl"
         android:layout_height="wrap_content"
         android:text="@string/fund_digital_wallet"
+        app:cornerRadius="@dimen/margin_mini"
         app:backgroundTint="@color/custom_facility_accent_color"
         android:layout_below="@id/create_digital_wallet"
         android:layout_centerHorizontal="true"

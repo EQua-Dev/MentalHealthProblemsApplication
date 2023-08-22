@@ -113,7 +113,7 @@
     <string name="password_does_not_match">Entered Password and Retyped password do not match, please retype the correct value</string>
     <string name="create_digital_wallet">Create Digital Wallet</string>
     <string name="fund_digital_wallet">Fund Digital Wallet</string>
-    <string name="fund_digital_wallet_amount_title">"Amount ($): "</string>
+    <string name="fund_digital_wallet_amount_title">"Amount (€): "</string>
     <string name="fund_digital_wallet_amount">Enter amount</string>
     <string name="fund_wallet_proceed">Proceed</string>
     <string name="fund_wallet_cancel">Cancel</string>
@@ -147,6 +147,7 @@
     <string name="invalid_email">A Valid Email Address should contain a valid email domain (gmail.com, hotmail.com, yahoo.com, outlook.com, live.com) and has the @ sign before it</string>
     <string name="invalid_password">A Strong Password Should be minimum of 8 characters in length, Containing upper and lower case letters, special characters and digits.</string>
     <string name="app_home_screen">Application Home Screen</string>
+    <string name="money_text">€%s</string>
 
     <string-array name="service_available_places_option">
         <item>Yes</item>

@@ -449,15 +449,13 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
                             facilityServices.add(item)
                         }
                         Log.d("EQUA", "getFacilityServiceDetails: $facilityServices")
-                        for (service in facilityServices) {
-                            facilityServicesNames.add(service.serviceName)
-                        }
-
-
-
-                        Log.d("EQUA", "getFacilityServiceDetails: $facilityServices")
 
                     }
+                    for (service in facilityServices) {
+                        facilityServicesNames.add(service.serviceName)
+                    }
+                    Log.d("EQUA", "facilityServicesNames: $facilityServicesNames")
+
                     getFacilitySpecialistsDetails(facilityId)
 
                     hideProgress()

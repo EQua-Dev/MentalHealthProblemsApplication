@@ -53,58 +53,46 @@
                     android:id="@+id/fund_digital_wallet_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_mini"
                     android:contentDescription="@string/fund_digital_wallet_amount"
                     android:importantForAutofill="no"
-                    android:layout_margin="@dimen/padding_mini"
-                    android:padding="@dimen/padding_maxi"
-                    android:labelFor="@id/fund_digital_wallet_amount" />
+                    android:inputType="numberDecimal"
+                    android:labelFor="@id/fund_digital_wallet_amount"
+                    android:padding="@dimen/padding_maxi" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
         </LinearLayout>
-            <LinearLayout
-            android:layout_width="match_parent"
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/fund_wallet_proceed"
+            android:layout_width="@dimen/button_width_xxl"
             android:layout_height="wrap_content"
-            android:weightSum="2"
-            android:padding="@dimen/padding_mini"
-            android:layout_margin="@dimen/padding_mini"
+            android:layout_centerHorizontal="true"
+            app:cornerRadius="@dimen/margin_mini"
+            android:layout_marginStart="@dimen/margin_midi"
+            android:layout_marginTop="@dimen/margin_midi"
+            android:layout_marginEnd="@dimen/margin_midi"
+            android:layout_marginBottom="@dimen/margin_midi"
             android:layout_below="@+id/layout_fund_digital_wallet_amount"
-            android:orientation="horizontal">
+            android:padding="@dimen/padding_mini"
+            android:text="@string/fund_wallet_proceed"
+            app:backgroundTint="@color/custom_client_accent_color" />
 
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/fund_wallet_proceed"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="@dimen/margin_midi"
-                    android:layout_marginTop="@dimen/margin_midi"
-                    android:layout_marginEnd="@dimen/margin_midi"
-                    android:layout_marginBottom="@dimen/margin_midi"
-                    android:padding="@dimen/padding_mini"
-                    android:text="@string/fund_wallet_proceed"
-                    app:backgroundTint="@color/custom_client_accent_color" />
-
-
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/fund_wallet_cancel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="@dimen/margin_midi"
-                    android:layout_marginTop="@dimen/margin_midi"
-                    android:layout_marginEnd="@dimen/margin_midi"
-                    android:layout_marginBottom="@dimen/margin_midi"
-                    android:padding="@dimen/padding_mini"
-                    android:text="@string/fund_wallet_cancel"
-                    app:backgroundTint="@color/custom_facility_accent_color" />
-
-
-            </LinearLayout>
-
-
-
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/fund_wallet_cancel"
+            android:layout_width="@dimen/button_width_xxl"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fund_wallet_proceed"
+            android:layout_centerHorizontal="true"
+            app:cornerRadius="@dimen/margin_mini"
+            android:layout_marginStart="@dimen/margin_midi"
+            android:layout_marginTop="@dimen/margin_midi"
+            android:layout_marginEnd="@dimen/margin_midi"
+            android:layout_marginBottom="@dimen/margin_midi"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/fund_wallet_cancel"
+            app:backgroundTint="@color/custom_facility_accent_color" />
     </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>

@@ -86,6 +86,8 @@
                         android:contentDescription="@string/sign_up_first_name"
                         android:importantForAutofill="no"
                         android:inputType="textPersonName"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawablePadding="@dimen/padding_mini"
                         android:labelFor="@id/sign_up_first_name" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,6 +109,8 @@
                         android:contentDescription="@string/sign_up_last_name"
                         android:importantForAutofill="no"
                         android:inputType="textPersonName"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawablePadding="@dimen/padding_mini"
                         android:labelFor="@id/sign_up_last_name" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,6 +133,8 @@
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/sign_up_phone_number"
                         android:importantForAutofill="no"
+                        android:drawableStart="@drawable/ic_phone"
+                        android:drawablePadding="@dimen/padding_mini"
                         android:inputType="number"
                         android:maxLength="@integer/phone_number_length"
                         android:labelFor="@id/sign_up_phone_number" />
@@ -149,6 +155,8 @@
                         android:id="@+id/sign_up_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_email"
+                        android:drawablePadding="@dimen/padding_mini"
                         android:contentDescription="@string/sign_up_email"
                         android:importantForAutofill="no"
                         android:inputType="textEmailAddress"
@@ -176,6 +184,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/sign_up_password"
+                        android:drawableStart="@drawable/ic_lock"
+                        android:drawablePadding="@dimen/padding_mini"
                         android:importantForAutofill="no"
                         android:inputType="textPassword"
                         android:labelFor="@id/sign_up_password" />
@@ -199,6 +209,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/sign_up_confirm_password"
+                        android:drawableStart="@drawable/ic_lock"
+                        android:drawablePadding="@dimen/padding_mini"
                         android:importantForAutofill="no"
                         android:inputType="textPassword"
                         android:labelFor="@id/sign_in_password" />

@@ -8,10 +8,13 @@
     tools:context=".auth.SignIn">
 
     <ImageView
-        android:layout_width="70dp"
+        android:layout_width="110dp"
         android:layout_height="70dp"
         app:srcCompat="@drawable/app_logo"
+        android:scaleType="fitXY"
         android:contentDescription="@string/app_name"
+        android:layout_above="@id/sign_in_app_name"
+        android:layout_centerHorizontal="true"
         android:id="@+id/sign_in_app_logo"/>
 
     <TextView
@@ -20,7 +23,8 @@
         android:text="@string/app_name"
         android:id="@+id/sign_in_app_name"
         android:padding="@dimen/padding_mini"
-        android:layout_below="@id/sign_in_app_logo"
+        android:layout_above="@id/card_sign_in"
+        android:layout_centerHorizontal="true"
         android:textSize="@dimen/text_s"
         android:textStyle="bold"/>
 
@@ -88,6 +92,8 @@
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/sign_in_email"
                         android:importantForAutofill="no"
+                        android:drawableStart="@drawable/ic_email"
+                        android:drawablePadding="@dimen/padding_mini"
                         android:inputType="textEmailAddress"
                         android:labelFor="@id/sign_in_email" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -111,6 +117,8 @@
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/sign_in_password"
                         android:importantForAutofill="no"
+                        android:drawableStart="@drawable/ic_lock"
+                        android:drawablePadding="@dimen/padding_mini"
                         android:inputType="textPassword"
                         android:labelFor="@id/sign_in_password" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -130,17 +138,20 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/account_log_in_btn_login"
-            android:layout_width="@dimen/button_width_xxl"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/card_sign_in"
-            app:cornerRadius="@dimen/margin_mini"
-            android:layout_margin="@dimen/margin_midi"
-            android:backgroundTint="@color/custom_client_accent_color"
-            android:padding="@dimen/padding_mini"
-            android:text="@string/account_btn_login" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/account_log_in_btn_login"
+        android:layout_width="@dimen/button_width_xxl"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/card_sign_in"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="@dimen/margin_midi"
+        android:layout_marginTop="@dimen/margin_midi"
+        android:layout_marginEnd="@dimen/margin_midi"
+        android:layout_marginBottom="@dimen/margin_midi"
+        android:backgroundTint="@color/custom_client_accent_color"
+        android:padding="@dimen/padding_mini"
+        android:text="@string/account_btn_login"
+        app:cornerRadius="@dimen/margin_mini" />
 
 
 

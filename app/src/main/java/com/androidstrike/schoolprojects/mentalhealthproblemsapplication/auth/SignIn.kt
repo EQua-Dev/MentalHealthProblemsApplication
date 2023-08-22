@@ -2,6 +2,7 @@ package com.androidstrike.schoolprojects.mentalhealthproblemsapplication.auth
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -37,6 +38,8 @@ class SignIn : Fragment() {
 
     private var _binding: FragmentSignInBinding? = null
     private val binding get() = _binding!!
+
+    private val TAG = "SignIn"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -153,7 +156,7 @@ class SignIn : Fragment() {
                                 hideProgress()
                                 //pbLoading.visible(false)
                                 requireActivity().toast(e.message.toString())
-                                //Log.d("Equa", "signIn: ${e.message.toString()}")
+                                Log.d(TAG, "signIn: ${e.message.toString()}")
                             }
                         }
                     }
@@ -164,6 +167,7 @@ class SignIn : Fragment() {
                     hideProgress()
                     requireView().snackBar(resources.getString(R.string.user_records_not_found))
                     //activity?.toast(it.exception?.message.toString())
+                    Log.d(TAG, "signIn: ${it.exception?.message.toString()}")
                 }
             }
     }

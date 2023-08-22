@@ -50,7 +50,7 @@ class ForgotPassword : Fragment() {
                         requireContext().toast("Failed to send password reset email")
                     }
                 }
-        }
+        }//luomyequa@gmail.com
     }
 
     override fun onDestroyView() {

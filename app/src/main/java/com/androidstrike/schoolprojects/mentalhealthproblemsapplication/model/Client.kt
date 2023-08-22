@@ -10,5 +10,7 @@ data class Client(
     //val userAddressLatitude: String = "",
     val dateJoined: String = "",
     val role: String = "client",
-    val userPhoneNumber: String = ""
+    val userPhoneNumber: String = "",
+    val wallet: String = ""
+
 )
