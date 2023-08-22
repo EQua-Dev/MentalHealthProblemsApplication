@@ -3,7 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="custom_client_accent_color">#303F9F</color>
-    <color name="custom_facility_accent_color">#C51162</color>
+    <color name="custom_facility_accent_color">#81C784</color>
     <color name="red">#FF0000</color>
     <color name="logo_background">#F3F1F1</color>
 </resources>

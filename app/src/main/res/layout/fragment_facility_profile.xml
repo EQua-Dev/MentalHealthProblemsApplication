@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/padding_mini"
+    tools:context=".facility.facilityprofile.FacilityProfile">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_name"
+        android:padding="@dimen/padding_mini"
+        android:textSize="@dimen/text_xxs"
+        android:id="@+id/txt_facility_profile_name_title"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="New Rehab"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_s"
+        android:padding="@dimen/padding_mini"
+        android:layout_below="@id/txt_facility_profile_name_title"
+        android:id="@+id/txt_facility_profile_name"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_email"
+        android:padding="@dimen/padding_mini"
+        android:textSize="@dimen/text_xxs"
+        android:layout_below="@id/txt_facility_profile_address"
+        android:id="@+id/txt_facility_profile_email_title"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="nr@email.com"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_s"
+        android:padding="@dimen/padding_mini"
+        android:layout_below="@id/txt_facility_profile_email_title"
+        android:id="@+id/txt_facility_profile_email"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_address"
+        android:padding="@dimen/padding_mini"
+        android:textSize="@dimen/text_xxs"
+        android:layout_below="@id/txt_facility_profile_name"
+        android:id="@+id/txt_facility_profile_address_title"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="New Rehab"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_s"
+        android:padding="@dimen/padding_mini"
+        android:layout_below="@id/txt_facility_profile_address_title"
+        android:id="@+id/txt_facility_profile_address"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_phone"
+        android:padding="@dimen/padding_mini"
+        android:textSize="@dimen/text_xxs"
+        android:layout_below="@id/txt_facility_profile_email"
+        android:id="@+id/txt_facility_profile_phone_title"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="New Rehab"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_s"
+        android:padding="@dimen/padding_mini"
+        android:layout_below="@id/txt_facility_profile_phone_title"
+        android:id="@+id/txt_facility_profile_phone"/>
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/profile_date_joined"-->
+<!--        android:padding="@dimen/padding_mini"-->
+<!--        android:textSize="@dimen/text_xxs"-->
+<!--        android:layout_below="@id/txt_facility_profile_phone"-->
+<!--        android:id="@+id/txt_facility_profile_date_joined_title"/>-->
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        tools:text="New Rehab"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="@dimen/text_s"-->
+<!--        android:padding="@dimen/padding_mini"-->
+<!--        android:layout_below="@id/txt_facility_profile_date_joined_title"-->
+<!--        android:id="@+id/txt_facility_profile_date_joined"/>-->
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/profile_services"-->
+<!--        android:padding="@dimen/padding_mini"-->
+<!--        android:textSize="@dimen/text_xxs"-->
+<!--        android:layout_below="@id/txt_facility_profile_date_joined"-->
+<!--        android:id="@+id/txt_facility_profile_services_title"/>-->
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        tools:text="New Rehab"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="@dimen/text_s"-->
+<!--        android:padding="@dimen/padding_mini"-->
+<!--        android:layout_below="@id/txt_facility_profile_services_title"-->
+<!--        android:id="@+id/txt_facility_profile_services"/>-->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/facility_edit_profile_btn"
+        android:layout_width="@dimen/button_width_xxl"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:cornerRadius="@dimen/margin_mini"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/margin_midi"
+        android:text="@string/facility_edit_profile" />
+
+
+
+
+</RelativeLayout>

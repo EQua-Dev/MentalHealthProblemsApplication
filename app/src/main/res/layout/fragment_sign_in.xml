@@ -37,7 +37,7 @@
         android:layout_marginEnd="@dimen/padding_mini"
         android:layout_marginBottom="@dimen/padding_mini"
         android:padding="@dimen/padding_mini"
-        android:text="@string/sign_in_title"
+        android:text="@string/customer_sign_in_title"
         android:textAlignment="center"
         android:textColor="@color/custom_client_accent_color"
         android:textSize="@dimen/text_l"

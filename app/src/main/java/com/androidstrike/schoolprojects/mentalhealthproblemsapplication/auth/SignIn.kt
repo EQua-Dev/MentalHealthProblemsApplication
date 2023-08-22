@@ -56,6 +56,7 @@ class SignIn : Fragment() {
         role = args.role
 
         if (role == "facility"){
+            binding.tvSignInTitle.text = resources.getString(R.string.facility_sign_in_title)
             binding.accountLogInCreateAccount.visible(false)
             binding.accountLogInBtnLogin.setBackgroundColor(resources.getColor(R.color.custom_facility_accent_color))
             //binding.textInputLayoutSignInEmail.hintTextColor = ContextCompat.getColor(requireContext(), R.color.custom_facility_accent_color)
@@ -134,7 +135,7 @@ class SignIn : Fragment() {
                                         facilityRef.get()
                                             .addOnSuccessListener { documentSnapshot ->
                                                 if (documentSnapshot.exists()) {
-                                                    Common.facilityName = documentSnapshot.getString("facilityName")!!
+                                                    Common.facilityName = documentSnapshot.getString("organisationName")!!
                                                     // Use the value here
                                                 }
                                             }
@@ -143,8 +144,8 @@ class SignIn : Fragment() {
                                             }
                                     }
                                     requireContext().toast("Sign In Success")
-//                                    val navToFacilityHome = SignInDirections.actionSignInToFacilityBaseScreen()
-//                                    findNavController().navigate(navToFacilityHome)
+                                    val navToFacilityHome = SignInDirections.actionSignInToFacilityBaseScreen()
+                                    findNavController().navigate(navToFacilityHome)
 
                                 }
 

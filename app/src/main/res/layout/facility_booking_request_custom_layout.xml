@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardElevation="@dimen/padding_mini"
+    android:layout_margin="@dimen/padding_mini"
+    app:cardCornerRadius="@dimen/padding_mini">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/date/ddmmyy"
+            android:id="@+id/txt_date_created"
+            android:padding="@dimen/padding_mini"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/date/hhmm"
+            android:id="@+id/txt_time_created"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/padding_mini"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:cardCornerRadius="10dp"
+            tools:backgroundTint="@color/black"
+            android:id="@+id/status_indicator"
+            android:layout_below="@id/txt_time_created"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/margin_midi"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/user_request_title"
+            android:id="@+id/txt_user_request_title"
+            android:textColor="@color/black"
+            android:layout_below="@id/txt_date_created"
+            android:padding="@dimen/padding_mini"/>
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/full_names"
+            android:id="@+id/txt_client_name"
+            android:visibility="gone"
+            android:layout_below="@id/txt_user_request_title"
+            android:padding="@dimen/padding_mini"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Palliative Rehabilitation"
+            android:layout_below="@id/txt_client_name"
+            android:id="@+id/txt_service_type"
+            android:padding="@dimen/padding_mini"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/lorem/random"
+            tools:lines="3"
+            android:layout_below="@id/txt_service_type"
+            android:justificationMode="inter_word"
+            android:id="@+id/txt_service_description"
+            android:padding="@dimen/padding_mini"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/date/hhmm"
+            android:id="@+id/txt_booked_service_time"
+            android:visibility="gone"
+            android:layout_below="@id/txt_booked_service_date"
+            android:padding="@dimen/padding_mini"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/date/ddmmyy"
+            android:layout_below="@id/txt_service_description"
+            android:id="@+id/txt_booked_service_date"
+            android:visibility="gone"
+            android:padding="@dimen/padding_mini"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_margin="@dimen/margin_mini"
+            android:padding="@dimen/padding_mini"
+            android:layout_below="@id/txt_booked_service_time">
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/btn_accept_customer_request"
+                android:text="@string/btn_accept_customer_request"
+                app:backgroundTint="@color/custom_client_accent_color"
+                android:layout_margin="@dimen/padding_mini"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/btn_reject_customer_request"
+                android:text="@string/btn_reject_customer_request"
+                app:backgroundTint="@color/custom_facility_accent_color"
+                android:layout_margin="@dimen/padding_mini"/>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

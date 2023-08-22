@@ -1,0 +1,61 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardElevation="@dimen/padding_mini"
+    android:layout_margin="@dimen/padding_mini"
+    app:cardCornerRadius="@dimen/padding_mini">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/date/ddmmyy"
+            android:id="@+id/txt_facility_invoice_date_created"
+            android:padding="@dimen/padding_mini"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/date/hhmm"
+            android:id="@+id/txt_facility_invoice_time_created"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/padding_mini"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/full_names"
+            android:id="@+id/txt_facility_invoice_client_name"
+            android:layout_below="@id/txt_facility_invoice_date_created"
+            android:padding="@dimen/padding_mini"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="generated"
+            android:textStyle="italic"
+            android:id="@+id/txt_facility_invoice_generated_status"
+            android:layout_below="@id/txt_facility_invoice_date_created"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/padding_mini"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Palliative Rehabilitation"
+            android:layout_below="@id/txt_facility_invoice_client_name"
+            android:id="@+id/txt_facility_invoice_service_type"
+            android:padding="@dimen/padding_mini"/>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>
+

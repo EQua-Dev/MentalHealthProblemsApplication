@@ -18,7 +18,6 @@ import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Cl
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Facility
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.SpecificService
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common
-import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.getDate
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.toast
 import com.androidstrike.trackit.client.clientinvoice.ClientInvoiceNotificationAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
@@ -114,7 +113,7 @@ class InvoicePayment : Fragment() {
 
 
                     getServiceDetails(model.facilityId, model.selectedAppointmentServiceID)
-                    holder.facilityName.text = servingFacility.facilityName
+                    holder.facilityName.text = servingFacility.organisationName
                     holder.serviceName.text = model.selectedAppointmentServiceName
 //                    holder.dateCreated.text = getDate(model.invoiceGeneratedTime, "dd MMMM, yyyy")
 //                    holder.timeCreated.text = getDate(model.invoiceGeneratedTime, "hh:mm")
@@ -162,9 +161,9 @@ class InvoicePayment : Fragment() {
         val btnProvidePayment = builder.findViewById<Button>(R.id.client_generated_invoice_payment_button)
 
 
-        tvFacilityName.text = servingFacility.facilityName
-        tvFacilityPhone.text = servingFacility.facilityPhoneNumber
-        tvFacilityEmail.text = servingFacility.facilityEmail
+        tvFacilityName.text = servingFacility.organisationName
+        tvFacilityPhone.text = servingFacility.organisationPhoneNumber
+        tvFacilityEmail.text = servingFacility.organisationEmail
         tvClientName.text = "${requestingClient.userFirstName} ${requestingClient.userLastName}"
         tvInvoiceId.text = scheduledService.specificServiceId
         tvServicePrice.text = "Service Price: $${scheduledService.specificServicePrice}"
@@ -220,7 +219,7 @@ class InvoicePayment : Fragment() {
 
                 for (document in querySnapshot.documents) {
                     val item = document.toObject(Facility::class.java)
-                    if (item?.facilityId == facilityId) {
+                    if (item?.organisationId == facilityId) {
                         servingFacility = item
                     }
                 }

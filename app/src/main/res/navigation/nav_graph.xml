@@ -64,9 +64,9 @@
         <action
             android:id="@+id/action_signIn_to_mapsFragment"
             app:destination="@id/mapsFragment" />
-<!--        <action-->
-<!--            android:id="@+id/action_signIn_to_facilityBaseScreen"-->
-<!--            app:destination="@id/facilityBaseScreen" />-->
+        <action
+            android:id="@+id/action_signIn_to_facilityBaseScreen"
+            app:destination="@id/facilityBaseScreen" />
         <action
             android:id="@+id/action_signIn_to_clientBaseScreen"
             app:destination="@id/clientBaseScreen" />
@@ -76,18 +76,18 @@
         android:name="com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.landing.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
-<!--    <fragment-->
-<!--        android:id="@+id/facilityBaseScreen"-->
-<!--        android:name="com.androidstrike.trackit.facility.base.FacilityBaseScreen"-->
-<!--        android:label="fragment_facility_base_screen"-->
-<!--        tools:layout="@layout/fragment_facility_base_screen" >-->
-<!--        <action-->
-<!--            android:id="@+id/action_facilityBaseScreen_to_signIn"-->
-<!--            app:destination="@id/signIn" />-->
-<!--        <action-->
-<!--            android:id="@+id/action_facilityBaseScreen_to_landingFragment"-->
-<!--            app:destination="@id/landingFragment" />-->
-<!--    </fragment>-->
+    <fragment
+        android:id="@+id/facilityBaseScreen"
+        android:name="com.androidstrike.schoolprojects.mentalhealthproblemsapplication.facility.base.FacilityBaseScreen"
+        android:label="fragment_facility_base_screen"
+        tools:layout="@layout/fragment_facility_base_screen" >
+        <action
+            android:id="@+id/action_facilityBaseScreen_to_signIn"
+            app:destination="@id/signIn" />
+        <action
+            android:id="@+id/action_facilityBaseScreen_to_landingFragment"
+            app:destination="@id/landingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/clientBaseScreen"
         android:name="com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.base.ClientBaseScreen"

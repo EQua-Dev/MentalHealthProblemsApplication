@@ -35,7 +35,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_tracking_maps">TrackingMapsActivity</string>
     <string name="landing_button_client_role">Client With Addiction Problem</string>
-    <string name="sign_in_title">Login Screen for Customer</string>
+    <string name="customer_sign_in_title">Login Screen for Customer</string>
+    <string name="facility_sign_in_title">Company Login Screen</string>
     <string name="forgot_password_title">Forgot Password\n</string>
     <string name="forgot_password_subtitle">Enter Registered Email to Reset Password</string>
     <string name="account_forgot_password_log_in_prompt">Remembered Password</string>
@@ -62,10 +63,10 @@
     <string name="btn_accept_customer_request">Accept</string>
     <string name="btn_reject_customer_request">Reject</string>
     <string name="profile_title">Facility Profile</string>
-    <string name="profile_name">Facility Name</string>
-    <string name="profile_email">Facility Email</string>
-    <string name="profile_address">Facility Address</string>
-    <string name="profile_phone">Facility Phone Number</string>
+    <string name="profile_name">Organisation Name</string>
+    <string name="profile_email">Organisation Email</string>
+    <string name="profile_address">Organisation Address</string>
+    <string name="profile_phone">Organisation Phone Number</string>
     <string name="profile_date_joined">Date Joined</string>
     <string name="facility_edit_profile">Edit Profile</string>
     <string name="profile_services">Services</string>
@@ -76,11 +77,11 @@
     <string name="facility_add_service_title">Add Service to Facility Profile</string>
     <string name="facility_add_service_category">Category</string>
     <string name="facility_add_service_description">Service Name</string>
-    <string name="facility_add_service_price">Service Price (€)</string>
-    <string name="facility_add_service_discounted_price">Discounted Price (%) (leave empty if nil)</string>
-    <string name="add_service_available_places">Service Available Places</string>
-    <string name="facility_add_service_start_end_date">Start-End Date (if applicable)</string>
-    <string name="facility_add_service_schedule">Service Schedule (if applicable)</string>
+    <string name="facility_add_service_price">Service Price (If Applicable)(€)</string>
+    <string name="facility_add_service_discounted_price">Discounted Price (If Applicable)(€)</string>
+    <string name="add_service_available_places">Service Available Places (If Applicable)</string>
+    <string name="facility_add_service_start_end_date">Start Date (if Applicable)</string>
+    <string name="facility_add_service_schedule">Select Service Schedule</string>
     <string name="facility_add_service_submit_button">Submit</string>
     <string name="facility_add_service_next_service_button">Next Service</string>
     <string name="facility_customer_request_generate_invoice">Generate Invoice</string>
@@ -148,6 +149,15 @@
     <string name="invalid_password">A Strong Password Should be minimum of 8 characters in length, Containing upper and lower case letters, special characters and digits.</string>
     <string name="app_home_screen">Application Home Screen</string>
     <string name="money_text">€%s</string>
+    <string name="facility_add_service_specialist_title">Upload New Specialist Profile</string>
+    <string name="facility_add_service_next_specialist_button">Next Specialist</string>
+    <string name="facility_add_service_specialist_service">Select Type of Provided Service</string>
+    <string name="facility_add_service_specialist_name"><![CDATA[Specialist Name & Surname]]></string>
+    <string name="facility_add_service_specialist_qualification">Specialist Qualification</string>
+    <string name="facility_add_specialist_image">add specialist photo</string>
+    <string name="missing_fields">Fill out all fields</string>
+    <string name="facility_add_service_type">Select Type of Provided Service</string>
+    <string name="facility_add_service_details">Service Details</string>
 
     <string-array name="service_available_places_option">
         <item>Yes</item>
@@ -169,6 +179,13 @@
     <string-array name="provided_service">
         <item>Meeting with Medical Professional</item>
         <item>Therapy</item>
+    </string-array>
+
+    <string-array name="service_schedule">
+        <item>Once a Week</item>
+        <item>Twice a Week</item>
+        <item>Bi-Weekly</item>
+        <item>Once a Month</item>
     </string-array>
 
 </resources>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardElevation="@dimen/padding_mini"
+    android:padding="@dimen/padding_mini"
+    app:cardCornerRadius="@dimen/margin_midi">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/facility_generated_invoice_facility_details_title"
+            android:id="@+id/facility_generated_invoice_facility_details_title"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:padding="@dimen/padding_mini"
+            android:layout_margin="@dimen/padding_midi"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Rehab Facility Name"
+            android:id="@+id/facility_generated_invoice_facility_name"
+            android:layout_below="@+id/facility_generated_invoice_facility_details_title"
+            android:padding="@dimen/padding_mini"
+            android:layout_margin="@dimen/padding_mini"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/cities"
+            android:layout_below="@id/facility_generated_invoice_facility_name"
+            android:id="@+id/facility_generated_invoice_facility_address"
+            android:padding="@dimen/padding_mini"
+            android:layout_margin="@dimen/padding_mini"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/us_phones"
+            android:layout_below="@id/facility_generated_invoice_facility_address"
+            android:id="@+id/facility_generated_invoice_facility_phone_number"
+            android:padding="@dimen/padding_mini"
+            android:layout_margin="@dimen/padding_mini"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="rehab@gmail.com"
+            android:id="@+id/facility_generated_invoice_facility_email"
+            android:layout_below="@id/facility_generated_invoice_facility_phone_number"
+            android:padding="@dimen/padding_mini"
+            android:layout_margin="@dimen/padding_mini"/>
+
+        <TextView
+            android:id="@+id/facility_generated_invoice_customer_details_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/facility_generated_invoice_facility_email"
+            android:layout_marginStart="@dimen/padding_midi"
+            android:layout_marginTop="@dimen/padding_midi"
+            android:layout_marginEnd="@dimen/padding_midi"
+            android:layout_marginBottom="@dimen/padding_midi"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/facility_generated_invoice_customer_details_title"
+            android:textAlignment="center"
+            android:textColor="@color/black" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/full_names"
+            android:id="@+id/facility_generated_invoice_customer_name"
+            android:layout_below="@id/facility_generated_invoice_customer_details_title"
+            android:padding="@dimen/padding_mini"
+            android:layout_margin="@dimen/padding_mini"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/us_phones"
+            android:id="@+id/facility_generated_invoice_customer_phone"
+            android:layout_below="@id/facility_generated_invoice_customer_name"
+            android:padding="@dimen/padding_mini"
+            android:layout_margin="@dimen/padding_mini"/>
+
+        <TextView
+            android:id="@+id/facility_generated_invoice_customer_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/facility_generated_invoice_customer_phone"
+            android:layout_marginStart="@dimen/padding_mini"
+            android:layout_marginTop="@dimen/padding_mini"
+            android:layout_marginEnd="@dimen/padding_mini"
+            android:layout_marginBottom="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            tools:text="customer@email.com" />
+
+
+        <TextView
+            android:id="@+id/facility_generated_invoice_request_details_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/facility_generated_invoice_customer_email"
+            android:layout_marginStart="@dimen/padding_midi"
+            android:layout_marginTop="@dimen/padding_midi"
+            android:layout_marginEnd="@dimen/padding_midi"
+            android:layout_marginBottom="@dimen/padding_midi"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/facility_generated_invoice_request_details_title"
+            android:textAlignment="center"
+            android:textColor="@color/black" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/full_names"
+            android:id="@+id/facility_generated_invoice_request_service_category_name"
+            android:layout_below="@id/facility_generated_invoice_request_details_title"
+            android:padding="@dimen/padding_mini"
+            android:layout_margin="@dimen/padding_mini"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="$300"
+            android:id="@+id/facility_generated_invoice_request_service_price"
+            android:layout_below="@id/facility_generated_invoice_request_service_category_name"
+            android:padding="@dimen/padding_mini"
+            android:layout_margin="@dimen/padding_mini"/>
+
+        <TextView
+            android:id="@+id/facility_generated_invoice_request_service_discounted_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/facility_generated_invoice_request_service_price"
+            android:layout_marginStart="@dimen/padding_mini"
+            android:layout_marginTop="@dimen/padding_mini"
+            android:layout_marginEnd="@dimen/padding_mini"
+            android:layout_marginBottom="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            tools:text="$30" />
+
+
+        <TextView
+            android:id="@+id/facility_generated_invoice_request_service_total_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/facility_generated_invoice_request_service_discounted_price"
+            android:layout_marginStart="@dimen/padding_mini"
+            android:layout_marginTop="@dimen/padding_mini"
+            android:layout_marginEnd="@dimen/padding_mini"
+            android:layout_marginBottom="@dimen/padding_mini"
+            android:textSize="@dimen/text_l"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:padding="@dimen/padding_mini"
+            tools:text="$270" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/facility_generated_invoice_confirm_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/facility_generated_invoice_request_service_total_price"
+            android:layout_marginStart="@dimen/margin_midi"
+            android:layout_marginTop="@dimen/margin_midi"
+            android:layout_marginEnd="@dimen/margin_midi"
+            android:layout_marginBottom="@dimen/margin_midi"
+            android:text="@string/facility_generated_invoice_confirm_button"
+            app:backgroundTint="@color/custom_client_accent_color" />
+
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

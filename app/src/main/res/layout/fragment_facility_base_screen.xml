@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/facility_base_screen"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".facility.base.FacilityBaseScreen">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/facility_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="Recovery Scape"
+        app:menu="@menu/menu_logout"
+        android:elevation="4dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/app_logo"
+                    android:contentDescription="@string/app_name"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_l"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:text="@string/app_name"/>
+            </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_select_service"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:padding="@dimen/padding_mini">
+
+                <AutoCompleteTextView
+                    android:id="@+id/facility_tool_bar_drop_down_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_mini"
+                    android:inputType="none"
+                    android:drawablePadding="@dimen/padding_midi"
+                    android:padding="@dimen/padding_maxi" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/facility_tool_bar"
+        android:layout_alignParentBottom="true"
+        app:cardElevation="@dimen/padding_mini"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/facility_landing_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:id="@+id/facility_base_fragment_container"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_above="@+id/bottomNavView"-->
+<!--        />-->
+
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/bottomNavView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:padding="@dimen/padding_mini"-->
+<!--        style="@style/BottomNavigationViewStyle"-->
+<!--        app:itemTextColor="@color/custom_facility_accent_color"-->
+<!--        app:itemRippleColor="@color/custom_facility_accent_color"-->
+<!--        app:menu="@menu/facility_bottom_navigation_menu" />-->
+</RelativeLayout>

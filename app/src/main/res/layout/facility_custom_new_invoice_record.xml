@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_mini"
+        android:layout_margin="@dimen/margin_mini">
+
+        <TextView
+            android:id="@+id/facility_new_record_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_midi"
+            android:layout_marginTop="@dimen/margin_midi"
+            android:layout_marginEnd="@dimen/margin_midi"
+            android:layout_marginBottom="@dimen/margin_midi"
+            android:text="@string/facility_new_record_title"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_xl" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_facility_new_record_bank_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/facility_new_record_title"
+            android:layout_margin="@dimen/padding_mini"
+            android:hint="@string/facility_new_record_bank_name"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/facility_new_record_bank_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/facility_schedule_meeting_date"
+                android:importantForAutofill="no"
+                android:layout_margin="@dimen/padding_mini"
+                android:padding="@dimen/padding_maxi"
+                android:labelFor="@id/facility_schedule_meeting_date" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_facility_new_record_account_iban"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_input_layout_facility_new_record_bank_name"
+            android:layout_margin="@dimen/padding_mini"
+            android:hint="@string/facility_new_record_account_iban"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/facility_new_record_account_iban"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/facility_new_record_account_iban"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:layout_margin="@dimen/padding_mini"
+                android:padding="@dimen/padding_maxi"
+                android:labelFor="@id/facility_new_record_account_iban" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_facility_new_record_account_holder_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_input_layout_facility_new_record_account_iban"
+            android:layout_margin="@dimen/padding_mini"
+            android:hint="@string/facility_new_record_account_holder_name"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/facility_new_record_account_holder_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/facility_new_record_account_holder_name"
+                android:importantForAutofill="no"
+                android:layout_margin="@dimen/padding_mini"
+                android:padding="@dimen/padding_maxi"
+                android:labelFor="@id/facility_new_record_account_holder_name" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/custom_client_accent_color"
+            android:text="@string/facility_new_record_confirm_btn"
+            android:layout_below="@id/text_input_layout_facility_new_record_account_holder_name"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/margin_midi"
+            android:id="@+id/facility_new_record_confirm_btn"
+            android:padding="@dimen/padding_mini"/>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

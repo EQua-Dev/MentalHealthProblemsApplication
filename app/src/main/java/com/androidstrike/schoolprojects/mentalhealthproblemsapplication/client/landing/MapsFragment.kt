@@ -52,34 +52,26 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 //        val mapFragment = fragmentManager
   //          ?.findFragmentById(R.id.rehab_map) as SupportMapFragment
 
-        getRealtimeRehabs()
+        //getRealtimeRehabs()
         mapFragment.getMapAsync(this)
     }
 
-    private fun getRealtimeRehabs() {
-
-
-
-        Log.d("EQUA", "getRealtimeRehabs: $facilityList")
-    }
+//    private fun getRealtimeRehabs() {
+//
+//    }
 
     override fun onMapReady(map: GoogleMap) {
         requireContext().showProgress()
-        Log.d("EQUA", "onMapReady: called")
         googleMap = map
         Common.facilityCollectionRef
             .get()
             .addOnSuccessListener { querySnapshot: QuerySnapshot ->
                 hideProgress()
-                Log.d("EQUA", "getRealtimeRehabs: $querySnapshot")
                 for (document in querySnapshot.documents) {
-                    Log.d("EQUA", "getRealtimeRehabs: $document")
                     val item = document.toObject(Facility::class.java)
                     item?.let {
 //                        facilityList.add(it)
                         facilityList.add(it)
-                        Log.d("EQUA", "getRealtimeRehabs: $it")
-                        Log.d("EQUA", "getRealtimeRehabs: $facilityList")
                     }
                 }
 
@@ -99,14 +91,14 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                             LatLng(
 //                                52.66087,
 //                                -8.63479
-                                facility.facilityAddressLatitude.toDouble(),
-                                facility.facilityAddressLongitude.toDouble()
+                                facility.organisationLatitude.toDouble(),
+                                facility.organisationLongitude.toDouble()
                             )
                         )
 //                        .title("facilityName")
-                        .title(facility.facilityName)
+                        .title(facility.organisationName)
 //                        .snippet("1 Steamboat Quay, Dock Rd, Limerick, V94 YF84")
-                        .snippet(facility.facilityAddress)
+                        .snippet(facility.organisationPhysicalAddress)
                     googleMap.addMarker(markerOptions)
 
                     //Log.d("EQUA", "onMapReady: ${facility.facilityName}")
@@ -137,8 +129,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         googleMap.setOnMarkerClickListener { marker ->
             for (facility in facilityList){
-                if (marker.title == facility.facilityName){
-                    requireContext().toast(facility.facilityEmail)
+                if (marker.title == facility.organisationName){
+                    requireContext().toast(facility.organisationEmail)
                     val bottomSheetFragment = MapFacilityDetailBottomSheet.newInstance(facility)
                     bottomSheetFragment.show(childFragmentManager, "bottomSheetTag")
                     //displayBottomSheet(facility)

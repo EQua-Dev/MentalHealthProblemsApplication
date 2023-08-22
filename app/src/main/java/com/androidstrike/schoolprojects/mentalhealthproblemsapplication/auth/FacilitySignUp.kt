@@ -260,7 +260,7 @@ class FacilitySignUp : Fragment() {
 
     private fun saveNewFacility(facility: Facility) = CoroutineScope(Dispatchers.IO).launch {
         try {
-            Common.facilityCollectionRef.document(facility.facilityId.toString()).set(facility).await()
+            Common.facilityCollectionRef.document(facility.organisationId.toString()).set(facility).await()
             //isFirstTime()
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {

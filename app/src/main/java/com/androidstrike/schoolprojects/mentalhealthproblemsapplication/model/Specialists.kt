@@ -1,8 +1,8 @@
 package com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model
 
 data class Specialists(
-    val email: String = "",
+    val qualification: String = "",
     val name: String = "",
-    val phone: String = "",
+    val service: String = "",
     val id: String = ""
 )

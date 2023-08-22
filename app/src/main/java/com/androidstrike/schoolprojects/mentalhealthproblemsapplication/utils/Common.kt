@@ -9,6 +9,9 @@ import java.util.*
 
 object Common {
 
+    const val REQUEST_PERMISSION = 100
+
+
     val IRISH_CODE = "+353"
     var facilityName = "Facility"
     var clientName = "Client"
@@ -29,9 +32,9 @@ object Common {
     //lateinit var mAuth: FirebaseAuth// = FirebaseAuth.getInstance()
     val auth = FirebaseAuth.getInstance()
     val clientCollectionRef = Firebase.firestore.collection("Clients")
-    val facilityCollectionRef = Firebase.firestore.collection("Facilities")
+    val facilityCollectionRef = Firebase.firestore.collection("Mental Health Organisations")
     val appointmentsCollectionRef = Firebase.firestore.collection("Appointments")
-    val servicesCollectionRef = Firebase.firestore.collection("Services")
+    val servicesCollectionRef = Firebase.firestore.collection("Mental Health organisation’s Service Profile")
     val walletCollectionRef = Firebase.firestore.collection(WALLET_REF)
     val feedbackCollectionRef = Firebase.firestore.collection("Feedbacks")
 
