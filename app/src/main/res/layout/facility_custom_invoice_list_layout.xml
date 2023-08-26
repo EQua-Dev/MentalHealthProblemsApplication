@@ -36,12 +36,13 @@
             android:layout_below="@id/txt_facility_invoice_date_created"
             android:padding="@dimen/padding_mini"/>
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="generated"
+            tools:text="@string/btn_facility_view_request"
             android:textStyle="italic"
-            android:id="@+id/txt_facility_invoice_generated_status"
+            app:cornerRadius="@dimen/margin_mini"
+            android:id="@+id/btn_facility_view_request"
             android:layout_below="@id/txt_facility_invoice_date_created"
             android:layout_alignParentEnd="true"
             android:padding="@dimen/padding_mini"/>

@@ -92,8 +92,8 @@
     <string name="facility_schedule_meeting_time">Schedule Meeting Start Time</string>
     <string name="facility_confirm_meeting_schedule">Confirm Meeting Schedule</string>
     <string name="facility_generated_invoice_customer_details_title">Customer Details</string>
-    <string name="facility_generated_invoice_facility_details_title">Facility Details</string>
-    <string name="facility_generated_invoice_request_details_title">Request Details</string>
+    <string name="facility_generated_invoice_facility_details_title">Company Details</string>
+    <string name="facility_generated_invoice_request_details_title">Service Request Details</string>
     <string name="facility_generated_invoice_confirm_button">Create Invoice</string>
     <string name="facility_new_record_title">Invoice Bank Record</string>
     <string name="facility_new_record_bank_name">Bank Name</string>
@@ -158,6 +158,33 @@
     <string name="missing_fields">Fill out all fields</string>
     <string name="facility_add_service_type">Select Type of Provided Service</string>
     <string name="facility_add_service_details">Service Details</string>
+    <string name="facility_customer_requests_title">View List of Customer Requests</string>
+    <string name="btn_facility_view_request">View</string>
+    <string name="client_name">%s %s</string>
+    <string name="requesting_client_name">Customer name: %s %s</string>
+    <string name="requesting_client_contact_number">Customer contact number: %s</string>
+    <string name="requesting_client_email">Customer email address: %s</string>
+    <string name="requesting_chosen_service_name">Chosen service name: %s</string>
+    <string name="requesting_chosen_service_type">Chosen service type: %s</string>
+    <string name="requesting_start_date">Selected start date: %s</string>
+    <string name="requesting_service_price">Requested service price: €%s</string>
+    <string name="requesting_service_discounted_price">Requested service discounted price: €%s</string>
+    <string name="requesting_date_created">Date created: %s</string>
+    <string name="requesting_time_created">Time created: %s</string>
+    <string name="facility_generate_request_invoice_company_name">Company name: %s</string>
+    <string name="facility_generate_request_invoice_company_physical_address">Physical address: %s</string>
+    <string name="facility_generate_request_invoice_company_contact_number">Contact number: %s</string>
+    <string name="facility_generate_request_invoice_company_email">Company email address: %s</string>
+    <string name="facility_generate_request_invoice_customer_name">Customer name: %s %s</string>
+    <string name="facility_generate_request_invoice_customer_contact_number">Customer contact number: %s</string>
+    <string name="facility_generate_request_invoice_customer_email_address">Customer email address: %s</string>
+    <string name="facility_generate_request_invoice_service_name">Service name: %s</string>
+    <string name="facility_generate_request_invoice_service_price">Service price: €%s</string>
+    <string name="facility_generate_request_invoice_service_discounted_price">Service discounted price: €%s</string>
+    <string name="facility_generate_request_invoice_service_total_price">Request Total: €%s</string>
+    <string name="notification_text">Dear %s,\n\nYour request for %s has been: %s\n\nDate created: %s\nTime created: %s</string>
+    <string name="facility_new_record_cancel_btn">Cancel</string>
+    <string name="invoice_text">Dear %s,\n\nYour request for %s has been %s.\nPlease, provide required payment for the requested service to Bank name (%s), Account IBAN (%s), Account holder name (%s) in order to avail the service.\n\nDate created: %s\nTime created: %s</string>
 
     <string-array name="service_available_places_option">
         <item>Yes</item>

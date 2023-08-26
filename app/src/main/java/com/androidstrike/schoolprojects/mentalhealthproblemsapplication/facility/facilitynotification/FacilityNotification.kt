@@ -2,6 +2,8 @@ package com.androidstrike.schoolprojects.mentalhealthproblemsapplication.facilit
 
 import android.app.Dialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,23 +16,35 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.R
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.databinding.FragmentFacilityNotificationBinding
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.AcceptedRequestInvoice
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.BookService
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Client
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Facility
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.FacilityRequestResponse
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Service
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.ServiceType
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.ACCEPTED_TEXT
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.PROCESSED_TEXT
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.REJECTED_TEXT
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.requestResponseNotificationCollectionRef
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.getDate
-import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.showProgressDialog
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.showProgress
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.toast
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 
 class FacilityNotification : Fragment() {
 
@@ -46,6 +60,8 @@ class FacilityNotification : Fragment() {
 
 
     private var progressDialog: Dialog? = null
+
+    private val TAG = "FacilityNotification"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,8 +99,9 @@ class FacilityNotification : Fragment() {
         val mAuth = FirebaseAuth.getInstance()
 
         val facilityScheduledMeetings =
-            Common.appointmentsCollectionRef.whereEqualTo("facilityId", mAuth.uid)
-                .whereEqualTo("scheduled", true)
+            Common.appointmentsCollectionRef.whereEqualTo("organisationID", mAuth.uid)
+                .whereEqualTo("requestFormStatus", "pending")
+                .orderBy("requestFormId", Query.Direction.DESCENDING)
         val options = FirestoreRecyclerOptions.Builder<BookService>()
             .setQuery(facilityScheduledMeetings, BookService::class.java).build()
         try {
@@ -110,25 +127,28 @@ class FacilityNotification : Fragment() {
 //                    val facilityTabLayout =
 //                        facilityBaseFragment!!.view?.findViewById<TabLayout>(R.id.facility_base_tab_title)
 
-                    getClientDetails(model.clientId, holder.clientName)
-                    getFacilityDetails(model.facilityId)
+                    getClientDetails(model.customerID, holder.clientName)
+                    getFacilityDetails(model.organisationID)
 
 
-                    getServiceDetails(model.facilityId, model.selectedAppointmentServiceID)
-                    holder.clientName.text = "${requestingClient.userFirstName} ${requestingClient.userLastName}"
-                    holder.serviceName.text = model.selectedAppointmentServiceName
-                    holder.dateCreated.text = getDate(model.dateCreated.toLong(), "EE, dd MMMM, yyyy")
+                    getServiceDetails(model.organisationID, model.organisationProfileServiceID)
+                    holder.clientName.text = resources.getString(
+                        R.string.client_name,
+                        getUser(model.customerID)!!.customerFirstName,
+                        getUser(model.customerID)!!.customerLastName
+                    )
+                    holder.serviceName.text =
+                        getService(model.organisationProfileServiceID)!!.serviceName
+                    Log.d(
+                        TAG,
+                        "onBindViewHolder: ${getService(model.organisationProfileServiceID)!!.serviceName}"
+                    )
+                    holder.dateCreated.text = model.dateCreated
+                    //getDate(model.dateCreated.toLong(), "EE, dd MMMM, yyyy")
                     holder.timeCreated.text = model.timeCreated
-                    if (model.invoiceGenerated)
-                        holder.invoiceStatus.text = resources.getText(R.string.txt_invoice_status_generated)
-                    else
-                        holder.invoiceStatus.text = resources.getText(R.string.txt_invoice_status_not_generated)
 
-                    holder.itemView.setOnClickListener {
-
-                        launchInvoiceDialog(model)
-                        //requireContext().toast("${model.scheduledTime} clicked!")
-                        Log.d("EQUA", "onBindViewHolder: ${requestingClient.userFirstName} ${requestingClient.userLastName}")
+                    holder.viewRequestBtn.setOnClickListener {
+                        launchRequestDetailDialog(model)
                     }
 
                 }
@@ -142,20 +162,411 @@ class FacilityNotification : Fragment() {
         binding.rvFacilityInvoiceNotification.adapter = facilitiesInvoiceNotificationAdapter
     }
 
-    private fun getClientDetails(clientId: String, clientName: TextView) = CoroutineScope(Dispatchers.IO).launch {
-        Common.clientCollectionRef
-            .get()
-            .addOnSuccessListener { querySnapshot: QuerySnapshot ->
+    private fun launchRequestDetailDialog(model: BookService) {
 
-                for (document in querySnapshot.documents) {
-                    val item = document.toObject(Client::class.java)
-                    if (item?.userId == clientId) {
-                        requestingClient = item
-                    }
+        val builder =
+            layoutInflater.inflate(
+                R.layout.facility_custom_view_request_detail_dialog_layout,
+                null
+            )
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(builder)
+            .setCancelable(false)
+            .create()
+
+        val tvClientName =
+            builder.findViewById<TextView>(R.id.facility_request_customer_name)
+        val tvClientContactName =
+            builder.findViewById<TextView>(R.id.facility_request_customer_contact_number)
+        val tvClientEmail =
+            builder.findViewById<TextView>(R.id.facility_request_customer_email)
+        val tvChosenServiceName =
+            builder.findViewById<TextView>(R.id.facility_request_chosen_service_name)
+        val tvChosenServiceType =
+            builder.findViewById<TextView>(R.id.facility_request_chosen_service_type)
+        val tvRequestStartDate =
+            builder.findViewById<TextView>(R.id.facility_request_start_date)
+        val tvRequestServicePrice =
+            builder.findViewById<TextView>(R.id.facility_request_service_price)
+        val tvRequestServiceDiscountedPrice =
+            builder.findViewById<TextView>(R.id.facility_request_service_discounted_price)
+        val tvRequestText =
+            builder.findViewById<TextView>(R.id.facility_request_text)
+        val tvRequestedDateCreated =
+            builder.findViewById<TextView>(R.id.facility_request_date_created)
+        val tvRequestedTimeCreated =
+            builder.findViewById<TextView>(R.id.facility_request_time_created)
+        val btnAcceptRequest =
+            builder.findViewById<Button>(R.id.btn_facility_accept_customer_request)
+        val btnRejectRequest =
+            builder.findViewById<TextView>(R.id.btn_facility_reject_customer_request)
+
+        val client = getUser(model.customerID)!!
+        val service = getService(model.organisationProfileServiceID)!!
+        val serviceType = getServiceType(model.typeOfService)!!
+
+        tvClientName.text = resources.getString(
+            R.string.requesting_client_name,
+            client.customerFirstName,
+            client.customerLastName
+        )
+        tvClientContactName.text =
+            resources.getString(
+                R.string.requesting_client_contact_number,
+                client.customerMobileNumber
+            )
+        tvClientEmail.text =
+            resources.getString(R.string.requesting_client_email, client.customerEmail)
+        tvChosenServiceName.text =
+            resources.getString(R.string.requesting_chosen_service_name, service.serviceName)
+        tvChosenServiceType.text = resources.getString(
+            R.string.requesting_chosen_service_type,
+            serviceType.serviceTypeName
+        )
+        tvRequestStartDate.text =
+            resources.getString(R.string.requesting_start_date, model.requestedStartDate)
+        tvRequestServicePrice.text =
+            resources.getString(R.string.requesting_service_price, service.servicePrice)
+        tvRequestServiceDiscountedPrice.text = resources.getString(
+            R.string.requesting_service_discounted_price,
+            service.serviceDiscountedPrice
+        )
+        tvRequestText.text = model.requestFormText
+        tvRequestedDateCreated.text =
+            resources.getString(R.string.requesting_date_created, model.dateCreated)
+        tvRequestedTimeCreated.text =
+            resources.getString(R.string.requesting_time_created, model.timeCreated)
+        btnAcceptRequest.setOnClickListener {
+            val currentDate = getDate(System.currentTimeMillis(), "dd-MM-yyyy")
+            val currentTime = getDate(System.currentTimeMillis(), "hh:mm a")
+            //add to db
+            val facilityRequestResponse = FacilityRequestResponse(
+                notificationID = System.currentTimeMillis().toString(),
+                requestFormID = model.requestFormId,
+                customerID = model.customerID,
+                organisationID = model.organisationID,
+                organisationProfileServiceID = model.organisationProfileServiceID,
+                typeOfServiceID = model.typeOfService,
+                typeOfServiceSpecialistID = model.typeOfServiceSpecialistID,
+                requestFormStatus = ACCEPTED_TEXT,
+                notificationText = resources.getString(
+                    R.string.notification_text,
+                    client.customerFirstName,
+                    service.serviceName,
+                    ACCEPTED_TEXT,
+                    currentDate,
+                    currentTime
+                ),
+                dateCreated = currentDate,
+                timeCreated = currentTime
+            )
+            requireContext().showProgress()
+            Common.appointmentsCollectionRef.document(model.requestFormId)
+                .update("requestFormStatus", ACCEPTED_TEXT).addOnSuccessListener {
+                    hideProgress()
+                    createResponseNotification(facilityRequestResponse, model, dialog)
+                }.addOnFailureListener { e ->
+                    hideProgress()
+                    requireContext().toast(e.message.toString())
                 }
-                clientName.text = "${requestingClient.userFirstName}, ${requestingClient.userLastName}"
-            }
+
+
+        }
+        btnRejectRequest.setOnClickListener {
+            //add to db
+            requireContext().showProgress()
+            Common.appointmentsCollectionRef.document(model.requestFormId)
+                .update("requestFormStatus", REJECTED_TEXT).addOnSuccessListener {
+                    hideProgress()
+                    dialog.dismiss()
+                }.addOnFailureListener { e ->
+                    requireContext().toast(e.message.toString())
+                }
+        }
+
+
+        dialog.show()
+
     }
+
+    private fun createResponseNotification(
+        facilityRequestResponse: FacilityRequestResponse,
+        model: BookService,
+        dialog: AlertDialog
+    ) {
+        requireContext().showProgress()
+        CoroutineScope(Dispatchers.IO).launch {
+            requestResponseNotificationCollectionRef.document(facilityRequestResponse.notificationID)
+                .set(facilityRequestResponse).addOnSuccessListener {
+                    hideProgress()
+                    dialog.dismiss()
+                    launchInvoiceDialog(model, facilityRequestResponse)
+                }.addOnFailureListener { e ->
+                    hideProgress()
+                    requireContext().toast(e.message.toString())
+                }
+        }
+    }
+
+
+    private fun launchInvoiceDialog(
+        model: BookService,
+        facilityRequestResponse: FacilityRequestResponse
+    ) {
+
+        val builder = layoutInflater.inflate(R.layout.facility_custom_generate_invoice_layout, null)
+
+        val tvFacilityName =
+            builder.findViewById<TextView>(R.id.facility_generated_invoice_facility_name)
+        val tvFacilityAddress =
+            builder.findViewById<TextView>(R.id.facility_generated_invoice_facility_address)
+        val tvFacilityPhone =
+            builder.findViewById<TextView>(R.id.facility_generated_invoice_facility_phone_number)
+        val tvFacilityEmail =
+            builder.findViewById<TextView>(R.id.facility_generated_invoice_facility_email)
+        val tvClientName =
+            builder.findViewById<TextView>(R.id.facility_generated_invoice_customer_name)
+        val tvClientPhone =
+            builder.findViewById<TextView>(R.id.facility_generated_invoice_customer_phone)
+        val tvClientEmail =
+            builder.findViewById<TextView>(R.id.facility_generated_invoice_customer_email)
+        val tvServiceName =
+            builder.findViewById<TextView>(R.id.facility_generated_invoice_request_service_name)
+        val tvServicePrice =
+            builder.findViewById<TextView>(R.id.facility_generated_invoice_request_service_price)
+        val tvServiceDiscountedPrice =
+            builder.findViewById<TextView>(R.id.facility_generated_invoice_request_service_discounted_price)
+        val tvServiceTotal =
+            builder.findViewById<TextView>(R.id.facility_generated_invoice_request_service_total_price)
+
+        val btnConfirmInvoice =
+            builder.findViewById<Button>(R.id.facility_generated_invoice_confirm_button)
+
+
+        val organisation = getOrganisation(model.organisationID)!!
+        val client = getUser(model.customerID)!!
+        val service = getService(model.organisationProfileServiceID)!!
+
+
+        tvFacilityName.text = resources.getString(
+            R.string.facility_generate_request_invoice_company_name,
+            organisation.organisationName
+        )
+        tvFacilityAddress.text = resources.getString(
+            R.string.facility_generate_request_invoice_company_physical_address,
+            organisation.organisationPhysicalAddress
+        )
+        tvFacilityPhone.text = resources.getString(
+            R.string.facility_generate_request_invoice_company_contact_number,
+            organisation.organisationPhoneNumber
+        )
+        tvFacilityEmail.text = resources.getString(
+            R.string.facility_generate_request_invoice_company_email,
+            organisation.organisationEmail
+        )
+        tvClientName.text = resources.getString(
+            R.string.facility_generate_request_invoice_customer_name,
+            client.customerFirstName,
+            client.customerLastName
+        )
+        tvClientPhone.text = resources.getString(
+            R.string.facility_generate_request_invoice_customer_contact_number,
+            client.customerMobileNumber
+        )
+        tvClientEmail.text = resources.getString(
+            R.string.facility_generate_request_invoice_customer_email_address,
+            client.customerEmail
+        )
+        tvServiceName.text = resources.getString(
+            R.string.facility_generate_request_invoice_service_name,
+            service.serviceName
+        )
+        tvServicePrice.text = resources.getString(
+            R.string.facility_generate_request_invoice_service_price,
+            service.servicePrice
+        )
+        tvServiceDiscountedPrice.text = resources.getString(
+            R.string.facility_generate_request_invoice_service_discounted_price,
+            service.serviceDiscountedPrice
+        )
+
+//        val servicePrice = scheduledService.servicePrice
+//        val serviceDiscountedPrice = scheduledService.serviceDiscountedPrice
+        val totalServicePrice =
+            service.servicePrice.toDouble() - service.serviceDiscountedPrice.toDouble()
+        tvServiceTotal.text = resources.getString(
+            R.string.facility_generate_request_invoice_service_total_price,
+            totalServicePrice.toString()
+        )
+
+//        btnConfirmInvoice.setOnClickListener {
+//            requireContext().toast("Confirmed")
+//        }
+
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(builder)
+            .setCancelable(false)
+            .create()
+
+        dialog.show()
+
+        btnConfirmInvoice.setOnClickListener {
+            dialog.dismiss()
+            launchInvoiceRecordDialog(model, totalServicePrice, facilityRequestResponse)
+        }
+
+
+    }
+
+    private fun launchInvoiceRecordDialog(
+        model: BookService,
+        totalServicePrice: Double,
+        facilityRequestResponse: FacilityRequestResponse
+    ) {
+
+        val builder = layoutInflater.inflate(R.layout.facility_custom_new_invoice_record, null)
+
+        var invoiceBankName: String = ""
+        var invoiceAccountIBAN: String = ""
+        var invoiceAccountName: String = ""
+
+        val tilBankName =
+            builder.findViewById<TextInputLayout>(R.id.text_input_layout_facility_new_record_bank_name)
+        val etBankName = builder.findViewById<TextInputEditText>(R.id.facility_new_record_bank_name)
+        val tilAccountIBAN =
+            builder.findViewById<TextInputLayout>(R.id.text_input_layout_facility_new_record_account_iban)
+        val etAccountIBAN =
+            builder.findViewById<TextInputEditText>(R.id.facility_new_record_account_iban)
+        val tilAccountHolder =
+            builder.findViewById<TextInputLayout>(R.id.text_input_layout_facility_new_record_account_holder_name)
+        val etAccountHolder =
+            builder.findViewById<TextInputEditText>(R.id.facility_new_record_account_holder_name)
+
+        val btnConfirmInvoiceRecord =
+            builder.findViewById<Button>(R.id.facility_new_record_confirm_btn)
+        val btnCancelInvoiceRecord =
+            builder.findViewById<Button>(R.id.facility_new_record_cancel_btn)
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(builder)
+            .setCancelable(false)
+            .create()
+
+        btnConfirmInvoiceRecord.setOnClickListener {
+            tilBankName.error = null
+            tilAccountIBAN.error = null
+            tilAccountHolder.error = null
+
+            invoiceBankName = etBankName.text.toString().trim()
+            invoiceAccountIBAN = etAccountIBAN.text.toString().trim()
+            invoiceAccountName = etAccountHolder.text.toString().trim()
+
+            if (invoiceBankName.isEmpty()) {
+                tilBankName.error = "Bank name required"
+                etBankName.requestFocus()
+            }
+            if (invoiceAccountIBAN.isEmpty()) {
+                tilAccountIBAN.error = "Account IBAN required"
+                etAccountIBAN.requestFocus()
+            }
+            if (invoiceAccountName.isEmpty()) {
+                tilAccountHolder.error = "Account holder name required"
+            } else {
+                tilBankName.error = null
+                tilAccountIBAN.error = null
+                tilAccountHolder.error = null
+
+                val client = getUser(model.customerID)!!
+                val service = getService(model.organisationProfileServiceID)!!
+
+                val currentDate = getDate(System.currentTimeMillis(), "dd-MM-yyyy")
+                val currentTime = getDate(System.currentTimeMillis(), "hh:mm a")
+
+                val acceptedRequestInvoice = AcceptedRequestInvoice(
+                    invoiceID = System.currentTimeMillis().toString(),
+                    notificationID = facilityRequestResponse.notificationID,
+                    customerRequestFormID = facilityRequestResponse.requestFormID,
+                    customerID = facilityRequestResponse.customerID,
+                    organisationID = facilityRequestResponse.organisationID,
+                    organisationProfileServiceID = facilityRequestResponse.organisationProfileServiceID,
+                    typeOfServiceID = facilityRequestResponse.typeOfServiceID,
+                    typeOfServiceSpecialistID = facilityRequestResponse.typeOfServiceSpecialistID,
+                    invoiceAmount = totalServicePrice.toString(),
+                    bankName = invoiceBankName,
+                    bankAccountIBAN = invoiceAccountIBAN,
+                    bankAccountHolderName = invoiceAccountName,
+                    invoiceText = resources.getString(
+                        R.string.invoice_text,
+                        client.customerFirstName,
+                        service.serviceName,
+                        PROCESSED_TEXT,
+                        invoiceBankName,
+                        invoiceAccountIBAN,
+                        invoiceAccountName,
+                        currentDate,
+                        currentTime
+                    ),
+                    dateCreated = currentDate,
+                    timeCreated = currentTime
+                )
+                uploadInvoiceRecord(
+                    acceptedRequestInvoice,
+                    dialog
+                )
+            }
+
+        }
+
+        btnCancelInvoiceRecord.setOnClickListener {
+            etBankName.setText("")
+            etAccountIBAN.setText("")
+            etAccountHolder.setText("")
+        }
+
+        dialog.show()
+
+    }
+
+    private fun uploadInvoiceRecord(
+        acceptedRequestInvoice: AcceptedRequestInvoice,
+        dialog: AlertDialog
+    ) {
+        requireContext().showProgress()
+        CoroutineScope(Dispatchers.IO).launch {
+            Common.acceptedRequestInvoiceCollectionRef.document(acceptedRequestInvoice.invoiceID)
+                .set(acceptedRequestInvoice).addOnSuccessListener {
+                    hideProgress()
+                    requireContext().toast("Invoice Generated")
+                    dialog.dismiss()
+                }
+                .addOnFailureListener { e ->
+                    // Handle error
+                    hideProgress()
+                    requireContext().toast(e.message.toString())
+                }
+
+        }
+    }
+
+
+    private fun getClientDetails(clientId: String, clientName: TextView) =
+        CoroutineScope(Dispatchers.IO).launch {
+            Common.clientCollectionRef
+                .get()
+                .addOnSuccessListener { querySnapshot: QuerySnapshot ->
+
+                    for (document in querySnapshot.documents) {
+                        val item = document.toObject(Client::class.java)
+                        if (item?.customerID == clientId) {
+                            requestingClient = item
+                        }
+                    }
+                    clientName.text =
+                        "${requestingClient.customerFirstName}, ${requestingClient.customerLastName}"
+                }
+        }
+
     private fun getFacilityDetails(
         facilityId: String
     ) = CoroutineScope(Dispatchers.IO).launch {
@@ -175,166 +586,121 @@ class FacilityNotification : Fragment() {
 //                tvFacilityPhone.text = servingFacility.facilityPhoneNumber
             }
     }
-  private fun getServiceDetails(facilityId: String, serviceId: String) = CoroutineScope(Dispatchers.IO).launch {
-        Common.servicesCollectionRef
-            .get()
-            .addOnSuccessListener { querySnapshot: QuerySnapshot ->
 
-                for (document in querySnapshot.documents) {
-                    val item = document.toObject(Service::class.java)
-                    if (item?.serviceId == serviceId) {
-                        scheduledService = item
+    private fun getServiceDetails(facilityId: String, serviceId: String) =
+        CoroutineScope(Dispatchers.IO).launch {
+            Common.servicesCollectionRef
+                .get()
+                .addOnSuccessListener { querySnapshot: QuerySnapshot ->
+
+                    for (document in querySnapshot.documents) {
+                        val item = document.toObject(Service::class.java)
+                        if (item?.serviceId == serviceId) {
+                            scheduledService = item
+                        }
                     }
                 }
-            }
-    }
-
-    private fun launchInvoiceDialog(model: BookService) {
-
-        val builder = layoutInflater.inflate(R.layout.facility_custom_generate_invoice_layout, null)
-
-        val tvFacilityName = builder.findViewById<TextView>(R.id.facility_generated_invoice_facility_name)
-        val tvFacilityAddress = builder.findViewById<TextView>(R.id.facility_generated_invoice_facility_address)
-        val tvFacilityPhone = builder.findViewById<TextView>(R.id.facility_generated_invoice_facility_phone_number)
-        val tvFacilityEmail = builder.findViewById<TextView>(R.id.facility_generated_invoice_facility_email)
-        val tvClientName = builder.findViewById<TextView>(R.id.facility_generated_invoice_customer_name)
-        val tvClientPhone = builder.findViewById<TextView>(R.id.facility_generated_invoice_customer_phone)
-        val tvClientEmail = builder.findViewById<TextView>(R.id.facility_generated_invoice_customer_email)
-        val tvServiceName = builder.findViewById<TextView>(R.id.facility_generated_invoice_request_service_category_name)
-        val tvServicePrice = builder.findViewById<TextView>(R.id.facility_generated_invoice_request_service_price)
-        val tvServiceDiscountedPrice = builder.findViewById<TextView>(R.id.facility_generated_invoice_request_service_discounted_price)
-        val tvServiceTotal = builder.findViewById<TextView>(R.id.facility_generated_invoice_request_service_total_price)
-
-        val btnConfirmInvoice = builder.findViewById<Button>(R.id.facility_generated_invoice_confirm_button)
-
-
-        tvFacilityName.text = servingFacility.organisationName
-        tvFacilityAddress.text = servingFacility.organisationPhysicalAddress
-        tvFacilityPhone.text = servingFacility.organisationPhoneNumber
-        tvFacilityEmail.text = servingFacility.organisationEmail
-        tvClientName.text = "${requestingClient.userFirstName} ${requestingClient.userLastName}"
-        tvClientPhone.text = requestingClient.userPhoneNumber
-        tvClientEmail.text = requestingClient.userEmail
-        tvServiceName.setText("${model.selectedAppointmentServiceID} (service ID)")
-//        tvServicePrice.setText("$${scheduledService.servicePrice} (service price)")
-//        tvServiceDiscountedPrice.setText("${scheduledService.serviceDiscountedPrice}% (service discount)")
-
-//        val servicePrice = scheduledService.servicePrice
-//        val serviceDiscountedPrice = scheduledService.serviceDiscountedPrice
-//        tvServiceTotal.text = "Total: $${servicePrice.toDouble() - (servicePrice.toDouble() * (serviceDiscountedPrice.toDouble()/100))}"
-
-        btnConfirmInvoice.setOnClickListener {
-            requireContext().toast("Confirmed")
         }
 
-
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(builder)
-            .setCancelable(false)
-            .create()
-
-        dialog.show()
-
-
-
-        btnConfirmInvoice.setOnClickListener {
-            launchInvoiceRecordDialog(model, dialog)
+    private fun getUser(userId: String): Client? {
+        requireContext().showProgress()
+        val deferred = CoroutineScope(Dispatchers.IO).async {
+            try {
+                val snapshot = Common.clientCollectionRef.document(userId).get().await()
+                if (snapshot.exists()) {
+                    return@async snapshot.toObject(Client::class.java)
+                } else {
+                    return@async null
+                }
+            } catch (e: Exception) {
+                Handler(Looper.getMainLooper()).post {
+                    requireContext().toast(e.message.toString())
+                }
+                return@async null
+            }
         }
 
+        val clientUser = runBlocking { deferred.await() }
+        com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress()
 
+        return clientUser
     }
 
-    private fun launchInvoiceRecordDialog(model: BookService, generateInvoiceDialog: AlertDialog) {
-
-        val builder = layoutInflater.inflate(R.layout.facility_custom_new_invoice_record, null)
-
-        var invoiceBankName: String = ""
-        var invoiceAccountIBAN: String = ""
-        var invoiceAccountName: String = ""
-
-        val tilBankName = builder.findViewById<TextInputLayout>(R.id.text_input_layout_facility_new_record_bank_name)
-        val etBankName = builder.findViewById<TextInputEditText>(R.id.facility_new_record_bank_name)
-        val tilAccountIBAN = builder.findViewById<TextInputLayout>(R.id.text_input_layout_facility_new_record_account_iban)
-        val etAccountIBAN = builder.findViewById<TextInputEditText>(R.id.facility_new_record_account_iban)
-        val tilAccountHolder = builder.findViewById<TextInputLayout>(R.id.text_input_layout_facility_new_record_account_holder_name)
-        val etAccountHolder = builder.findViewById<TextInputEditText>(R.id.facility_new_record_account_holder_name)
-
-        val btnConfirmInvoiceRecord = builder.findViewById<Button>(R.id.facility_new_record_confirm_btn)
-
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(builder)
-            .setCancelable(false)
-            .create()
-
-        btnConfirmInvoiceRecord.setOnClickListener {
-            invoiceBankName = etBankName.text.toString().trim()
-            invoiceAccountIBAN = etAccountIBAN.text.toString().trim()
-            invoiceAccountName = etAccountHolder.text.toString().trim()
-
-            if (invoiceBankName.isEmpty()){
-                tilBankName.error = "Bank name required"
-                etBankName.requestFocus()
+    private fun getOrganisation(organisationId: String): Facility? {
+        requireContext().showProgress()
+        val deferred = CoroutineScope(Dispatchers.IO).async {
+            try {
+                val snapshot = Common.facilityCollectionRef.document(organisationId).get().await()
+                if (snapshot.exists()) {
+                    return@async snapshot.toObject(Facility::class.java)
+                } else {
+                    return@async null
+                }
+            } catch (e: Exception) {
+                Handler(Looper.getMainLooper()).post {
+                    requireContext().toast(e.message.toString())
+                }
+                return@async null
             }
-            if (invoiceAccountIBAN.isEmpty()){
-                tilAccountIBAN.error = "Account IBAN required"
-                etAccountIBAN.requestFocus()
-            }
-            if (invoiceAccountName.isEmpty()){
-                tilAccountHolder.error = "Account holder name required"
-            }else{
-                uploadInvoiceRecord(invoiceBankName, invoiceAccountIBAN, invoiceAccountName, model, dialog)
-                generateInvoiceDialog.dismiss()
-            }
-
         }
 
-
-
-        dialog.show()
-
-
-    }
-
-    private fun uploadInvoiceRecord(
-        invoiceBankName: String,
-        invoiceAccountIBAN: String,
-        invoiceAccountName: String,
-        model: BookService,
-        dialog: AlertDialog
-    ) = CoroutineScope(Dispatchers.IO).launch {
-        val documentRef = Common.appointmentsCollectionRef.document(model.requestFormId)
-
-        val updates = hashMapOf<String, Any>(
-            "invoiceGenerated" to true,
-            "invoiceBankName" to invoiceBankName,
-            "invoiceAccountIBAN" to invoiceAccountIBAN,
-            "invoiceAccountName" to invoiceAccountName,
-            "invoiceGeneratedTime" to System.currentTimeMillis()
-        )
-
-        documentRef.update(updates)
-            .addOnSuccessListener {
-                // Update successful
-                requireContext().toast("Invoice Generated")
-                dialog.dismiss()
-
-            }
-            .addOnFailureListener { e ->
-                // Handle error
-                requireContext().toast(e.message.toString())
-            }
-
-    }
-
-    private fun showProgress() {
+        val organisation = runBlocking { deferred.await() }
         hideProgress()
-        progressDialog = requireActivity().showProgressDialog()
+
+        Log.d(TAG, "getOrganisation: $organisation")
+
+        return organisation
     }
 
-    private fun hideProgress() {
-        progressDialog?.let { if (it.isShowing) it.cancel() }
+    private fun getService(serviceId: String): Service? {
+        requireContext().showProgress()
+        val deferred = CoroutineScope(Dispatchers.IO).async {
+            try {
+                val snapshot = Common.servicesCollectionRef.document(serviceId).get().await()
+                if (snapshot.exists()) {
+                    return@async snapshot.toObject(Service::class.java)
+                } else {
+                    return@async null
+                }
+            } catch (e: Exception) {
+                Handler(Looper.getMainLooper()).post {
+                    requireContext().toast(e.message.toString())
+                }
+                return@async null
+            }
+        }
+
+        val service = runBlocking { deferred.await() }
+        com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress()
+
+        Log.d(TAG, "getService: ${service!!.serviceName}")
+        return service
     }
 
+    private fun getServiceType(serviceTypeId: String): ServiceType? {
+        requireContext().showProgress()
+        val deferred = CoroutineScope(Dispatchers.IO).async {
+            try {
+                val snapshot =
+                    Common.servicesTypeCollectionRef.document(serviceTypeId).get().await()
+                if (snapshot.exists()) {
+                    return@async snapshot.toObject(ServiceType::class.java)
+                } else {
+                    return@async null
+                }
+            } catch (e: Exception) {
+                Handler(Looper.getMainLooper()).post {
+                    requireContext().toast(e.message.toString())
+                }
+                return@async null
+            }
+        }
+
+        val serviceType = runBlocking { deferred.await() }
+        com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress()
+
+        return serviceType
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

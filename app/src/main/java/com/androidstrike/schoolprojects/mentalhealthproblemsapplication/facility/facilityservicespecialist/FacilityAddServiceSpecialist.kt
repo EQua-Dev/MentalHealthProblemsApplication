@@ -1,6 +1,5 @@
 package com.androidstrike.schoolprojects.mentalhealthproblemsapplication.facility.facilityservicespecialist
 
-import android.app.DatePickerDialog
 import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.pm.PackageManager
@@ -17,24 +16,24 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.R
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.databinding.FragmentFacilityAddServiceSpecialistBinding
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.ServiceType
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Specialists
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.REQUEST_PERMISSION
-import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.SPECIALISTS
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.auth
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.servicesTypeCollectionRef
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.showProgress
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.showProgressDialog
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.snackBar
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.toast
-import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
 class FacilityAddServiceSpecialist : Fragment() {
 
@@ -46,14 +45,23 @@ class FacilityAddServiceSpecialist : Fragment() {
     lateinit var serviceSpecialistQualification: String
     lateinit var serviceID: String
 
+    private val serviceTypesList = mutableListOf<ServiceType>()
+    private val serviceTypesNamesList = mutableListOf<String>()
+
     var fileUri: Uri? = null;
 
     private var progressDialog: Dialog? = null
 
     val REQUEST_IMAGE_PICK = 1
 
-    private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
-
+    private val imagePickerLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri != null) {
+                fileUri = uri
+                // Display the selected image in the ImageView
+                binding.facilityAddSpecialistImage.setImageURI(fileUri)
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +75,10 @@ class FacilityAddServiceSpecialist : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getServiceTypes()
+    }
 
+    private fun loadView() {
         with(binding) {
             val newServiceSpecialistCategoryArray =
                 resources.getStringArray(R.array.provided_service)
@@ -75,7 +86,7 @@ class FacilityAddServiceSpecialist : Fragment() {
                 ArrayAdapter(
                     requireContext(),
                     R.layout.drop_down_item,
-                    newServiceSpecialistCategoryArray
+                    serviceTypesNamesList
                 )
             facilityAddServiceSpecialistCategory.setAdapter(newServiceSpecialistCategoryArrayAdapter)
 
@@ -83,14 +94,7 @@ class FacilityAddServiceSpecialist : Fragment() {
                 checkPermissionAndOpenPicker()
             }
 
-            imagePickerLauncher =
-                registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-                    if (uri != null) {
-                        fileUri = uri
-                        // Display the selected image in the ImageView
-                        facilityAddSpecialistImage.setImageURI(uri)
-                    }
-                }
+
 
             facilityAddServiceSpecialistSubmitButton.setOnClickListener {
                 serviceSpecialistServiceType =
@@ -108,8 +112,9 @@ class FacilityAddServiceSpecialist : Fragment() {
                     val newSpecialist = Specialists(
                         qualification = serviceSpecialistQualification,
                         name = serviceSpecialistName,
-                        service = serviceSpecialistServiceType,
-                        id = serviceID
+                        serviceTypeID = serviceSpecialistServiceType,
+                        id = serviceID,
+                        organisationID = auth.uid!!
                     )
                     //requireContext().toast("uploading...")
                     createServiceSpecialist(newSpecialist)
@@ -130,7 +135,6 @@ class FacilityAddServiceSpecialist : Fragment() {
 
         }
 
-
     }
 
 
@@ -148,11 +152,13 @@ class FacilityAddServiceSpecialist : Fragment() {
         } else {
 
             openImagePicker()
+
         }
     }
 
     private fun openImagePicker() {
         imagePickerLauncher.launch("image/*")
+
     }
 
     private fun createServiceSpecialist(newSpecialist: Specialists) {
@@ -176,7 +182,7 @@ class FacilityAddServiceSpecialist : Fragment() {
                 // in this case we are dismissing our progress dialog and displaying a toast message
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        Common.facilityCollectionRef.document(auth.uid!!).collection(SPECIALISTS)
+                        Common.serviceSpecialistCollectionRef
                             .document(newSpecialist.id).set(newSpecialist)
                         withContext(Dispatchers.Main) {
                             with(binding) {
@@ -214,20 +220,28 @@ class FacilityAddServiceSpecialist : Fragment() {
         }
     }
 
+    private fun getServiceTypes() {
+        requireContext().showProgress()
+        servicesTypeCollectionRef.get().addOnSuccessListener { docs: QuerySnapshot ->
+            hideProgress()
+            if (docs.isEmpty) {
+                requireContext().toast("No service types")
+            } else {
+                for (doc in docs.documents) {
+                    val serviceType = doc.toObject(ServiceType::class.java)
+                    serviceTypesList.add(serviceType!!)
+                }
+                for (serviceType in serviceTypesList)
+                    serviceTypesNamesList.add(serviceType.serviceTypeName)
+            }
+            loadView()
+        }
+    }
+
     // on below line creating a function to upload our image.
     fun uploadImage() {
         // on below line checking weather our file uri is null or not.
 
     }
-
-    private fun showProgress() {
-        hideProgress()
-        progressDialog = requireActivity().showProgressDialog()
-    }
-
-    private fun hideProgress() {
-        progressDialog?.let { if (it.isShowing) it.cancel() }
-    }
-
 
 }

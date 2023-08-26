@@ -103,8 +103,8 @@ class InvoicePayment : Fragment() {
 //                    val facilityTabLayout =
 //                        facilityBaseFragment!!.view?.findViewById<TabLayout>(R.id.facility_base_tab_title)
 
-                    getClientDetails(model.clientId, holder.facilityName)
-                    getFacilityDetails(model.facilityId)
+                    getClientDetails(model.customerID, holder.facilityName)
+                    getFacilityDetails(model.organisationID)
 
 
 //                    val clientBaseFragment = parentFragment
@@ -112,9 +112,9 @@ class InvoicePayment : Fragment() {
 //                        clientBaseFragment!!.view?.findViewById<TabLayout>(R.id.client_base_tab_title)
 
 
-                    getServiceDetails(model.facilityId, model.selectedAppointmentServiceID)
+                    getServiceDetails(model.organisationID, model.organisationProfileServiceID)
                     holder.facilityName.text = servingFacility.organisationName
-                    holder.serviceName.text = model.selectedAppointmentServiceName
+                    holder.serviceName.text = model.typeOfService
 //                    holder.dateCreated.text = getDate(model.invoiceGeneratedTime, "dd MMMM, yyyy")
 //                    holder.timeCreated.text = getDate(model.invoiceGeneratedTime, "hh:mm")
 //                    if (model.invoicePaid)
@@ -126,7 +126,7 @@ class InvoicePayment : Fragment() {
 
                         //launchInvoiceDetailsDialog(model, clientTabLayout)
 //                        requireContext().toast("${model.scheduledTime} clicked!")
-                        Log.d("EQUA", "onBindViewHolder: ${requestingClient.userFirstName} ${requestingClient.userLastName}")
+                        Log.d("EQUA", "onBindViewHolder: ${requestingClient.customerFirstName} ${requestingClient.customerLastName}")
                     }
 
                 }
@@ -164,7 +164,7 @@ class InvoicePayment : Fragment() {
         tvFacilityName.text = servingFacility.organisationName
         tvFacilityPhone.text = servingFacility.organisationPhoneNumber
         tvFacilityEmail.text = servingFacility.organisationEmail
-        tvClientName.text = "${requestingClient.userFirstName} ${requestingClient.userLastName}"
+        tvClientName.text = "${requestingClient.customerFirstName} ${requestingClient.customerLastName}"
         tvInvoiceId.text = scheduledService.specificServiceId
         tvServicePrice.text = "Service Price: $${scheduledService.specificServicePrice}"
 
@@ -203,11 +203,11 @@ class InvoicePayment : Fragment() {
 
                 for (document in querySnapshot.documents) {
                     val item = document.toObject(Client::class.java)
-                    if (item?.userId == clientId) {
+                    if (item?.customerID == clientId) {
                         requestingClient = item
                     }
                 }
-                clientName.text = "${requestingClient.userFirstName}, ${requestingClient.userLastName}"
+                clientName.text = "${requestingClient.customerFirstName}, ${requestingClient.customerLastName}"
             }
     }
     private fun getFacilityDetails(

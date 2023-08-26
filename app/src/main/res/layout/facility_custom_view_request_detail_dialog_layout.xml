@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/requesting_client_name"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:id="@+id/facility_request_customer_name"/>
+
+ <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/requesting_client_contact_number"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:id="@+id/facility_request_customer_contact_number"/>
+
+ <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/requesting_client_email"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:id="@+id/facility_request_customer_email"/>
+
+ <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/requesting_chosen_service_name"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:id="@+id/facility_request_chosen_service_name"/>
+
+ <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/requesting_chosen_service_type"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:id="@+id/facility_request_chosen_service_type"/>
+
+ <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/requesting_start_date"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:id="@+id/facility_request_start_date"/>
+
+ <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/requesting_service_price"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:id="@+id/facility_request_service_price"/>
+
+ <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/requesting_service_discounted_price"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:id="@+id/facility_request_service_discounted_price"/>
+
+ <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@tools:sample/lorem/random"
+        android:lines="7"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:id="@+id/facility_request_text"/>
+
+ <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/requesting_date_created"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:id="@+id/facility_request_date_created"/>
+
+ <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/requesting_time_created"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:id="@+id/facility_request_time_created"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="@dimen/button_width_xxl"
+        android:layout_height="wrap_content"
+        app:cornerRadius="@dimen/margin_mini"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/padding_mini"
+        android:text="@string/btn_accept_customer_request"
+        android:id="@+id/btn_facility_accept_customer_request"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="@dimen/button_width_xxl"
+        android:layout_height="wrap_content"
+        app:cornerRadius="@dimen/margin_mini"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/padding_mini"
+        android:text="@string/btn_reject_customer_request"
+        android:textColor="@color/red"
+        android:id="@+id/btn_facility_reject_customer_request"/>
+
+
+</LinearLayout>

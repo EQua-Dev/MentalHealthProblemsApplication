@@ -5,11 +5,19 @@
     android:layout_height="match_parent"
     tools:context=".facility.facilitynotification.FacilityNotification">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/facility_customer_requests_title"
+        android:id="@+id/facility_customer_requests_title"
+        android:textAlignment="center"
+        android:padding="@dimen/padding_mini"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_mini"
+        android:layout_below="@id/facility_customer_requests_title"
         android:id="@+id/rv_facility_invoice_notification"
         tools:listitem="@layout/facility_custom_invoice_list_layout"
         tools:itemCount="7"/>

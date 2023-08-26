@@ -61,72 +61,88 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 //    }
 
     override fun onMapReady(map: GoogleMap) {
-        requireContext().showProgress()
         googleMap = map
-        Common.facilityCollectionRef
-            .get()
-            .addOnSuccessListener { querySnapshot: QuerySnapshot ->
-                hideProgress()
-                for (document in querySnapshot.documents) {
-                    val item = document.toObject(Facility::class.java)
-                    item?.let {
+        if (facilityList.isEmpty()){
+            requireContext().showProgress()
+
+            Common.facilityCollectionRef
+                .get()
+                .addOnSuccessListener { querySnapshot: QuerySnapshot ->
+                    hideProgress()
+                    for (document in querySnapshot.documents) {
+                        val item = document.toObject(Facility::class.java)
+                        item?.let {
 //                        facilityList.add(it)
-                        facilityList.add(it)
-                    }
-                }
-
-                        // Check if the location permission is granted
-                        if (ContextCompat.checkSelfPermission(
-                                requireContext(),
-                                Manifest.permission.ACCESS_FINE_LOCATION
-                            ) == PackageManager.PERMISSION_GRANTED
-                        ) {
-                            googleMap.isMyLocationEnabled = true
+                            facilityList.add(it)
                         }
+                    }
 
-                Log.d("EQUA", "onMapReady: arrived here")
-                for (facility in facilityList) {
-                    val markerOptions = MarkerOptions()
-                        .position(
-                            LatLng(
+                    // Check if the location permission is granted
+                    if (ContextCompat.checkSelfPermission(
+                            requireContext(),
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                        ) == PackageManager.PERMISSION_GRANTED
+                    ) {
+                        googleMap.isMyLocationEnabled = true
+                    }
+
+                    Log.d("EQUA", "onMapReady: arrived here")
+                    for (facility in facilityList) {
+                        val markerOptions = MarkerOptions()
+                            .position(
+                                LatLng(
 //                                52.66087,
 //                                -8.63479
-                                facility.organisationLatitude.toDouble(),
-                                facility.organisationLongitude.toDouble()
+                                    facility.organisationLatitude.toDouble(),
+                                    facility.organisationLongitude.toDouble()
+                                )
                             )
-                        )
 //                        .title("facilityName")
-                        .title(facility.organisationName)
+                            .title(facility.organisationName)
 //                        .snippet("1 Steamboat Quay, Dock Rd, Limerick, V94 YF84")
-                        .snippet(facility.organisationPhysicalAddress)
-                    googleMap.addMarker(markerOptions)
+                            .snippet(facility.organisationPhysicalAddress)
+                        googleMap.addMarker(markerOptions)
 
-                    //Log.d("EQUA", "onMapReady: ${facility.facilityName}")
+                        //Log.d("EQUA", "onMapReady: ${facility.facilityName}")
 
-                }
+                    }
 
-                // Move the camera to the first location
-                val firstLocation = facilityList.firstOrNull()
-                firstLocation?.let {
-                    googleMap.moveCamera(
-                        CameraUpdateFactory.newLatLngZoom(
-                            LatLng(
-                                52.66087,
-                                -8.63479
+                    // Move the camera to the first location
+                    val firstLocation = facilityList.firstOrNull()
+                    firstLocation?.let {
+                        googleMap.moveCamera(
+                            CameraUpdateFactory.newLatLngZoom(
+                                LatLng(
+                                    52.66087,
+                                    -8.63479
 //                                it.facilityAddressLatitude.toDouble(),
 //                                it.facilityAddressLongitude.toDouble()
-                            ), 12f
+                                ), 12f
+                            )
                         )
-                    )
+                    }
+                    loadMap(googleMap)
+
+                    // Process the fetched itemList
+                    // e.g., update UI or perform further operations
+                }
+                .addOnFailureListener { exception: Exception ->
+                    // Handle any errors that occurred during the fetch
+                    hideProgress()
                 }
 
-                // Process the fetched itemList
-                // e.g., update UI or perform further operations
-            }
-            .addOnFailureListener { exception: Exception ->
-                // Handle any errors that occurred during the fetch
-            }
+        }else{
+            loadMap(googleMap)
+        }
 
+
+    }
+
+    private fun getFacilities(){
+
+    }
+
+    private fun loadMap(googleMap: GoogleMap){
         googleMap.setOnMarkerClickListener { marker ->
             for (facility in facilityList){
                 if (marker.title == facility.organisationName){

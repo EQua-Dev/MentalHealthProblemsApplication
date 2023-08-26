@@ -115,7 +115,7 @@ class SignIn : Fragment() {
                                         clientRef.get()
                                             .addOnSuccessListener { documentSnapshot ->
                                                 if (documentSnapshot.exists()) {
-                                                    clientName = documentSnapshot.getString("userFirstName")!!
+                                                    clientName = documentSnapshot.getString("customerFirstName")!!
                                                     // Use the value here
                                                 }
                                             }

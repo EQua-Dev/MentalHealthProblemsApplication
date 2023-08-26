@@ -118,7 +118,7 @@ class FacilityRequestsScreen : Fragment() {
 //                        facilityBaseFragment!!.view?.findViewById<TabLayout>(R.id.facility_base_tab_title)
 
                     getClientDetails(model, holder.requestDescription)
-                    when (model.requestStatus) {
+                    when (model.requestFormStatus) {
                         "pending" -> {
                             holder.statusIndicator.setCardBackgroundColor(Color.YELLOW)
                             holder.acceptButton.setOnClickListener {
@@ -234,7 +234,7 @@ class FacilityRequestsScreen : Fragment() {
     ) = CoroutineScope(Dispatchers.IO).launch {
         val documentRef = Common.appointmentsCollectionRef.document(model.requestFormId)
 
-        val scheduleMessage = "Dear Customer,\n\nThis is to confirm that your request has been accepted for the service ${model.selectedAppointmentServiceID}. Please come for the initial meeting at $confirmedMeetingTime on $confirmedMeetingDate.\n\nWe will be happy to see you then"
+        val scheduleMessage = "Dear Customer,\n\nThis is to confirm that your request has been accepted for the service ${model.organisationProfileServiceID}. Please come for the initial meeting at $confirmedMeetingTime on $confirmedMeetingDate.\n\nWe will be happy to see you then"
 
         val schedules = hashMapOf<String, Any>(
             "scheduled" to true,
@@ -310,11 +310,11 @@ class FacilityRequestsScreen : Fragment() {
 
                 for (document in querySnapshot.documents) {
                     val item = document.toObject(Client::class.java)
-                    if (item?.userId == model.clientId) {
+                    if (item?.customerID == model.customerID) {
                         requestingClient = item
                     }
                 }
-                requestDescription.text = "Dear Sirs,\nMy name is ${requestingClient.userFirstName} ${requestingClient.userLastName}.\n\nI require your service ${model.selectedAppointmentServiceName}, starting from ${model.selectedAppointmentDate} if possible. My contact email is ${requestingClient.userEmail}.\n\nPlease, let me know if you can accomodate my request."
+                //requestDescription.text = "Dear Sirs,\nMy name is ${requestingClient.userFirstName} ${requestingClient.userLastName}.\n\nI require your service ${model.typeOfService}, starting from ${model.selectedAppointmentDate} if possible. My contact email is ${requestingClient.userEmail}.\n\nPlease, let me know if you can accomodate my request."
             }
     }
 

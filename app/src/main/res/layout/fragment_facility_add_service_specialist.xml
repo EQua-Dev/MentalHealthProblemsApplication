@@ -101,6 +101,7 @@
                     android:id="@+id/facility_add_specialist_image"
                     android:src="@drawable/ic_person"
                     android:contentDescription="@string/facility_add_specialist_image"
+                    android:scaleType="fitXY"
                     android:layout_margin="@dimen/padding_mini"
                     android:background="@color/logo_background"/>
 

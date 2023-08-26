@@ -15,13 +15,22 @@ object Common {
     val IRISH_CODE = "+353"
     var facilityName = "Facility"
     var clientName = "Client"
-    const val SERVICES = "Services"
-    const val SPECIALISTS = "Specialists"
+    private const val SERVICES = "Mental Health organisation’s Service Profile"
+    private const val SERVICE_TYPE = "Type of Service"
+    const val SPECIALISTS = "Service Type Specialist"
     const val SPECIFIC_SERVICE = "Specific Service"
+    private const val FACILITY_REF = "Mental Health Organisations"
+    private const val CUSTOMER_REF = "Customer with Mental Health Problems"
+    private const val APPOINTMENT_REF = "Customer's Service Request Form"
+    private const val REQUEST_RESPONSE_NOTIFICATION_REF = "Notification of Customer's Service Request Form Acceptance or Rejection"
+    private const val ACCEPTED_REQUEST_PAYMENT_INVOICE_REF = "Invoice for Payment of Accepted Customer's Service Request"
     private const val WALLET_REF = "Customer Digital Wallets"
     const val WALLET_HISTORY_REF = "Wallet History"
 
     const val REASON_ACCOUNT_FUND = "Account Fund"
+    const val ACCEPTED_TEXT = "Accepted"
+    const val REJECTED_TEXT = "Rejected"
+    const val PROCESSED_TEXT = "Processed"
 
     const val DATE_FORMAT_LONG = "EEE, dd MMM, yyyy | hh:mm a"
 
@@ -31,10 +40,14 @@ object Common {
 
     //lateinit var mAuth: FirebaseAuth// = FirebaseAuth.getInstance()
     val auth = FirebaseAuth.getInstance()
-    val clientCollectionRef = Firebase.firestore.collection("Clients")
-    val facilityCollectionRef = Firebase.firestore.collection("Mental Health Organisations")
-    val appointmentsCollectionRef = Firebase.firestore.collection("Appointments")
-    val servicesCollectionRef = Firebase.firestore.collection("Mental Health organisation’s Service Profile")
+    val clientCollectionRef = Firebase.firestore.collection(CUSTOMER_REF)
+    val facilityCollectionRef = Firebase.firestore.collection(FACILITY_REF)
+    val appointmentsCollectionRef = Firebase.firestore.collection(APPOINTMENT_REF)
+    val servicesCollectionRef = Firebase.firestore.collection(SERVICES)
+    val serviceSpecialistCollectionRef = Firebase.firestore.collection(SPECIALISTS)
+    val servicesTypeCollectionRef = Firebase.firestore.collection(SERVICE_TYPE)
+    val requestResponseNotificationCollectionRef = Firebase.firestore.collection(REQUEST_RESPONSE_NOTIFICATION_REF)
+    val acceptedRequestInvoiceCollectionRef = Firebase.firestore.collection(ACCEPTED_REQUEST_PAYMENT_INVOICE_REF)
     val walletCollectionRef = Firebase.firestore.collection(WALLET_REF)
     val feedbackCollectionRef = Firebase.firestore.collection("Feedbacks")
 

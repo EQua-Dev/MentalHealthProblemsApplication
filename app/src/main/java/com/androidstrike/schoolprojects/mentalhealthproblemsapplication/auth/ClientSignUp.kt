@@ -296,7 +296,7 @@ class ClientSignUp : Fragment() {
 
     private fun saveNewClient(client: Client) = CoroutineScope(Dispatchers.IO).launch {
         try {
-            Common.clientCollectionRef.document(client.userId.toString()).set(client).await()
+            Common.clientCollectionRef.document(client.customerID.toString()).set(client).await()
             //isFirstTime()
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
@@ -316,14 +316,14 @@ class ClientSignUp : Fragment() {
         userPhoneNumber: String
     ): Client {
         return Client(
-            userId = newUserId,
-            userFirstName = userFirstName,
-            userLastName = userLastName,
-            userEmail = userEmail,
+            customerID = newUserId,
+            customerFirstName = userFirstName,
+            customerLastName = userLastName,
+            customerEmail = userEmail,
             //userAddressLongitude = userAddressLongitude,
             //userAddressLatitude = userAddressLatitude,
             dateJoined = dateJoined,
-            userPhoneNumber = userPhoneNumber
+            customerMobileNumber = userPhoneNumber
         )
     }
 

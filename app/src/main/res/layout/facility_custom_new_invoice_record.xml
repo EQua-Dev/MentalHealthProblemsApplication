@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -86,15 +87,28 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
+            android:id="@+id/facility_new_record_confirm_btn"
+            android:layout_width="@dimen/button_width_xxl"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/custom_client_accent_color"
-            android:text="@string/facility_new_record_confirm_btn"
             android:layout_below="@id/text_input_layout_facility_new_record_account_holder_name"
             android:layout_centerHorizontal="true"
-            android:layout_margin="@dimen/margin_midi"
-            android:id="@+id/facility_new_record_confirm_btn"
-            android:padding="@dimen/padding_mini"/>
+            android:layout_margin="@dimen/margin_mini"
+            android:backgroundTint="@color/custom_client_accent_color"
+            app:cornerRadius="@dimen/margin_mini"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/facility_new_record_confirm_btn" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/facility_new_record_cancel_btn"
+            android:layout_width="@dimen/button_width_xxl"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/facility_new_record_confirm_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/margin_mini"
+            android:backgroundTint="@color/custom_client_accent_color"
+            app:cornerRadius="@dimen/margin_mini"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/facility_new_record_cancel_btn" />
 
     </RelativeLayout>
 

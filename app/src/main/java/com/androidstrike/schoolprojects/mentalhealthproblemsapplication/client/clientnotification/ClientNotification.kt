@@ -97,7 +97,7 @@ class ClientNotification : Fragment() {
 //                        clientBaseFragment!!.view?.findViewById<TabLayout>(R.id.client_base_tab_title)
 
 
-                    Log.d("EQUA", "onBindViewHolder: ${model.clientId}")
+                    Log.d("EQUA", "onBindViewHolder: ${model.customerID}")
                     var responseState: String = ""
 //                    when(model.status){
 //                        "pending" ->{
@@ -119,7 +119,7 @@ class ClientNotification : Fragment() {
 //                    holder.timeCreated.text = getDate(model.dateBooked.toLong(), "HH:mm a")
                     holder.responseDescription.text = "Dear Customer,\n\nYour request is $responseState."
 
-                    getFacilityDetails(model.facilityId, holder.facilityName, holder.facilityEmail, holder.facilityPhone )
+                    getFacilityDetails(model.organisationID, holder.facilityName, holder.facilityEmail, holder.facilityPhone )
 
                     holder.clientBookingResponseViewDetailsButton.setOnClickListener {
                         if(responseState == "accepted")
@@ -155,7 +155,7 @@ class ClientNotification : Fragment() {
 
         val builder = layoutInflater.inflate(R.layout.client_notification_detail_dialog_layout, null)
 
-        getServiceDetails(model.facilityId, model.selectedAppointmentServiceID)
+        getServiceDetails(model.organisationID, model.organisationProfileServiceID)
 
         val tvDateCreated = builder.findViewById<TextView>(R.id.txt_client_booking_response_detail_date_created)
         val tvDateTimeCreated = builder.findViewById<TextView>(R.id.txt_client_booking_response_detail_time_created)

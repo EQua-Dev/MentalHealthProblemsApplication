@@ -11,7 +11,7 @@ class FacilitiesInvoiceNotificationAdapter(itemView: View): RecyclerView.ViewHol
     var timeCreated: TextView
     var clientName: TextView
     var serviceName: TextView
-    var invoiceStatus: TextView
+    var viewRequestBtn: TextView
 
 
     init {
@@ -19,7 +19,7 @@ class FacilitiesInvoiceNotificationAdapter(itemView: View): RecyclerView.ViewHol
         timeCreated = itemView.findViewById(R.id.txt_facility_invoice_time_created)
         clientName = itemView.findViewById(R.id.txt_facility_invoice_client_name)
         serviceName = itemView.findViewById(R.id.txt_facility_invoice_service_type)
-        invoiceStatus = itemView.findViewById(R.id.txt_facility_invoice_generated_status)
+        viewRequestBtn = itemView.findViewById(R.id.btn_facility_view_request)
 
 
     }
