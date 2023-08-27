@@ -70,6 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             app:cornerRadius="@dimen/margin_mini"
+            android:textColor="@color/white"
             android:layout_marginStart="@dimen/margin_midi"
             android:layout_marginTop="@dimen/margin_midi"
             android:layout_marginEnd="@dimen/margin_midi"

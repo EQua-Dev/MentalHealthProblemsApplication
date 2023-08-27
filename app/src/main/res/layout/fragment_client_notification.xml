@@ -9,14 +9,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/client_view_notification_title"
         android:padding="@dimen/padding_mini"
-        android:text="View Notification" />
+        android:text="@string/client_view_notification_title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_mini"
+        android:layout_below="@+id/client_view_notification_title"
         android:id="@+id/rv_client_booking_result"
         tools:listitem="@layout/client_booking_result_custom_layout"
         tools:itemCount="3"/>

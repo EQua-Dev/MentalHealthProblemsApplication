@@ -36,12 +36,13 @@
             android:layout_below="@id/txt_client_invoice_date_generated"
             android:padding="@dimen/padding_mini"/>
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="not paid"
+            android:text="@string/client_notification_view_btn"
             android:textStyle="italic"
-            android:id="@+id/txt_client_invoice_generated_payment_status"
+            app:cornerRadius="@dimen/margin_mini"
+            android:id="@+id/btn_client_invoice_generated_payment_status"
             android:layout_below="@id/txt_client_invoice_date_generated"
             android:layout_alignParentEnd="true"
             android:padding="@dimen/padding_mini"/>

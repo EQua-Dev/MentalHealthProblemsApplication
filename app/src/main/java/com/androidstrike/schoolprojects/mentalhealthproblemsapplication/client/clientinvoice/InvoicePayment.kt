@@ -1,6 +1,8 @@
 package com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.clientinvoice
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,32 +15,49 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.R
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.databinding.FragmentInvoicePaymentBinding
-import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.BookService
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.AcceptedRequestInvoice
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Client
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Facility
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.InvoicePaymentData
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Service
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.SpecificService
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.WalletData
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.WalletHistory
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.DATE_FORMAT_LONG
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.WALLET_HISTORY_REF
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.appointmentsCollectionRef
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.invoicePaymentCollectionRef
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.walletCollectionRef
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.NavigationMenuListener
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.getDate
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.showProgress
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.toast
-import com.androidstrike.trackit.client.clientinvoice.ClientInvoiceNotificationAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 
 class InvoicePayment : Fragment() {
 
-    private var clientInvoiceNotificationAdapter: FirestoreRecyclerAdapter<BookService, ClientInvoiceNotificationAdapter>? =
+    private var clientInvoiceNotificationAdapter: FirestoreRecyclerAdapter<AcceptedRequestInvoice, ClientInvoiceNotificationAdapter>? =
         null
+    private var navigationMenuListener: NavigationMenuListener? = null
 
     private var _binding: FragmentInvoicePaymentBinding? = null
     private val binding get() = _binding!!
     lateinit var requestingClient: Client
     lateinit var servingFacility: Facility
     lateinit var scheduledService: SpecificService
+
+    private val TAG = "InvoicePayment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,13 +95,15 @@ class InvoicePayment : Fragment() {
         val mAuth = FirebaseAuth.getInstance()
 
         val clientGeneratedInvoice =
-            Common.appointmentsCollectionRef.whereEqualTo("clientId", mAuth.uid)
-                .whereEqualTo("invoiceGenerated", true)
-        val options = FirestoreRecyclerOptions.Builder<BookService>()
-            .setQuery(clientGeneratedInvoice, BookService::class.java).build()
+            Common.acceptedRequestInvoiceCollectionRef.whereEqualTo("customerID", mAuth.uid)
+
+        val options = FirestoreRecyclerOptions.Builder<AcceptedRequestInvoice>()
+            .setQuery(clientGeneratedInvoice, AcceptedRequestInvoice::class.java).build()
         try {
             clientInvoiceNotificationAdapter = object :
-                FirestoreRecyclerAdapter<BookService, ClientInvoiceNotificationAdapter>(options) {
+                FirestoreRecyclerAdapter<AcceptedRequestInvoice, ClientInvoiceNotificationAdapter>(
+                    options
+                ) {
                 override fun onCreateViewHolder(
                     parent: ViewGroup,
                     viewType: Int
@@ -95,7 +116,7 @@ class InvoicePayment : Fragment() {
                 override fun onBindViewHolder(
                     holder: ClientInvoiceNotificationAdapter,
                     position: Int,
-                    model: BookService
+                    model: AcceptedRequestInvoice
                 ) {
 
 
@@ -103,32 +124,32 @@ class InvoicePayment : Fragment() {
 //                    val facilityTabLayout =
 //                        facilityBaseFragment!!.view?.findViewById<TabLayout>(R.id.facility_base_tab_title)
 
-                    getClientDetails(model.customerID, holder.facilityName)
-                    getFacilityDetails(model.organisationID)
-
-
 //                    val clientBaseFragment = parentFragment
 //                    val clientTabLayout =
 //                        clientBaseFragment!!.view?.findViewById<TabLayout>(R.id.client_base_tab_title)
 
 
-                    getServiceDetails(model.organisationID, model.organisationProfileServiceID)
-                    holder.facilityName.text = servingFacility.organisationName
-                    holder.serviceName.text = model.typeOfService
-//                    holder.dateCreated.text = getDate(model.invoiceGeneratedTime, "dd MMMM, yyyy")
-//                    holder.timeCreated.text = getDate(model.invoiceGeneratedTime, "hh:mm")
+                    //getServiceDetails(model.organisationID, model.organisationProfileServiceID)
+//                    holder.facilityName.text = getOrganisation(model.organisationID)!!.organisationName
+                    Log.d(TAG, "onBindViewHolder: $model")
+                    Log.d(
+                        TAG,
+                        "onBindViewHolder: ${getOrganisation(model.organisationID)!!.organisationName}"
+                    )
+                    holder.serviceName.text =
+                        getService(model.organisationProfileServiceID)!!.serviceName
+                    holder.facilityName.text =
+                        getOrganisation(model.organisationID)!!.organisationName
+
+                    holder.dateCreated.text = model.dateCreated
+                    holder.timeCreated.text = model.timeCreated
 //                    if (model.invoicePaid)
 //                        holder.invoicePaymentStatus.text = resources.getText(R.string.txt_invoice_payment_status_paid)
 //                    else
 //                        holder.invoicePaymentStatus.text = resources.getText(R.string.txt_invoice_payment_status_not_paid)
-
-                    holder.itemView.setOnClickListener {
-
-                        //launchInvoiceDetailsDialog(model, clientTabLayout)
-//                        requireContext().toast("${model.scheduledTime} clicked!")
-                        Log.d("EQUA", "onBindViewHolder: ${requestingClient.customerFirstName} ${requestingClient.customerLastName}")
+                    holder.invoice_payment_view_btn.setOnClickListener {
+                        launchInvoiceDetailsDialog(model)
                     }
-
                 }
 
             }
@@ -140,45 +161,54 @@ class InvoicePayment : Fragment() {
         binding.rvClientInvoiceNotification.adapter = clientInvoiceNotificationAdapter
     }
 
-    private fun launchInvoiceDetailsDialog(model: BookService, clientTabLayout: TabLayout?,) {
+    private fun launchInvoiceDetailsDialog(model: AcceptedRequestInvoice) {
 
-        val builder = layoutInflater.inflate(R.layout.client_custom_generated_invoice_detail_layout, null)
+        val builder =
+            layoutInflater.inflate(R.layout.client_custom_generated_invoice_detail_layout, null)
 
-        val tvFacilityName = builder.findViewById<TextView>(R.id.client_generated_invoice_facility_name)
-        val tvFacilityPhone = builder.findViewById<TextView>(R.id.client_generated_invoice_facility_phone_number)
-        val tvFacilityEmail = builder.findViewById<TextView>(R.id.client_generated_invoice_facility_email)
-        val tvInvoiceId = builder.findViewById<TextView>(R.id.client_generated_invoice_id)
-        val tvClientName = builder.findViewById<TextView>(R.id.client_generated_invoice_customer_name)
-        val tvServicePrice = builder.findViewById<TextView>(R.id.client_generated_invoice_service_price)
-        val tvServiceDiscountedPrice = builder.findViewById<TextView>(R.id.client_generated_invoice_service_discount_price)
-        val tvServiceSubTotal = builder.findViewById<TextView>(R.id.client_generated_invoice_service_subtotal_price)
-        val tvServiceTotal = builder.findViewById<TextView>(R.id.client_generated_invoice_service_total_price)
+        val tvFacilityName =
+            builder.findViewById<TextView>(R.id.client_generated_invoice_facility_name)
+        val tvFacilityAddress =
+            builder.findViewById<TextView>(R.id.client_generated_invoice_facility_physical_address)
+        val tvFacilityPhone =
+            builder.findViewById<TextView>(R.id.client_generated_invoice_facility_phone_number)
+        val tvFacilityEmail =
+            builder.findViewById<TextView>(R.id.client_generated_invoice_facility_email)
         val tvInvoiceText = builder.findViewById<TextView>(R.id.client_generated_invoice_text)
-        val tvInvoiceBankName = builder.findViewById<TextView>(R.id.client_generated_invoice_payment_bank_name)
-        val tvInvoiceAccountIban = builder.findViewById<TextView>(R.id.client_generated_invoice_payment_account_iban)
-        val tvInvoiceAccountHolder = builder.findViewById<TextView>(R.id.client_generated_invoice_payment_account_holder)
+        val tvInvoiceDate =
+            builder.findViewById<TextView>(R.id.client_generated_invoice_date_created)
+        val tvInvoiceTime =
+            builder.findViewById<TextView>(R.id.client_generated_invoice_time_created)
 
-        val btnProvidePayment = builder.findViewById<Button>(R.id.client_generated_invoice_payment_button)
+        val btnProvidePayment =
+            builder.findViewById<Button>(R.id.client_generated_invoice_payment_button)
 
-
-        tvFacilityName.text = servingFacility.organisationName
-        tvFacilityPhone.text = servingFacility.organisationPhoneNumber
-        tvFacilityEmail.text = servingFacility.organisationEmail
-        tvClientName.text = "${requestingClient.customerFirstName} ${requestingClient.customerLastName}"
-        tvInvoiceId.text = scheduledService.specificServiceId
-        tvServicePrice.text = "Service Price: $${scheduledService.specificServicePrice}"
-
-        val servicePrice = scheduledService.specificServicePrice
-//        val serviceDiscountedPrice = scheduledService.specificServiceDiscountedPrice
-
-//        tvServiceDiscountedPrice.text = "Service Discount: ${scheduledService.specificServiceDiscountedPrice}%"
-//        tvServiceSubTotal.text = "Subtotal: $${servicePrice.toDouble() - (servicePrice.toDouble() * (serviceDiscountedPrice.toDouble()/100))}"
+        val organisation = getOrganisation(model.organisationID)!!
+        val customer = getCustomer(model.customerID)!!
+        val invoice = getInvoice(model.invoiceID)!!
 
 
-//        tvServiceTotal.text = "Total: $${servicePrice.toDouble() - (servicePrice.toDouble() * (serviceDiscountedPrice.toDouble()/100))}"
-
-//        tvInvoiceText.text = "Dear Customer,\n\nYour request has been ${model.status}. Please provide payment for your request, in order to start your treatment to:\n\nBank Name: ${model.invoiceBankName}\n\nAccount IBAN: ${model.invoiceAccountIBAN}\n\nAccount Holder: ${model.invoiceAccountName}"
-
+        tvFacilityName.text = resources.getString(
+            R.string.facility_generate_request_invoice_company_name,
+            organisation.organisationName
+        )
+        tvFacilityPhone.text = resources.getString(
+            R.string.facility_generate_request_invoice_company_contact_number,
+            organisation.organisationPhoneNumber
+        )
+        tvFacilityAddress.text = resources.getString(
+            R.string.facility_generate_request_invoice_company_physical_address,
+            organisation.organisationPhysicalAddress
+        )
+        tvFacilityEmail.text = resources.getString(
+            R.string.facility_generate_request_invoice_company_email,
+            organisation.organisationEmail
+        )
+        tvInvoiceText.text = model.invoiceText
+        tvInvoiceDate.text =
+            resources.getString(R.string.client_generated_invoice_date_created, model.dateCreated)
+        tvInvoiceTime.text =
+            resources.getString(R.string.client_generated_invoice_time_created, model.timeCreated)
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(builder)
@@ -188,15 +218,130 @@ class InvoicePayment : Fragment() {
         dialog.show()
 
         btnProvidePayment.setOnClickListener {
-            dialog.dismiss()
-            clientTabLayout?.getTabAt(1)?.select()
+            val currentTime = getDate(System.currentTimeMillis(), "hh:mm a")
+            val currentDate = getDate(System.currentTimeMillis(), "dd-MM-yyyy")
+
+            val invoicePaymentData = InvoicePaymentData(
+                paymentID = System.currentTimeMillis().toString(),
+                invoiceID = model.invoiceID,
+                notificationID = model.notificationID,
+                customerRequestFormID = model.customerRequestFormID,
+                customerID = model.customerID,
+                customerDigitalWalletID = customer.wallet,
+                organisationID = model.organisationID,
+                organisationProfileServiceID = model.organisationProfileServiceID,
+                typeOfServiceID = model.typeOfServiceID,
+                typeOfServiceSpecialistID = model.typeOfServiceSpecialistID,
+                paymentAmount = model.invoiceAmount,
+                paymentBankIBAN = model.bankAccountIBAN,
+                paymentBankName = model.bankName,
+                paymentBankAccountHolderName = model.bankAccountHolderName,
+                paymentDate = currentDate,
+                paymentTime = currentTime,
+            )
+            launchPaymentDialog(invoicePaymentData, dialog)
         }
 
 
     }
 
+    private fun launchPaymentDialog(
+        invoicePaymentData: InvoicePaymentData,
+        transferredDialog: AlertDialog
+    ) {
+
+        val builder =
+            layoutInflater.inflate(R.layout.client_custom_make_payment_layout_dialog, null)
+
+        val tvCustomerWalletBalance =
+            builder.findViewById<TextView>(R.id.client_make_payment_wallet_balance)
+        val tvMakePaymentText = builder.findViewById<TextView>(R.id.client_make_payment_text)
+        val btnProceedPayment = builder.findViewById<Button>(R.id.btn_client_make_payment)
+        val btnCancelPayment = builder.findViewById<Button>(R.id.btn_client_cancel_payment)
+
+        val customer = getCustomer(invoicePaymentData.customerID)!!
+        val wallet = getWallet(customer.wallet)!!
+        val service = getService(invoicePaymentData.organisationProfileServiceID)!!
+        tvCustomerWalletBalance.text =
+            resources.getString(R.string.client_make_payment_wallet_balance, wallet.walletBalance)
+        tvMakePaymentText.text = resources.getString(
+            R.string.client_make_payment_text,
+            invoicePaymentData.paymentAmount,
+            service.serviceName
+        )
+
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(builder)
+            .setCancelable(false)
+            .create()
+
+        btnCancelPayment.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnProceedPayment.setOnClickListener {
+            if (wallet.walletBalance.toDouble() < invoicePaymentData.paymentAmount.toDouble()) {
+                requireContext().toast(resources.getString(R.string.insufficent_balance))
+            } else {
+                requireContext().showProgress()
+                CoroutineScope(Dispatchers.IO).launch {
+
+                    invoicePaymentCollectionRef.document(invoicePaymentData.paymentID)
+                        .set(invoicePaymentData).addOnSuccessListener {
+                            appointmentsCollectionRef.document(invoicePaymentData.customerRequestFormID)
+                                .update("requestFormStatus", "paid").addOnSuccessListener {
+                                    val newWalletBalance =
+                                        wallet.walletBalance.toDouble() - invoicePaymentData.paymentAmount.toDouble()
+                                    walletCollectionRef.document(customer.wallet)
+                                        .update("walletBalance", newWalletBalance.toString())
+                                        .addOnSuccessListener {
+                                            val walletHistory = WalletHistory(
+                                                transactionDate = getDate(
+                                                    System.currentTimeMillis(),
+                                                    DATE_FORMAT_LONG
+                                                ),
+                                                transactionReason = "Payment for ${service.serviceName}",
+                                                transactionType = "Dr",
+                                                transactionAmount = resources.getString(
+                                                    R.string.money_text,
+                                                    invoicePaymentData.paymentAmount
+                                                )
+                                            )
+                                            walletCollectionRef.document(customer.wallet)
+                                                .collection(
+                                                    WALLET_HISTORY_REF
+                                                ).document(System.currentTimeMillis().toString())
+                                                .set(walletHistory)
+                                                .addOnSuccessListener {
+                                                    hideProgress()
+                                                    requireContext().toast("payment made successfully")
+                                                    dialog.dismiss()
+                                                }.addOnFailureListener { e ->
+                                                    hideProgress()
+                                                    requireContext().toast(e.message.toString())
+                                                }
+                                        }.addOnFailureListener { e ->
+                                            hideProgress()
+                                            requireContext().toast(e.message.toString())
+                                        }
+                                }
+                        }.addOnFailureListener { e ->
+                            hideProgress()
+                            requireContext().toast(e.message.toString())
+                        }
+                }
+            }
+        }
+
+        dialog.show()
+        transferredDialog.dismiss()
+
+    }
+
     private fun getClientDetails(clientId: String, clientName: TextView) = CoroutineScope(
-        Dispatchers.IO).launch {
+        Dispatchers.IO
+    ).launch {
         Common.clientCollectionRef
             .get()
             .addOnSuccessListener { querySnapshot: QuerySnapshot ->
@@ -207,9 +352,11 @@ class InvoicePayment : Fragment() {
                         requestingClient = item
                     }
                 }
-                clientName.text = "${requestingClient.customerFirstName}, ${requestingClient.customerLastName}"
+                clientName.text =
+                    "${requestingClient.customerFirstName}, ${requestingClient.customerLastName}"
             }
     }
+
     private fun getFacilityDetails(
         facilityId: String
     ) = CoroutineScope(Dispatchers.IO).launch {
@@ -229,8 +376,10 @@ class InvoicePayment : Fragment() {
 //                tvFacilityPhone.text = servingFacility.facilityPhoneNumber
             }
     }
+
     private fun getServiceDetails(facilityId: String, serviceId: String) = CoroutineScope(
-        Dispatchers.IO).launch {
+        Dispatchers.IO
+    ).launch {
         Common.servicesCollectionRef
             .get()
             .addOnSuccessListener { querySnapshot: QuerySnapshot ->
@@ -243,6 +392,147 @@ class InvoicePayment : Fragment() {
                 }
             }
     }
+
+    private fun getOrganisation(organisationId: String): Facility? {
+        requireContext().showProgress()
+        val deferred = CoroutineScope(Dispatchers.IO).async {
+            try {
+                val snapshot = Common.facilityCollectionRef.document(organisationId).get().await()
+                if (snapshot.exists()) {
+                    return@async snapshot.toObject(Facility::class.java)
+                } else {
+                    return@async null
+                }
+            } catch (e: Exception) {
+                Handler(Looper.getMainLooper()).post {
+                    requireContext().toast(e.message.toString())
+                }
+                return@async null
+            }
+        }
+
+        val organisation = runBlocking { deferred.await() }
+        hideProgress()
+        Log.d(TAG, "getOrganisation: $organisationId")
+        Log.d(TAG, "getOrganisation: $organisation")
+        Log.d(TAG, "getOrganisation: ${organisation!!.organisationName}")
+
+
+        return organisation
+    }
+
+    private fun getCustomer(customerId: String): Client? {
+        requireContext().showProgress()
+        val deferred = CoroutineScope(Dispatchers.IO).async {
+            try {
+                val snapshot = Common.clientCollectionRef.document(customerId).get().await()
+                if (snapshot.exists()) {
+                    return@async snapshot.toObject(Client::class.java)
+                } else {
+                    return@async null
+                }
+            } catch (e: Exception) {
+                Handler(Looper.getMainLooper()).post {
+                    requireContext().toast(e.message.toString())
+                }
+                return@async null
+            }
+        }
+
+        val organisation = runBlocking { deferred.await() }
+        hideProgress()
+        Log.d(TAG, "getOrganisation: $customerId")
+        Log.d(TAG, "getOrganisation: $organisation")
+
+        return organisation
+    }
+
+    private fun getService(serviceId: String): Service? {
+        requireContext().showProgress()
+        val deferred = CoroutineScope(Dispatchers.IO).async {
+            try {
+                val snapshot = Common.servicesCollectionRef.document(serviceId).get().await()
+                if (snapshot.exists()) {
+                    return@async snapshot.toObject(Service::class.java)
+                } else {
+                    return@async null
+                }
+            } catch (e: Exception) {
+                Handler(Looper.getMainLooper()).post {
+                    requireContext().toast(e.message.toString())
+                }
+                return@async null
+            }
+        }
+
+        val service = runBlocking { deferred.await() }
+        hideProgress()
+
+        return service
+    }
+
+    private fun getWallet(walletId: String): WalletData? {
+        requireContext().showProgress()
+        val deferred = CoroutineScope(Dispatchers.IO).async {
+            try {
+                val snapshot = Common.walletCollectionRef.document(walletId).get().await()
+                if (snapshot.exists()) {
+                    return@async snapshot.toObject(WalletData::class.java)
+                } else {
+                    return@async null
+                }
+            } catch (e: Exception) {
+                Handler(Looper.getMainLooper()).post {
+                    requireContext().toast(e.message.toString())
+                }
+                return@async null
+            }
+        }
+
+        val wallet = runBlocking { deferred.await() }
+        hideProgress()
+
+        return wallet
+    }
+
+    private fun getInvoice(invoiceId: String): AcceptedRequestInvoice? {
+        requireContext().showProgress()
+        val deferred = CoroutineScope(Dispatchers.IO).async {
+            try {
+                val snapshot =
+                    Common.acceptedRequestInvoiceCollectionRef.document(invoiceId).get().await()
+                if (snapshot.exists()) {
+                    return@async snapshot.toObject(AcceptedRequestInvoice::class.java)
+                } else {
+                    return@async null
+                }
+            } catch (e: Exception) {
+                Handler(Looper.getMainLooper()).post {
+                    requireContext().toast(e.message.toString())
+                }
+                return@async null
+            }
+        }
+
+        val invoice = runBlocking { deferred.await() }
+        com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress()
+
+        return invoice
+    }
+
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        if (context is NavigationMenuListener) {
+//            navigationMenuListener = context
+//        } else {
+//            throw RuntimeException("$context must implement NavigationListener")
+//        }
+//    }
+//
+//    override fun onDetach() {
+//        super.onDetach()
+//        navigationMenuListener = null
+//    }
 
 
     override fun onDestroyView() {

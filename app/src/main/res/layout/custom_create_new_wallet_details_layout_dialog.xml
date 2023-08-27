@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_mini"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_create_wallet_card_number"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_mini"
+        android:layout_marginEnd="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:hint="@string/create_wallet_card_number"
+        android:textColorHint="@color/custom_client_accent_color">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/create_wallet_card_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/create_wallet_card_number"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:labelFor="@id/create_wallet_card_number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_create_wallet_card_expiry_month"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_marginStart="@dimen/padding_mini"
+            android:layout_marginEnd="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            android:hint="@string/create_wallet_card_expiry_month"
+            android:textColorHint="@color/custom_client_accent_color">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_wallet_card_expiry_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/create_wallet_card_expiry_month"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:labelFor="@id/create_wallet_card_expiry_month" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_create_wallet_card_expiry_year"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_marginStart="@dimen/padding_mini"
+            android:layout_marginEnd="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            android:hint="@string/create_wallet_card_expiry_year"
+            android:textColorHint="@color/custom_client_accent_color">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_wallet_card_expiry_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/create_wallet_card_expiry_year"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:labelFor="@id/create_wallet_card_expiry_year" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_create_wallet_card_cvv"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="0.5"
+            android:layout_marginStart="@dimen/padding_mini"
+            android:layout_marginEnd="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            android:hint="@string/create_wallet_card_cvv"
+            android:textColorHint="@color/custom_client_accent_color">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_wallet_card_cvv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/create_wallet_card_cvv"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:labelFor="@id/create_wallet_card_cvv" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_create_wallet_card_holder_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_mini"
+        android:layout_marginEnd="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:hint="@string/create_wallet_card_holder_name"
+        android:textColorHint="@color/custom_client_accent_color">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/create_wallet_card_holder_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/create_wallet_card_holder_name"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:labelFor="@id/create_wallet_card_holder_name" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="@dimen/button_width_xxl"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_mini"
+        android:layout_gravity="center_horizontal"
+        app:cornerRadius="@dimen/margin_mini"
+        android:text="@string/create_digital_wallet"
+        android:id="@+id/btn_create_wallet_card"/>
+</LinearLayout>

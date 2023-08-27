@@ -9,15 +9,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:padding="@dimen/padding_mini"
-        android:text="View Invoice Notification" />
+        android:id="@+id/client_view_notification_list_title"
+        android:text="View Invoice Notification"
+        android:layout_centerHorizontal="true"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_mini"
+        android:layout_below="@+id/client_view_notification_list_title"
         android:id="@+id/rv_client_invoice_notification"
         tools:listitem="@layout/client_custom_invoice_notification_layout"
         tools:itemCount="7"/>

@@ -8,6 +8,7 @@
 
 package com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.base
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -24,12 +25,15 @@ class ClientLandingPagerAdapter (//var context: FragmentActivity?,
                                  fm: FragmentManager,
                                  //var totalTabs: Int
 ) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+
+    private val TAG = "ClientLandingPagerAdapter"
     override fun getCount(): Int {
         return 5
     }
 
     //when each tab is selected, define the fragment to be implemented
     override fun getItem(position: Int): Fragment {
+        Log.d(TAG, "getItem: $position")
         return when (position) {
             0 -> {
                 MapsFragment()

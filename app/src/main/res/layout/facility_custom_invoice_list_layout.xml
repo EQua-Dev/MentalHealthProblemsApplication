@@ -39,7 +39,7 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="@string/btn_facility_view_request"
+            android:text="@string/btn_facility_view_request"
             android:textStyle="italic"
             app:cornerRadius="@dimen/margin_mini"
             android:id="@+id/btn_facility_view_request"

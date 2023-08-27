@@ -123,7 +123,7 @@
     <string name="rating_feedback_prompt">Enter your feedback</string>
     <string name="feedback_submit">Send</string>
     <string name="rating_title">Give Your Feedback</string>
-    <string name="client_notification_view_btn">View Details</string>
+    <string name="client_notification_view_btn">View</string>
     <string name="client_notification_rate_btn">Rate Service</string>
     <string name="client_rating_feedback_text">Type your feedback</string>
     <string name="ignore">Ignore Text</string>
@@ -172,7 +172,7 @@
     <string name="requesting_date_created">Date created: %s</string>
     <string name="requesting_time_created">Time created: %s</string>
     <string name="facility_generate_request_invoice_company_name">Company name: %s</string>
-    <string name="facility_generate_request_invoice_company_physical_address">Physical address: %s</string>
+    <string name="facility_generate_request_invoice_company_physical_address">Company Physical address: %s</string>
     <string name="facility_generate_request_invoice_company_contact_number">Contact number: %s</string>
     <string name="facility_generate_request_invoice_company_email">Company email address: %s</string>
     <string name="facility_generate_request_invoice_customer_name">Customer name: %s %s</string>
@@ -185,6 +185,24 @@
     <string name="notification_text">Dear %s,\n\nYour request for %s has been: %s\n\nDate created: %s\nTime created: %s</string>
     <string name="facility_new_record_cancel_btn">Cancel</string>
     <string name="invoice_text">Dear %s,\n\nYour request for %s has been %s.\nPlease, provide required payment for the requested service to Bank name (%s), Account IBAN (%s), Account holder name (%s) in order to avail the service.\n\nDate created: %s\nTime created: %s</string>
+    <string name="client_view_notification_title">View Notification</string>
+    <string name="txt_client_booking_response_detail_time_created">Notification time: %s</string>
+    <string name="txt_client_booking_response_detail_date_created">Notification date: %s</string>
+    <string name="client_generated_invoice_date_created">Invoice Date: %s</string>
+    <string name="client_generated_invoice_time_created">Invoice Time: %s</string>
+    <string name="client_make_payment_wallet_balance">Wallet Balance: €%s</string>
+    <string name="client_make_payment_text">You are about to pay the sum of €%s for service: %s\n\nProceed?</string>
+    <string name="insufficent_balance">Insufficient balance\n\nFund wallet to make payment</string>
+    <string name="create_wallet_card_number">Card Number</string>
+    <string name="create_wallet_card_expiry_month">MM</string>
+    <string name="create_wallet_card_expiry_year">YY</string>
+    <string name="create_wallet_card_cvv">CVV</string>
+    <string name="create_wallet_card_holder_name">Card Holder Name</string>
+    <string name="card_number_empty">Enter Card Number</string>
+    <string name="card_month_empty">Enter Card Expiry Name</string>
+    <string name="card_year_empty">Enter Card Expiry Year</string>
+    <string name="card_cvv_empty">Enter Card CVV</string>
+    <string name="card_holder_empty">Enter Card Holder Name</string>
 
     <string-array name="service_available_places_option">
         <item>Yes</item>

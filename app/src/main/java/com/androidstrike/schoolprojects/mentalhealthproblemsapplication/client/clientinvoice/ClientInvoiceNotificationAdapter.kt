@@ -1,4 +1,4 @@
-package com.androidstrike.trackit.client.clientinvoice
+package com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.clientinvoice
 
 import android.view.View
 import android.widget.TextView
@@ -11,7 +11,7 @@ class ClientInvoiceNotificationAdapter(itemView: View): RecyclerView.ViewHolder(
     var timeCreated: TextView
     var facilityName: TextView
     var serviceName: TextView
-    var invoicePaymentStatus: TextView
+    var invoice_payment_view_btn: TextView
 
 
     init {
@@ -19,7 +19,7 @@ class ClientInvoiceNotificationAdapter(itemView: View): RecyclerView.ViewHolder(
         timeCreated = itemView.findViewById(R.id.txt_client_invoice_time_generated)
         facilityName = itemView.findViewById(R.id.txt_client_invoice_facility_name)
         serviceName = itemView.findViewById(R.id.txt_client_invoice_service_type)
-        invoicePaymentStatus = itemView.findViewById(R.id.txt_client_invoice_generated_payment_status)
+        invoice_payment_view_btn = itemView.findViewById(R.id.btn_client_invoice_generated_payment_status)
 
 
     }

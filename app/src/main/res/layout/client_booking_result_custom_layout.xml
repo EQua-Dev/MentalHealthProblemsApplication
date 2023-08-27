@@ -35,80 +35,60 @@
             android:layout_height="20dp"
             android:layout_below="@id/txt_client_booking_response_time_created"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="@dimen/margin_midi"
-            android:layout_marginTop="@dimen/margin_midi"
-            android:layout_marginEnd="@dimen/margin_midi"
-            android:layout_marginBottom="@dimen/margin_midi"
+            android:layout_margin="@dimen/margin_mini"
             app:cardCornerRadius="10dp"
             tools:backgroundTint="@color/black" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="New Rehab"
-            android:id="@+id/txt_client_booking_result_facility_name"
+            tools:text="New Service"
+            android:id="@+id/txt_client_booking_result_service_name"
             android:layout_below="@id/txt_client_booking_response_date_created"
             android:padding="@dimen/padding_mini"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="rehab@gmail.com"
-            android:id="@+id/txt_client_booking_result_facility_email"
-            android:layout_below="@id/txt_client_booking_result_facility_name"
+            tools:text="New Rehab"
+            android:id="@+id/txt_client_booking_result_facility_name"
+            android:layout_below="@id/txt_client_booking_result_service_name"
             android:padding="@dimen/padding_mini"/>
 
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:weightSum="2"-->
+<!--            android:padding="@dimen/padding_mini"-->
+<!--            android:layout_below="@+id/txt_client_booking_result_facility_name"-->
+<!--            android:layout_margin="@dimen/padding_mini">-->
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/client_notification_view_details_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="@tools:sample/us_phones"
-            android:layout_below="@id/txt_client_booking_result_facility_email"
-            android:id="@+id/txt_client_booking_result_facility_phone"
-            android:padding="@dimen/padding_mini"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="@tools:sample/lorem/random"
-            tools:lines="3"
-            android:layout_below="@id/txt_client_booking_result_facility_phone"
-            android:justificationMode="inter_word"
-            android:id="@+id/txt_client_booking_result_description"
-            android:padding="@dimen/padding_mini"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/txt_client_booking_result_facility_name"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/padding_midi"
             android:padding="@dimen/padding_mini"
-            android:layout_below="@+id/txt_client_booking_result_description"
-            android:layout_margin="@dimen/padding_mini">
+            android:text="@string/client_notification_view_btn"
+            app:backgroundTint="@color/custom_client_accent_color"
+            app:cornerRadius="@dimen/margin_mini" />
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/client_notification_view_btn"
-                android:id="@+id/client_notification_view_details_btn"
-                android:padding="@dimen/padding_mini"
-                android:layout_margin="@dimen/padding_mini"
-                app:backgroundTint="@color/custom_facility_accent_color"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/client_notification_rate_btn"
-                android:id="@+id/client_notification_rate_service_btn"
-                android:padding="@dimen/padding_mini"
-                android:layout_margin="@dimen/padding_mini"
-                app:backgroundTint="@color/custom_client_accent_color"/>
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="@string/client_notification_rate_btn"-->
+<!--                android:id="@+id/client_notification_rate_service_btn"-->
+<!--                android:padding="@dimen/padding_mini"-->
+<!--                android:layout_margin="@dimen/padding_mini"-->
+<!--                app:backgroundTint="@color/custom_client_accent_color"/>-->
 
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
     </RelativeLayout>
 
