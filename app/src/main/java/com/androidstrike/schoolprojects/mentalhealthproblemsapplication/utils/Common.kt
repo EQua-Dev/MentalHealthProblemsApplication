@@ -15,7 +15,7 @@ object Common {
     val IRISH_CODE = "+353"
     var facilityName = "Facility"
     var clientName = "Client"
-    private const val SERVICES = "Mental Health organisation’s Service Profile"
+    private const val SERVICES = "Mental Health Organisation’s Service Profile"
     private const val SERVICE_TYPE = "Type of Service"
     const val SPECIALISTS = "Service Type Specialist"
     const val SPECIFIC_SERVICE = "Specific Service"
@@ -25,6 +25,7 @@ object Common {
     private const val REQUEST_RESPONSE_NOTIFICATION_REF = "Notification of Customer's Service Request Form Acceptance or Rejection"
     private const val ACCEPTED_REQUEST_PAYMENT_INVOICE_REF = "Invoice for Payment of Accepted Customer's Service Request"
     private const val CUSTOMER_INVOICE_PAYMENT_REF = "Payment for Invoice of Accepted Customer's Service Request"
+    private const val CUSTOMER_FEEDBACK_AND_RATING_REF = "Customer's Feedback and Ratings"
     private const val WALLET_REF = "Customer Digital Wallets"
     const val WALLET_HISTORY_REF = "Wallet History"
 
@@ -36,10 +37,6 @@ object Common {
     const val DATE_FORMAT_LONG = "EEE, dd MMM, yyyy | hh:mm a"
 
 
-
-    var serviceToRate = ""
-
-    //lateinit var mAuth: FirebaseAuth// = FirebaseAuth.getInstance()
     val auth = FirebaseAuth.getInstance()
     val clientCollectionRef = Firebase.firestore.collection(CUSTOMER_REF)
     val facilityCollectionRef = Firebase.firestore.collection(FACILITY_REF)
@@ -51,16 +48,7 @@ object Common {
     val acceptedRequestInvoiceCollectionRef = Firebase.firestore.collection(ACCEPTED_REQUEST_PAYMENT_INVOICE_REF)
     val invoicePaymentCollectionRef = Firebase.firestore.collection(CUSTOMER_INVOICE_PAYMENT_REF)
     val walletCollectionRef = Firebase.firestore.collection(WALLET_REF)
-    val feedbackCollectionRef = Firebase.firestore.collection("Feedbacks")
-
-    fun convertTimeStampToDate(time: Long): Date {
-        return Date(Timestamp(time).time)
-    }
-
-    fun getDateFormatted(date: Date): String? {
-        return SimpleDateFormat("dd-MM-yyyy HH:mm").format(date).toString()
-    }
-
+    val feedbackCollectionRef = Firebase.firestore.collection(CUSTOMER_FEEDBACK_AND_RATING_REF)
 
 
 }

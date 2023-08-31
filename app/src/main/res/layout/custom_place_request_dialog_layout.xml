@@ -14,12 +14,12 @@
         android:id="@+id/tv_service_type"
         android:padding="@dimen/padding_mini"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="@string/service_specialist_name"
-        android:id="@+id/tv_service_specialist_name"
-        android:padding="@dimen/padding_mini"/>
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        tools:text="@string/service_specialist_name"-->
+<!--        android:id="@+id/tv_service_specialist_name"-->
+<!--        android:padding="@dimen/padding_mini"/>-->
 
     <TextView
         android:layout_width="match_parent"
@@ -95,6 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="@dimen/margin_mini"
+        android:backgroundTint="@color/custom_client_accent_color"
         android:padding="@dimen/padding_mini"
         android:text="@string/submit_request"
         android:id="@+id/submit_request"

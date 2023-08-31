@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.clientdigitalwallet.DigitalWallet
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.clientinvoice.InvoicePayment
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.clientnotification.ClientNotification
-import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.landing.FeedbackRating
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.clientfeedback.FeedbackRating
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.landing.MapsFragment
 
 /**

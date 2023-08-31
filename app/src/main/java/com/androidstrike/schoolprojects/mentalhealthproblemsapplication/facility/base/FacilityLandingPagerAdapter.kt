@@ -12,11 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.landing.FeedbackRating
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.clientfeedback.FeedbackRating
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.facility.facilitynotification.FacilityNotification
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.facility.facilityservicespecialist.FacilityAddServiceSpecialist
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.facility.facilityprofile.FacilityProfile
-import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.facility.facilitycustomerrequests.FacilityRequestsScreen
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.facility.facilityrating.FacilityRating
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.facility.facilityservice.FacilityAddService
 
 /**
@@ -46,7 +46,7 @@ class FacilityLandingPagerAdapter (var context: FragmentActivity?,
                 FacilityNotification()
             }
             4 -> {
-                FeedbackRating()
+                FacilityRating()
             }
             else -> getItem(position)
         }

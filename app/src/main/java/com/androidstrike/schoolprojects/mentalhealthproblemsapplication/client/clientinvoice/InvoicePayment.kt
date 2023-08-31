@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.R
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.databinding.FragmentInvoicePaymentBinding
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.AcceptedRequestInvoice
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.BookService
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Client
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Facility
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.InvoicePaymentData
@@ -34,6 +35,7 @@ import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.ge
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.showProgress
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.toast
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.visible
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -217,30 +219,46 @@ class InvoicePayment : Fragment() {
 
         dialog.show()
 
-        btnProvidePayment.setOnClickListener {
-            val currentTime = getDate(System.currentTimeMillis(), "hh:mm a")
-            val currentDate = getDate(System.currentTimeMillis(), "dd-MM-yyyy")
 
-            val invoicePaymentData = InvoicePaymentData(
-                paymentID = System.currentTimeMillis().toString(),
-                invoiceID = model.invoiceID,
-                notificationID = model.notificationID,
-                customerRequestFormID = model.customerRequestFormID,
-                customerID = model.customerID,
-                customerDigitalWalletID = customer.wallet,
-                organisationID = model.organisationID,
-                organisationProfileServiceID = model.organisationProfileServiceID,
-                typeOfServiceID = model.typeOfServiceID,
-                typeOfServiceSpecialistID = model.typeOfServiceSpecialistID,
-                paymentAmount = model.invoiceAmount,
-                paymentBankIBAN = model.bankAccountIBAN,
-                paymentBankName = model.bankName,
-                paymentBankAccountHolderName = model.bankAccountHolderName,
-                paymentDate = currentDate,
-                paymentTime = currentTime,
-            )
-            launchPaymentDialog(invoicePaymentData, dialog)
+        val requestForm = getRequestForm(model.customerRequestFormID)!!
+
+        btnProvidePayment.apply {
+            if (requestForm.requestFormStatus != "paid"){
+                text = resources.getString(R.string.client_generated_invoice_payment_button)
+                setOnClickListener {
+                    val currentTime = getDate(System.currentTimeMillis(), "hh:mm a")
+                    val currentDate = getDate(System.currentTimeMillis(), "dd-MM-yyyy")
+
+                    val invoicePaymentData = InvoicePaymentData(
+                        paymentID = System.currentTimeMillis().toString(),
+                        invoiceID = model.invoiceID,
+                        notificationID = model.notificationID,
+                        customerRequestFormID = model.customerRequestFormID,
+                        customerID = model.customerID,
+                        customerDigitalWalletID = customer.wallet,
+                        organisationID = model.organisationID,
+                        organisationProfileServiceID = model.organisationProfileServiceID,
+                        typeOfServiceID = model.typeOfServiceID,
+                        typeOfServiceSpecialistID = model.typeOfServiceSpecialistID,
+                        paymentAmount = model.invoiceAmount,
+                        paymentBankIBAN = model.bankAccountIBAN,
+                        paymentBankName = model.bankName,
+                        paymentBankAccountHolderName = model.bankAccountHolderName,
+                        paymentDate = currentDate,
+                        paymentTime = currentTime,
+                    )
+                    launchPaymentDialog(invoicePaymentData, dialog)
+                }
+            }else{
+                text = resources.getString(R.string.btn_client_booking_response_detail_okay)
+                setOnClickListener {
+                    dialog.dismiss()
+                }
+            }
         }
+
+
+
 
 
     }
@@ -279,7 +297,6 @@ class InvoicePayment : Fragment() {
         btnCancelPayment.setOnClickListener {
             dialog.dismiss()
         }
-
         btnProceedPayment.setOnClickListener {
             if (wallet.walletBalance.toDouble() < invoicePaymentData.paymentAmount.toDouble()) {
                 requireContext().toast(resources.getString(R.string.insufficent_balance))
@@ -493,6 +510,30 @@ class InvoicePayment : Fragment() {
         hideProgress()
 
         return wallet
+    }
+
+    private fun getRequestForm(requestFormId: String): BookService? {
+        requireContext().showProgress()
+        val deferred = CoroutineScope(Dispatchers.IO).async {
+            try {
+                val snapshot = Common.appointmentsCollectionRef.document(requestFormId).get().await()
+                if (snapshot.exists()) {
+                    return@async snapshot.toObject(BookService::class.java)
+                } else {
+                    return@async null
+                }
+            } catch (e: Exception) {
+                Handler(Looper.getMainLooper()).post {
+                    requireContext().toast(e.message.toString())
+                }
+                return@async null
+            }
+        }
+
+        val requestForm = runBlocking { deferred.await() }
+        hideProgress()
+
+        return requestForm
     }
 
     private fun getInvoice(invoiceId: String): AcceptedRequestInvoice? {

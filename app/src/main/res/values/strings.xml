@@ -203,6 +203,11 @@
     <string name="card_year_empty">Enter Card Expiry Year</string>
     <string name="card_cvv_empty">Enter Card CVV</string>
     <string name="card_holder_empty">Enter Card Holder Name</string>
+    <string name="wallet_add_funds_text">Fund</string>
+    <string name="wallet_history_title">Transaction History</string>
+    <string name="wallet_balance_text">Wallet Balance</string>
+    <string name="client_rating_title">View List of Notification of Accepted Request and Provide Feedback and Ratings</string>
+    <string name="facility_rating_title">View Rated Services</string>
 
     <string-array name="service_available_places_option">
         <item>Yes</item>

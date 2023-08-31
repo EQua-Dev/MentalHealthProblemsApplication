@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/facility_new_record_account_iban"
                 android:importantForAutofill="no"
-                android:inputType="number"
+                android:inputType="text"
                 android:layout_margin="@dimen/padding_mini"
                 android:padding="@dimen/padding_maxi"
                 android:labelFor="@id/facility_new_record_account_iban" />

@@ -12,7 +12,65 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/margin_midi"
         android:textSize="@dimen/text_l"
+        android:id="@+id/txt_wallet_title"
         android:text="@string/wallet_placeholder" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/wallet_layout"
+        android:layout_below="@+id/txt_wallet_title"
+        tools:visibility="visible"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/wallet_balance_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_xs"
+            android:layout_marginStart="@dimen/margin_midi"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/wallet_balance_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wallet_balance_title"
+            android:id="@+id/wallet_balance"
+            android:layout_marginStart="@dimen/margin_midi"
+            android:textSize="@dimen/text_xl"
+            tools:text="€00.00" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wallet_balance_title"
+            android:id="@+id/fund_digital_wallet"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/margin_midi"
+            android:textSize="@dimen/text_xs"
+            android:textStyle="bold"
+            android:textColor="@color/custom_client_accent_color"
+            android:text="@string/wallet_add_funds_text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wallet_history_title"
+            android:layout_below="@id/wallet_balance"
+            android:id="@+id/wallet_history_title"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/margin_mini"
+            android:padding="@dimen/padding_mini"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wallet_history_title"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            tools:listitem="@layout/item_wallet_history_layout"
+            android:id="@+id/rv_wallet_history"/>
+
+    </RelativeLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/create_digital_wallet"
@@ -20,18 +78,19 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         app:cornerRadius="@dimen/margin_mini"
+        tools:visibility="gone"
         android:text="@string/create_digital_wallet"
         app:backgroundTint="@color/custom_client_accent_color" />
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="@dimen/button_width_xxl"
-        android:layout_height="wrap_content"
-        android:text="@string/fund_digital_wallet"
-        app:cornerRadius="@dimen/margin_mini"
-        app:backgroundTint="@color/custom_facility_accent_color"
-        android:layout_below="@id/create_digital_wallet"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/fund_digital_wallet"/>
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:layout_width="@dimen/button_width_xxl"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/fund_digital_wallet"-->
+<!--        app:cornerRadius="@dimen/margin_mini"-->
+<!--        app:backgroundTint="@color/custom_facility_accent_color"-->
+<!--        android:layout_below="@id/create_digital_wallet"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:id="@+id/fund_digital_wallet"/>-->
 
 
 </RelativeLayout>

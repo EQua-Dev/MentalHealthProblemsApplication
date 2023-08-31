@@ -3,6 +3,7 @@ package com.androidstrike.schoolprojects.mentalhealthproblemsapplication.facilit
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +12,17 @@ import androidx.fragment.app.Fragment
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.R
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.databinding.FragmentFacilityAddServiceBinding
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Service
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.ServiceType
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.auth
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.servicesTypeCollectionRef
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.showProgress
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.showProgressDialog
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.snackBar
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.toast
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,7 +46,11 @@ class FacilityAddService : Fragment() {
     lateinit var serviceSchedule: String
     lateinit var serviceID: String
 
+    private var serviceTypesList: MutableList<ServiceType> = mutableListOf()
+    private var serviceTypesNamesList: MutableList<String> = mutableListOf()
 
+
+    private  val TAG = "FacilityAddService"
     private val calendar = Calendar.getInstance()
 
     private var progressDialog: Dialog? = null
@@ -59,8 +69,12 @@ class FacilityAddService : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getServiceType()
+    }
+
+    private fun loadView(){
         with(binding) {
-            val newServiceCategoryArray = resources.getStringArray(R.array.provided_service)
+            val newServiceCategoryArray = serviceTypesNamesList
             val newServiceCategoryArrayAdapter =
                 ArrayAdapter(requireContext(), R.layout.drop_down_item, newServiceCategoryArray)
             facilityAddServiceCategory.setAdapter(newServiceCategoryArrayAdapter)
@@ -94,9 +108,13 @@ class FacilityAddService : Fragment() {
             }
 
             facilityAddServiceSubmitButton.setOnClickListener {
+                for (type in serviceTypesList)
+                    if (facilityAddServiceCategory.text.toString().trim() == type.serviceTypeName)
+                        serviceType = type.serviceTypeID
+
                 servicePrice = facilityAddServicePrice.text.toString().trim().ifEmpty { "0" }
                 serviceName = facilityAddServiceName.text.toString().trim()
-                serviceType = facilityAddServiceCategory.text.toString().trim()
+                //serviceType = facilityAddServiceCategory.text.toString().trim()
                 serviceDiscountedPrice = facilityAddServiceDiscountedPrice.text.toString().trim().ifEmpty { "0" }
                 serviceAvailablePlacesOption =
                     facilityAddServiceAvailablePlaces.text.toString().trim().ifEmpty { "No" }
@@ -123,8 +141,6 @@ class FacilityAddService : Fragment() {
 
 
         }
-
-
     }
 
     private fun validateInputs() {
@@ -171,7 +187,7 @@ class FacilityAddService : Fragment() {
     }
 
     private fun createService() {
-        showProgress()
+        requireContext().showProgress()
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val addService = Service(
@@ -211,6 +227,30 @@ class FacilityAddService : Fragment() {
         }
     }
 
+    private fun getServiceType() {
+        requireContext().showProgress()
+        CoroutineScope(Dispatchers.IO).launch {
+            servicesTypeCollectionRef.get().addOnSuccessListener { doc: QuerySnapshot ->
+                hideProgress()
+                if (doc.isEmpty) {
+                    requireContext().toast("No Service Types in Database")
+                } else {
+
+                    for (item in doc.documents) {
+                        val serviceType = item.toObject(ServiceType::class.java)
+                        serviceTypesList.add(serviceType!!)
+                        Log.d(TAG, "getServiceType: $serviceType")
+                    }
+                    for (serviceType in serviceTypesList)
+                        serviceTypesNamesList.add(serviceType.serviceTypeName)
+                }
+                loadView()
+
+            }
+        }
+    }
+
+
     private fun showDatePicker(view: View) {
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
@@ -231,15 +271,5 @@ class FacilityAddService : Fragment() {
 
         datePickerDialog.show()
     }
-
-    private fun showProgress() {
-        hideProgress()
-        progressDialog = requireActivity().showProgressDialog()
-    }
-
-    private fun hideProgress() {
-        progressDialog?.let { if (it.isShowing) it.cancel() }
-    }
-
 
 }

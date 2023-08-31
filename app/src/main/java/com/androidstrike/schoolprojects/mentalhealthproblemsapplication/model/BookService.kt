@@ -12,6 +12,7 @@ data class BookService(
     var timeCreated: String = "",
     val requestFormStatus: String = "pending",
     var requestedStartDate: String = "",
+    val isRated: Boolean = false
 //    val selectedAppointmentDescription: String = "",
 //    val selectedServiceType: String = "",
 //    val selectedSpecialistID: String = "",

@@ -392,8 +392,11 @@ class FacilityNotification : Fragment() {
 
 //        val servicePrice = scheduledService.servicePrice
 //        val serviceDiscountedPrice = scheduledService.serviceDiscountedPrice
-        val totalServicePrice =
-            service.servicePrice.toDouble() - service.serviceDiscountedPrice.toDouble()
+        val totalServicePrice = if (service.servicePrice.toDouble() < service.serviceDiscountedPrice.toDouble())
+            service.servicePrice.toDouble()
+        else
+            service.serviceDiscountedPrice.toDouble()
+            //service.servicePrice.toDouble() - service.serviceDiscountedPrice.toDouble()
         tvServiceTotal.text = resources.getString(
             R.string.facility_generate_request_invoice_service_total_price,
             totalServicePrice.toString()
@@ -673,7 +676,7 @@ class FacilityNotification : Fragment() {
         val service = runBlocking { deferred.await() }
         com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress()
 
-        Log.d(TAG, "getService: ${service!!.serviceName}")
+        //Log.d(TAG, "getService: ${service!!.serviceName}")
         return service
     }
 

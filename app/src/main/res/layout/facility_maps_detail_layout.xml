@@ -126,31 +126,31 @@
                 android:padding="@dimen/padding_maxi" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_select_specialist"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text_input_layout_select_service"
-            android:layout_margin="@dimen/padding_mini"
-            android:padding="@dimen/padding_mini">
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/text_input_layout_select_specialist"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/text_input_layout_select_service"-->
+<!--            android:layout_margin="@dimen/padding_mini"-->
+<!--            android:padding="@dimen/padding_mini">-->
 
-            <AutoCompleteTextView
-                android:id="@+id/auto_complete_select_specialist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/padding_mini"
-                android:drawablePadding="@dimen/padding_midi"
-                android:hint="@string/book_appointment_specialist"
-                android:padding="@dimen/padding_maxi" />
-        </com.google.android.material.textfield.TextInputLayout>
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/auto_complete_select_specialist"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="@dimen/padding_mini"-->
+<!--                android:drawablePadding="@dimen/padding_midi"-->
+<!--                android:hint="@string/book_appointment_specialist"-->
+<!--                android:padding="@dimen/padding_maxi" />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_select_specific_service"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/text_input_layout_select_specialist"
+            android:layout_below="@id/text_input_layout_select_service"
             android:layout_margin="@dimen/padding_mini"
             android:padding="@dimen/padding_mini">
 

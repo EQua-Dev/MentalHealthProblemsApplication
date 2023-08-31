@@ -1,4 +1,4 @@
-package com.androidstrike.trackit.client.clientdigitalwallet
+package com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.clientdigitalwallet
 
 import android.app.Dialog
 import android.os.Bundle
@@ -20,6 +20,7 @@ import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Co
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.auth
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.clientCollectionRef
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.walletCollectionRef
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.WalletBottomSheetListener
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.enable
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.getDate
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress
@@ -50,6 +51,9 @@ class FundWalletBottomSheet : BottomSheetDialogFragment() {
 
     val facilityServices: MutableList<Service> = mutableListOf()
     val facilityServicesNames: MutableList<String> = mutableListOf()
+
+    private var walletBottomSheetListener: WalletBottomSheetListener? = null
+
 
 
     private var progressDialog: Dialog? = null
@@ -92,6 +96,11 @@ class FundWalletBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
+    fun setListener(listener: WalletBottomSheetListener) {
+        walletBottomSheetListener = listener
+    }
+
+
     private fun fundWallet(fundAmount: String){
         val walletId = getUser(auth.uid!!)!!.wallet
             val newBalance =
@@ -130,14 +139,18 @@ class FundWalletBottomSheet : BottomSheetDialogFragment() {
                             walletHistoryReference.document(
                                 System.currentTimeMillis().toString()
                             ).set(walletTransaction).await()
-                            //fetchWalletDetails(walletId)
-
-                            dismiss()
+                            getWalletDetails()
 
                         }
 
                     }
             }
+
+    }
+
+    private fun getWalletDetails() {
+        walletBottomSheetListener?.refreshWalletDetails()
+        dismiss()
 
     }
 

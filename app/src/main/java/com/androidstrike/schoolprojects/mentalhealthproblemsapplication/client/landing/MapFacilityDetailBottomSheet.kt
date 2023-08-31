@@ -25,14 +25,14 @@ import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Bo
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Client
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Facility
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Service
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.ServiceType
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Specialists
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common
-import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.SPECIALISTS
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.auth
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.enable
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.getDate
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.showProgress
-import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.showProgressDialog
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.toast
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.visible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -63,7 +63,8 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
     private val calendar = Calendar.getInstance()
 
     private val facilityServices: MutableList<Service> = mutableListOf()
-    private val facilityServicesTypes: MutableList<String> = mutableListOf()
+    private val facilityServicesTypes: MutableList<ServiceType> = mutableListOf()
+    private val facilityServicesTypesNames: MutableList<String> = mutableListOf()
     private val facilitySpecificServices: MutableList<Service> = mutableListOf()
     private val facilitySpecificServicesNames: MutableList<String> = mutableListOf()
     private val facilitySpecialists: MutableList<Specialists> = mutableListOf()
@@ -89,12 +90,7 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
 
         facility = arguments?.getParcelable<Facility>(ARG_FACILITY_DATA)!!
 
-        if (facility != null) {
-
-            getFacilityServiceDetails(facility.organisationId)
-
-
-        }
+        getFacilityServiceDetails(facility.organisationId)
     }
 
     private fun loadView(){
@@ -114,8 +110,8 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
             requireView().findViewById<ImageView>(R.id.img_map_facility_email)
         val bottomSheetBookAppointmentServiceTextView =
             requireView().findViewById<AutoCompleteTextView>(R.id.auto_complete_select_service)
-        val bottomSheetBookAppointmentSpecialistsTextView =
-            requireView().findViewById<AutoCompleteTextView>(R.id.auto_complete_select_specialist)
+//        val bottomSheetBookAppointmentSpecialistsTextView =
+//            requireView().findViewById<AutoCompleteTextView>(R.id.auto_complete_select_specialist)
         val bottomSheetBookAppointmentSpecificServiceTextView =
             requireView().findViewById<AutoCompleteTextView>(R.id.auto_complete_select_specific_service)
 
@@ -137,7 +133,7 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
         Log.d("EQUA", "onViewCreated: $facilityServices")
 
         val servicesTypesArrayAdapter =
-            ArrayAdapter(requireContext(), R.layout.drop_down_item, facilityServicesTypes.distinct())
+            ArrayAdapter(requireContext(), R.layout.drop_down_item, facilityServicesTypesNames.distinct())
         bottomSheetBookAppointmentServiceTextView.setAdapter(servicesTypesArrayAdapter)
 
         bottomSheetBookAppointmentServiceTextView.setOnItemClickListener { _, _, position, _ ->
@@ -147,7 +143,7 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
             var serviceId = ""
 
             for (service in facilityServices)
-                if (selectedItem == service.serviceType)
+                if (selectedItem == getServiceType(service.serviceType)!!.serviceTypeName)
                     facilitySpecificServices.add(service)
 
             for (specificService in facilitySpecificServices)
@@ -157,9 +153,9 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
 
         }
 
-        val newRehabSpecialistsArrayAdapter =
-            ArrayAdapter(requireContext(), R.layout.drop_down_item, facilitySpecialistsNames)
-        bottomSheetBookAppointmentSpecialistsTextView.setAdapter(newRehabSpecialistsArrayAdapter)
+//        val newRehabSpecialistsArrayAdapter =
+//            ArrayAdapter(requireContext(), R.layout.drop_down_item, facilitySpecialistsNames)
+//        bottomSheetBookAppointmentSpecialistsTextView.setAdapter(newRehabSpecialistsArrayAdapter)
 
 
         val newRehabSpecificServicesArrayAdapter =
@@ -183,9 +179,9 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
             for (service in facilityServices)
                 if (bottomSheetBookAppointmentSpecificServiceTextView.text.toString() == service.serviceName)
                     selectedServiceId = service.serviceId
-            for (specialist in facilitySpecialists)
-                if (bottomSheetBookAppointmentSpecialistsTextView.text.toString() == specialist.name)
-                    selectedSpecialistId = specialist.id
+//            for (specialist in facilitySpecialists)
+//                if (bottomSheetBookAppointmentSpecialistsTextView.text.toString() == specialist.name)
+//                    selectedSpecialistId = specialist.id
             for (specificService in facilitySpecificServices)
                 if (bottomSheetBookAppointmentSpecificServiceTextView.text.toString() == specificService.serviceName) {
                     selectedSpecificServicePrice = specificService.servicePrice
@@ -198,12 +194,20 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
                         bottomSheetBookAppointmentSpecificServiceTextView.text.toString().trim()
 
                 }
+
+            var serviceType = ""
+
+            for (type in facilityServicesTypes)
+                if (bottomSheetBookAppointmentServiceTextView.text.toString().trim() == type.serviceTypeName)
+                    serviceType = type.serviceTypeID
+
+            //for (serviceType in facilityServicesTypes)
             val bookService = BookService(
                 requestFormId = System.currentTimeMillis().toString(),
                 customerID = auth.uid!!,
                 organisationID = facility.organisationId,
                 organisationProfileServiceID = selectedServiceId,
-                typeOfService = bottomSheetBookAppointmentServiceTextView.text.toString(),
+                typeOfService = serviceType,
                 typeOfServiceSpecialistID = selectedSpecialistId,
                 //selectedAppointmentSpecificServiceName = bottomSheetBookAppointmentSpecificServiceTextView.text.toString(),
 //                            selectedAppointmentDate = ,
@@ -258,8 +262,8 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
 
         val tvServiceType =
             builder.findViewById<TextView>(R.id.tv_service_type)
-        val tvServiceSpecialistName =
-            builder.findViewById<TextView>(R.id.tv_service_specialist_name)
+//        val tvServiceSpecialistName =
+//            builder.findViewById<TextView>(R.id.tv_service_specialist_name)
         val tvServiceName =
             builder.findViewById<TextView>(R.id.tv_service_name)
         val tvServiceDetails =
@@ -278,22 +282,22 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
             builder.findViewById<TextView>(R.id.submit_request)
 
 
-        var specialistName = ""
-        for (specialist in facilitySpecialists)
-            if (bookService.typeOfServiceSpecialistID == specialist.id)
-                specialistName = specialist.name //fetch the name from the get User function using the ID
+//        var specialistName = ""
+//        for (specialist in facilitySpecialists)
+//            if (bookService.typeOfServiceSpecialistID == specialist.id)
+//                specialistName = specialist.name //fetch the name from the get User function using the ID
 
         tvServiceType.text =
-            resources.getString(R.string.service_type, bookService.typeOfService)
-        tvServiceSpecialistName.text =
-            resources.getString(R.string.service_specialist_name, specialistName)
+            resources.getString(R.string.service_type, getServiceType(bookService.typeOfService)!!.serviceTypeName)
+//        tvServiceSpecialistName.text =
+//            resources.getString(R.string.service_specialist_name, specialistName)
         tvServiceName.text = resources.getString(
             R.string.service_name,
             selectedAppointmentServiceName
         )
         tvServiceDetails.text = resources.getString(
             R.string.service_details,
-            bookService.typeOfService,
+            getServiceType(bookService.typeOfService)!!.serviceTypeName,
             selectedAppointmentServiceName //fetch the service from a getService function using its ID
         )
         tvServicePrice.text =
@@ -331,7 +335,7 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
                 clientName,
                 clientPhoneNumber,
                 clientEmailAddress,
-                "${bookService.typeOfService} ($selectedAppointmentServiceName)",
+                "${getServiceType(bookService.typeOfService)!!.serviceTypeName} ($selectedAppointmentServiceName)",
                 //tvServiceDetails.text.toString(),
                 serviceStartDate,
                 dateCreated,
@@ -401,7 +405,7 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun bookAppointment(bookService: BookService, dialog: AlertDialog) {
-        showProgress()
+        requireContext().showProgress()
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 //val appointmentQuery = Common.facilityCollectionRef.whereEqualTo("facilityId", facility.facilityId).get().await()
@@ -421,99 +425,41 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun getFacilityServiceDetails(facilityId: String) {
-        showProgress()
+        requireContext().showProgress()
         CoroutineScope(Dispatchers.IO).launch {
-            Log.d("EQUA", "getFacilityServiceDetails: $facilityId")
-
             Common.servicesCollectionRef
                 .get()
                 .addOnSuccessListener { querySnapshot: QuerySnapshot ->
-
-                    for (document in querySnapshot.documents) {
-                        val item = document.toObject(Service::class.java)
-
-                        if (item != null && item.serviceOrganisationOwner == facilityId) {
-                            facilityServices.add(item)
-                        }
-                        Log.d("EQUA", "getFacilityServiceDetails: $facilityServices")
-
-                    }
-                    for (service in facilityServices) {
-                        facilityServicesTypes.add(service.serviceType)
-                    }
-                    Log.d("EQUA", "facilityServicesTypes: $facilityServicesTypes")
-                    loadView()
-                    getFacilitySpecialistsDetails(facilityId)
-
                     hideProgress()
+                    if (querySnapshot.isEmpty){
+                        requireContext().toast("No services in the database")
+                    }else{
+                        for (document in querySnapshot.documents) {
+                            val item = document.toObject(Service::class.java)
+
+                            if (item!!.serviceOrganisationOwner == facilityId) {
+                                facilityServices.add(item)
+                            }
+                        }
+                        for (service in facilityServices) {
+                            Log.d(
+                                TAG,
+                                "getFacilityServiceDetails: ${getServiceType(service.serviceType)!!}"
+                            )
+                            facilityServicesTypes.add(getServiceType(service.serviceType)!!)
+
+                        }
+                        for (serviceType in facilityServicesTypes)
+                            facilityServicesTypesNames.add(serviceType.serviceTypeName)
+                        loadView()
+                    }
+                    //getFacilitySpecialistsDetails(facilityId)
+
+                    //hideProgress()
                     //hideProgress()
                 }
         }
     }
-
-    private fun getFacilitySpecialistsDetails(facilityId: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            Log.d("EQUA", "getFacilitySpecialistDetails: $facilityId")
-
-            Common.serviceSpecialistCollectionRef
-                .get()
-                .addOnSuccessListener { querySnapshot: QuerySnapshot ->
-
-                    for (document in querySnapshot.documents) {
-                        val item = document.toObject(Specialists::class.java)
-
-                        if (item != null) {
-                            facilitySpecialists.add(item)
-                        }
-                        Log.d("EQUA", "getFacilitySpecialistDetails: $facilityServices")
-                        for (specialist in facilitySpecialists) {
-                            facilitySpecialistsNames.add(specialist.name)
-                        }
-
-                        Log.d("EQUA", "getFacilitySpecialistDetails: $facilityServices")
-
-                    }
-                    hideProgress()
-                }
-        }
-    }
-
-//    private fun getFacilitySpecificServiceDetails(facilityId: String, serviceId: String) {
-//        showProgress()
-//        CoroutineScope(Dispatchers.IO).launch {
-//            Log.d("EQUA", "getFacilitySpecificServiceDetails: $serviceId")
-//
-//            Common.facilityCollectionRef.document(facilityId).collection(SERVICES)
-//                .document(serviceId).collection(SPECIFIC_SERVICE)
-//                .get()
-//                .addOnSuccessListener { querySnapshot: QuerySnapshot ->
-//
-//                    for (document in querySnapshot.documents) {
-//                        val item = document.toObject(SpecificService::class.java)
-//
-//                        if (item != null) {
-//                            facilitySpecificServices.add(item)
-//                        }
-//                        Log.d(
-//                            "EQUA",
-//                            "getFacilitySpecificServiceDetails: $facilitySpecificServices"
-//                        )
-//
-//
-//                    }
-//                    for (specificService in facilitySpecificServices) {
-//                        facilitySpecificServicesNames.add(specificService.specificServiceName)
-//                        Log.d(
-//                            "EQUA",
-//                            "getFacilitySpecificServiceDetails: $facilitySpecificServicesNames"
-//                        )
-//                    }
-//                    Log.d("EQUA", "getFacilitySpecificServiceDetails: Here")
-//                    hideProgress()
-//
-//                }
-//        }
-//    }
 
     private fun getUser(userId: String): Client? {
 
@@ -539,16 +485,30 @@ class MapFacilityDetailBottomSheet : BottomSheetDialogFragment() {
 
         return client
     }
+    private fun getServiceType(serviceTypeId: String): ServiceType? {
 
-    private fun showProgress() {
+        requireContext().showProgress()
+        val deferred = CoroutineScope(Dispatchers.IO).async {
+            try {
+                val snapshot = Common.servicesTypeCollectionRef.document(serviceTypeId).get().await()
+                if (snapshot.exists()) {
+                    return@async snapshot.toObject(ServiceType::class.java)
+                } else {
+                    return@async null
+                }
+            } catch (e: Exception) {
+                Handler(Looper.getMainLooper()).post {
+                    requireContext().toast(e.message.toString())
+                }
+                return@async null
+            }
+        }
+
+        val serviceType = runBlocking { deferred.await() }
         hideProgress()
-        progressDialog = requireActivity().showProgressDialog()
-    }
 
-    private fun hideProgress() {
-        progressDialog?.let { if (it.isShowing) it.cancel() }
+        return serviceType
     }
-
 
     companion object {
         private const val ARG_FACILITY_DATA = "arg_facility_data"
