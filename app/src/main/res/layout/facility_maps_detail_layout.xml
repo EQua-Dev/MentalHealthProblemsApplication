@@ -216,6 +216,7 @@
             app:cornerRadius="@dimen/margin_mini"
             android:padding="@dimen/padding_mini"
             android:textColor="@color/white"
+            app:backgroundTint="@color/custom_client_accent_color"
             android:text="@string/book_rehab"
             app:background="@color/custom_client_accent_color" />
 
