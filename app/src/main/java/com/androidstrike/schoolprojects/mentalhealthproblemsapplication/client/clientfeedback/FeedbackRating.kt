@@ -85,7 +85,7 @@ class FeedbackRating : Fragment() {
 
         val clientPaidService =
             Common.appointmentsCollectionRef.whereEqualTo("customerID", mAuth.uid)
-                .whereEqualTo("requestFormStatus", "paid").whereEqualTo("isRated", false)
+                .whereEqualTo("requestFormStatus", "paid").whereEqualTo("rated", false)
 
         val options = FirestoreRecyclerOptions.Builder<BookService>()
             .setQuery(clientPaidService, BookService::class.java).build()

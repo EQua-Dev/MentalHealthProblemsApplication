@@ -215,8 +215,9 @@
             android:layout_marginBottom="@dimen/margin_midi"
             app:cornerRadius="@dimen/margin_mini"
             android:padding="@dimen/padding_mini"
+            android:textColor="@color/white"
             android:text="@string/book_rehab"
-            app:backgroundTint="@color/custom_client_accent_color" />
+            app:background="@color/custom_client_accent_color" />
 
     </RelativeLayout>
 

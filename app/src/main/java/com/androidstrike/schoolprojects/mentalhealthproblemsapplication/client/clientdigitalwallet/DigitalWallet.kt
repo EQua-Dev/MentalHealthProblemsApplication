@@ -32,6 +32,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.firestore.FieldPath
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -229,7 +231,7 @@ class DigitalWallet : Fragment(), WalletBottomSheetListener {
 
 
         val walletHistory =
-            walletCollectionRef.document(walletId).collection(WALLET_HISTORY_REF)
+            walletCollectionRef.document(walletId).collection(WALLET_HISTORY_REF).orderBy(FieldPath.documentId(), Query.Direction.DESCENDING)
 
         val options = FirestoreRecyclerOptions.Builder<WalletHistory>()
             .setQuery(walletHistory, WalletHistory::class.java).build()

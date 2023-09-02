@@ -192,7 +192,7 @@
     <string name="client_generated_invoice_time_created">Invoice Time: %s</string>
     <string name="client_make_payment_wallet_balance">Wallet Balance: €%s</string>
     <string name="client_make_payment_text">You are about to pay the sum of €%s for service: %s\n\nProceed?</string>
-    <string name="insufficent_balance">Insufficient balance\n\nFund wallet to make payment</string>
+    <string name="insufficient_balance">Insufficient balance\n\nFund wallet to make payment</string>
     <string name="create_wallet_card_number">Card Number</string>
     <string name="create_wallet_card_expiry_month">MM</string>
     <string name="create_wallet_card_expiry_year">YY</string>

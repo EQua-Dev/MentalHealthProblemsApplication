@@ -35,11 +35,9 @@ import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.ge
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.showProgress
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.toast
-import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.visible
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -299,7 +297,7 @@ class InvoicePayment : Fragment() {
         }
         btnProceedPayment.setOnClickListener {
             if (wallet.walletBalance.toDouble() < invoicePaymentData.paymentAmount.toDouble()) {
-                requireContext().toast(resources.getString(R.string.insufficent_balance))
+                requireContext().toast(resources.getString(R.string.insufficient_balance))
             } else {
                 requireContext().showProgress()
                 CoroutineScope(Dispatchers.IO).launch {
@@ -356,59 +354,6 @@ class InvoicePayment : Fragment() {
 
     }
 
-    private fun getClientDetails(clientId: String, clientName: TextView) = CoroutineScope(
-        Dispatchers.IO
-    ).launch {
-        Common.clientCollectionRef
-            .get()
-            .addOnSuccessListener { querySnapshot: QuerySnapshot ->
-
-                for (document in querySnapshot.documents) {
-                    val item = document.toObject(Client::class.java)
-                    if (item?.customerID == clientId) {
-                        requestingClient = item
-                    }
-                }
-                clientName.text =
-                    "${requestingClient.customerFirstName}, ${requestingClient.customerLastName}"
-            }
-    }
-
-    private fun getFacilityDetails(
-        facilityId: String
-    ) = CoroutineScope(Dispatchers.IO).launch {
-        Common.facilityCollectionRef
-            .get()
-            .addOnSuccessListener { querySnapshot: QuerySnapshot ->
-
-                for (document in querySnapshot.documents) {
-                    val item = document.toObject(Facility::class.java)
-                    if (item?.organisationId == facilityId) {
-                        servingFacility = item
-                    }
-                }
-//                tvFacilityName.text = servingFacility.facilityName
-//                tvFacilityAddress.text = servingFacility.facilityAddress
-//                tvFacilityEmail.text = servingFacility.facilityEmail
-//                tvFacilityPhone.text = servingFacility.facilityPhoneNumber
-            }
-    }
-
-    private fun getServiceDetails(facilityId: String, serviceId: String) = CoroutineScope(
-        Dispatchers.IO
-    ).launch {
-        Common.servicesCollectionRef
-            .get()
-            .addOnSuccessListener { querySnapshot: QuerySnapshot ->
-
-                for (document in querySnapshot.documents) {
-                    val item = document.toObject(SpecificService::class.java)
-                    if (item?.specificServiceId == serviceId) {
-                        scheduledService = item
-                    }
-                }
-            }
-    }
 
     private fun getOrganisation(organisationId: String): Facility? {
         requireContext().showProgress()
