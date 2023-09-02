@@ -97,7 +97,7 @@
         android:layout_margin="@dimen/margin_mini"
         android:padding="@dimen/padding_mini"
         android:textColor="@color/white"
-        app:backgroundTint="@color/custom_client_accent_color"
+        app:backgroundTint="@color/custom_facility_accent_color"
         android:text="@string/submit_request"
         android:id="@+id/submit_request"
         app:cornerRadius="@dimen/margin_mini"/>
