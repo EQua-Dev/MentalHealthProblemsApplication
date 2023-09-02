@@ -351,7 +351,7 @@ class FeedbackRating : Fragment() {
             try {
                 feedbackCollectionRef.document(clientFeedBack.feedbackAndRatingsID)
                     .set(clientFeedBack).addOnSuccessListener {
-                    appointmentsCollectionRef.document(model.requestFormId).update("isRated", true)
+                    appointmentsCollectionRef.document(model.requestFormId).update("rated", true)
                         .addOnSuccessListener {
                             requireContext().toast("Feedback Sent")
                             getRealtimeRatings()
