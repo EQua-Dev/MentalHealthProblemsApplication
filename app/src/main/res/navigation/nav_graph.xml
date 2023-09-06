@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_signIn_to_clientBaseScreen"
             app:destination="@id/clientBaseScreen" />
+        <action
+            android:id="@+id/action_signIn_to_phoneVerification"
+            app:destination="@id/phoneVerification" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
@@ -105,5 +108,22 @@
         <action
             android:id="@+id/action_splashScreen_to_landingFragment"
             app:destination="@id/landingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/phoneVerification"
+        android:name="com.androidstrike.schoolprojects.mentalhealthproblemsapplication.auth.PhoneVerification"
+        android:label="PhoneVerification" >
+        <action
+            android:id="@+id/action_phoneVerification_to_clientBaseScreen"
+            app:destination="@id/clientBaseScreen" />
+        <action
+            android:id="@+id/action_phoneVerification_to_facilityBaseScreen"
+            app:destination="@id/facilityBaseScreen" />
+        <argument
+            android:name="role"
+            app:argType="string" />
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
     </fragment>
 </navigation>

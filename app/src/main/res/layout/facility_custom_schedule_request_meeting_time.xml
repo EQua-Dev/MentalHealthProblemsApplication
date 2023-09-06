@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_mini"
-        android:layout_margin="@dimen/margin_mini">
+        android:layout_margin="@dimen/margin_mini"
+        android:padding="@dimen/padding_mini">
 
         <TextView
+            android:id="@+id/facility_schedule_meeting_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="@string/facility_schedule_meeting_title"
-            android:textSize="@dimen/text_xl"
             android:layout_margin="@dimen/margin_midi"
-            android:id="@+id/facility_schedule_meeting_title"/>
+            android:text="@string/facility_schedule_meeting_title"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_xl" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_facility_schedule_meeting_date"
@@ -25,18 +26,17 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/facility_schedule_meeting_title"
             android:layout_margin="@dimen/padding_mini"
-            android:hint="@string/facility_schedule_meeting_date"
-            >
+            android:hint="@string/facility_schedule_meeting_date">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/facility_schedule_meeting_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
                 android:contentDescription="@string/facility_schedule_meeting_date"
                 android:importantForAutofill="no"
-                android:layout_margin="@dimen/padding_mini"
-                android:padding="@dimen/padding_maxi"
-                android:labelFor="@id/facility_schedule_meeting_date" />
+                android:labelFor="@id/facility_schedule_meeting_date"
+                android:padding="@dimen/padding_maxi" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -46,30 +46,30 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_input_layout_facility_schedule_meeting_date"
             android:layout_margin="@dimen/padding_mini"
-            android:hint="@string/facility_schedule_meeting_time"
-            >
+            android:hint="@string/facility_schedule_meeting_time">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/facility_schedule_meeting_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
                 android:contentDescription="@string/facility_schedule_meeting_time"
                 android:importantForAutofill="no"
-                android:layout_margin="@dimen/padding_mini"
-                android:padding="@dimen/padding_maxi"
-                android:labelFor="@id/facility_schedule_meeting_time" />
+                android:labelFor="@id/facility_schedule_meeting_time"
+                android:padding="@dimen/padding_maxi" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
+            android:id="@+id/facility_confirm_meeting_schedule"
+            android:layout_width="@dimen/button_width_xxl"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/custom_client_accent_color"
-            android:text="@string/facility_confirm_meeting_schedule"
             android:layout_below="@id/text_input_layout_facility_schedule_meeting_time"
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/margin_midi"
-            android:id="@+id/facility_confirm_meeting_schedule"
-            android:padding="@dimen/padding_mini"/>
+            android:backgroundTint="@color/custom_client_accent_color"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/facility_confirm_meeting_schedule"
+            app:cornerRadius="@dimen/margin_mini" />
 
     </RelativeLayout>
 

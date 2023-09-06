@@ -87,10 +87,10 @@
     <string name="facility_customer_request_generate_invoice">Generate Invoice</string>
     <string name="facility_customer_request_rejected">rejected</string>
     <string name="txt_reject_customer_request">Reject Request</string>
-    <string name="facility_schedule_meeting_title">Schedule Meeting</string>
-    <string name="facility_schedule_meeting_date">Schedule Meeting Start Date</string>
-    <string name="facility_schedule_meeting_time">Schedule Meeting Start Time</string>
-    <string name="facility_confirm_meeting_schedule">Confirm Meeting Schedule</string>
+    <string name="facility_schedule_meeting_title">Create Meeting Schedule for Accepted Request</string>
+    <string name="facility_schedule_meeting_date">Schedule Meeting Date</string>
+    <string name="facility_schedule_meeting_time">Schedule Meeting Time</string>
+    <string name="facility_confirm_meeting_schedule">Confirm</string>
     <string name="facility_generated_invoice_customer_details_title">Customer Details</string>
     <string name="facility_generated_invoice_facility_details_title">Company Details</string>
     <string name="facility_generated_invoice_request_details_title">Service Request Details</string>
@@ -208,6 +208,11 @@
     <string name="wallet_balance_text">Wallet Balance</string>
     <string name="client_rating_title">View List of Notification of Accepted Request and Provide Feedback and Ratings</string>
     <string name="facility_rating_title">View Rated Services</string>
+    <string name="phone_verification_title">2 FA</string>
+    <string name="phone_verification_subtitle">Enter code recieved from SMS</string>
+    <string name="enter_code">Enter OTP Code</string>
+    <string name="two_fa_btn">Verify Code</string>
+    <string name="scheduled_meeting_text">Dear %s,\n\nThis is to confirm that your request has been accepted for service: %s.\n\nMeeting date is: %s\nMeeting time is : %s</string>
 
     <string-array name="service_available_places_option">
         <item>Yes</item>

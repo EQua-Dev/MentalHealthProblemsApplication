@@ -1,6 +1,8 @@
 package com.androidstrike.schoolprojects.mentalhealthproblemsapplication.facility.facilitynotification
 
+import android.app.DatePickerDialog
 import android.app.Dialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,13 +24,16 @@ import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Bo
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Client
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Facility
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.FacilityRequestResponse
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.ScheduleForm
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Service
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.ServiceType
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.ACCEPTED_TEXT
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.PROCESSED_TEXT
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.REJECTED_TEXT
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.meetingScheduleFormCollectionRef
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.requestResponseNotificationCollectionRef
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.enable
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.getDate
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.showProgress
@@ -45,6 +51,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class FacilityNotification : Fragment() {
 
@@ -57,6 +66,9 @@ class FacilityNotification : Fragment() {
     lateinit var requestingClient: Client
     lateinit var servingFacility: Facility
     lateinit var scheduledService: Service
+
+
+    private val calendar = Calendar.getInstance()
 
 
     private var progressDialog: Dialog? = null
@@ -300,12 +312,88 @@ class FacilityNotification : Fragment() {
                 .set(facilityRequestResponse).addOnSuccessListener {
                     hideProgress()
                     dialog.dismiss()
-                    launchInvoiceDialog(model, facilityRequestResponse)
+                    if (getServiceType(model.typeOfService)!!.serviceTypeName == "Meeting with Medical Professional")
+                        launchScheduleDialog(model, facilityRequestResponse)
+                    else
+                        launchInvoiceDialog(model, facilityRequestResponse)
                 }.addOnFailureListener { e ->
                     hideProgress()
                     requireContext().toast(e.message.toString())
                 }
         }
+    }
+
+    private fun launchScheduleDialog(
+        model: BookService,
+        facilityRequestResponse: FacilityRequestResponse
+    ) {
+
+        val builder =
+            layoutInflater.inflate(
+                R.layout.facility_custom_schedule_request_meeting_time,
+                null
+            )
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(builder)
+            .setCancelable(false)
+            .create()
+
+        val etScheduleDate =
+            builder.findViewById<TextView>(R.id.facility_schedule_meeting_date)
+        val etScheduleTime =
+            builder.findViewById<TextView>(R.id.facility_schedule_meeting_time)
+        val btnConfirmSchedule =
+            builder.findViewById<TextView>(R.id.facility_confirm_meeting_schedule)
+
+        btnConfirmSchedule.enable(false)
+
+        etScheduleDate.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+                showDatePicker(view)
+            }
+        }
+        etScheduleTime.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+                showTimePicker(view)
+            }
+        }
+
+        etScheduleTime.addTextChangedListener {
+            var scheduledDate = etScheduleDate.text.toString().trim()
+            var scheduledTime = it.toString().trim()
+
+            val client = getUser(facilityRequestResponse.customerID)!!
+            val service = getService(facilityRequestResponse.organisationProfileServiceID)!!
+
+            btnConfirmSchedule.apply {
+                enable(scheduledDate.isNotEmpty() && scheduledTime.isNotEmpty())
+                setOnClickListener {
+                    //add to the db
+                    val meetingScheduleData = ScheduleForm(
+                        notificationOfAcceptedCustomerRequestScheduleMeetingID = System.currentTimeMillis().toString(),
+                                notificationOfCustomerRequestFormID = facilityRequestResponse.notificationID,
+                                requestFormID = facilityRequestResponse.requestFormID,
+                                customerID = facilityRequestResponse.customerID,
+                                organisationProfileServiceID = facilityRequestResponse.organisationProfileServiceID,
+                                serviceType = facilityRequestResponse.typeOfServiceID,
+                                requestFormStatus = facilityRequestResponse.requestFormStatus,
+                                scheduledMeetingDate = scheduledDate,
+                                scheduledMeetingTime = scheduledTime,
+                                notificationText = resources.getString(R.string.scheduled_meeting_text, client.customerFirstName, service.serviceName, scheduledDate, scheduledTime)
+                    )
+                    meetingScheduleFormCollectionRef.document(meetingScheduleData.notificationOfAcceptedCustomerRequestScheduleMeetingID).set(meetingScheduleData).addOnSuccessListener {
+                        launchInvoiceDialog(model, facilityRequestResponse)
+                        dialog.dismiss()
+                    }.addOnFailureListener { e ->
+                        requireContext().toast(e.message.toString())
+                    }
+                }
+            }
+        }
+
+        dialog.show()
+
+
     }
 
 
@@ -392,11 +480,12 @@ class FacilityNotification : Fragment() {
 
 //        val servicePrice = scheduledService.servicePrice
 //        val serviceDiscountedPrice = scheduledService.serviceDiscountedPrice
-        val totalServicePrice = if (service.servicePrice.toDouble() < service.serviceDiscountedPrice.toDouble())
-            service.servicePrice.toDouble()
-        else
-            service.serviceDiscountedPrice.toDouble()
-            //service.servicePrice.toDouble() - service.serviceDiscountedPrice.toDouble()
+        val totalServicePrice =
+            if (service.servicePrice.toDouble() < service.serviceDiscountedPrice.toDouble())
+                service.servicePrice.toDouble()
+            else
+                service.serviceDiscountedPrice.toDouble()
+        //service.servicePrice.toDouble() - service.serviceDiscountedPrice.toDouble()
         tvServiceTotal.text = resources.getString(
             R.string.facility_generate_request_invoice_service_total_price,
             totalServicePrice.toString()
@@ -550,6 +639,48 @@ class FacilityNotification : Fragment() {
                 }
 
         }
+    }
+
+    private fun showDatePicker(view: View) {
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog =
+            DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+                // Update the selected date in the calendar instance
+                calendar.set(selectedYear, selectedMonth, selectedDay)
+
+                // Perform any desired action with the selected date
+                // For example, update a TextView with the selected date
+                val formattedDate =
+                    SimpleDateFormat("dd MMMM, yyyy", Locale.getDefault()).format(calendar.time)
+                val bookAppointmentDate = view as TextInputEditText
+                bookAppointmentDate.setText(formattedDate)
+            }, year, month, day)
+
+        datePickerDialog.show()
+    }
+
+    private fun showTimePicker(view: View) {
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+
+        val timePickerDialog =
+            TimePickerDialog(requireContext(), { _, selectedHour, selectedMinute ->
+                // Update the selected time in the calendar instance
+                calendar.set(Calendar.HOUR_OF_DAY, selectedHour)
+                calendar.set(Calendar.MINUTE, selectedMinute)
+
+                // Perform any desired action with the selected time
+                // For example, update a TextView with the selected time
+                val formattedTime =
+                    SimpleDateFormat("HH:mm a", Locale.getDefault()).format(calendar.time)
+                val bookAppointmentTime = view as TextInputEditText
+                bookAppointmentTime.setText(formattedTime)
+            }, hour, minute, false)
+
+        timePickerDialog.show()
     }
 
 
