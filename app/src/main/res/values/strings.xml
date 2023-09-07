@@ -184,7 +184,7 @@
     <string name="facility_generate_request_invoice_service_total_price">Request Total: €%s</string>
     <string name="notification_text">Dear %s,\n\nYour request for %s has been: %s\n\nDate created: %s\nTime created: %s</string>
     <string name="facility_new_record_cancel_btn">Cancel</string>
-    <string name="invoice_text">Dear %s,\n\nYour request for %s has been %s.\nPlease, provide required payment for the requested service to Bank name (%s), Account IBAN (%s), Account holder name (%s) in order to avail the service.\n\nDate created: %s\nTime created: %s</string>
+    <string name="invoice_text">Dear %s,\n\nYour request for %s has been %s.\nPlease, provide required payment for the requested service to Bank name (%s), Account IBAN (%s), Account holder name (%s) in order to avail the service.</string>
     <string name="client_view_notification_title">View Notification</string>
     <string name="txt_client_booking_response_detail_time_created">Notification time: %s</string>
     <string name="txt_client_booking_response_detail_date_created">Notification date: %s</string>
