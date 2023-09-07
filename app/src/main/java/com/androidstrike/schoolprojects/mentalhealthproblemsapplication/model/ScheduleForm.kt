@@ -5,6 +5,7 @@ data class ScheduleForm(
     val notificationOfCustomerRequestFormID: String = "",
     val requestFormID: String = "",
     val customerID: String = "",
+    val organisationID: String = "",
     val organisationProfileServiceID: String = "",
     val serviceType: String = "",
     val requestFormStatus: String = "",

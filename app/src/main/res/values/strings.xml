@@ -225,7 +225,7 @@
         <item>Support Group Meetings</item>
         <item>Mediation and Relaxation Sessions</item>
     </string-array>
-       <string-array name="med_pro_service">
+    <string-array name="med_pro_service">
         <item>Initial Meeting for Disorder Diagnosis</item>
         <item>Follow up Meeting after diagnosis placed</item>
         <item>Treatment with Prescribed Medication After Diagnosis</item>

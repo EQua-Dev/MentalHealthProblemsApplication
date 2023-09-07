@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".client.clientnotification.ClientNotificationMeetingSchedule">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_mini"
+        android:id="@+id/rv_client_booking_result_schedule"
+        tools:listitem="@layout/client_booking_result_schedules_custom_layout"
+        tools:itemCount="3"/>
+
+
+</FrameLayout>

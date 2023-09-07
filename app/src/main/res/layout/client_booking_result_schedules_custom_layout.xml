@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardElevation="@dimen/padding_mini"
+    android:layout_margin="@dimen/padding_mini"
+    app:cardCornerRadius="@dimen/padding_mini">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="New Service"
+            android:id="@+id/txt_client_booking_result_schedule_service_name"
+            android:padding="@dimen/padding_mini"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="New Rehab"
+            android:id="@+id/txt_client_booking_result_schedule_facility_name"
+            android:layout_below="@id/txt_client_booking_result_schedule_service_name"
+            android:padding="@dimen/padding_mini"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/client_notification_schedule_view_details_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/txt_client_booking_result_schedule_facility_name"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/padding_midi"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/client_notification_view_btn"
+            app:backgroundTint="@color/custom_client_accent_color"
+            app:cornerRadius="@dimen/margin_mini" />
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>
