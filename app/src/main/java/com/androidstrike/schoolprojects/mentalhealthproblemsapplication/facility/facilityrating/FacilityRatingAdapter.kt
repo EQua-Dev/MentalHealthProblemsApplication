@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.R
+import com.iarcuschin.simpleratingbar.SimpleRatingBar
 
 class FacilityRatingAdapter(itemView: View): RecyclerView.ViewHolder(itemView) {
 
@@ -11,7 +12,7 @@ class FacilityRatingAdapter(itemView: View): RecyclerView.ViewHolder(itemView) {
     var timeCreated: TextView
     var clientName: TextView
     var serviceName: TextView
-    var serviceRating: TextView
+    var serviceRating: SimpleRatingBar
     var serviceRatingText: TextView
     //var rateServiceButton: Button
 

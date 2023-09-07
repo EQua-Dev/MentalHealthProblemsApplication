@@ -28,17 +28,20 @@
             android:layout_alignParentEnd="true"
             android:padding="@dimen/padding_mini"/>
 
+        <com.iarcuschin.simpleratingbar.SimpleRatingBar
+            android:id="@+id/txt_client_service_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srb_numberOfStars="5"
+            android:padding="@dimen/padding_mini"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/txt_facility_rated_time"
+            android:layout_gravity="center"
+            app:srb_starSize="@dimen/text_l"
+            app:srb_borderColor="#C0C0C0"
+            app:srb_fillColor="@color/custom_facility_accent_color"
+            android:layout_marginStart="@dimen/margin_midi"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="3.5"
-                android:layout_gravity="center"
-                android:layout_alignParentEnd="true"
-                android:padding="@dimen/padding_midi"
-                android:layout_below="@id/txt_facility_rated_time"
-                android:id="@+id/txt_client_service_rating"
-                app:drawableTopCompat="@drawable/ic_star_rate" />
 
         <TextView
             android:layout_width="wrap_content"
