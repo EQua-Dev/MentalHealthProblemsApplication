@@ -328,6 +328,7 @@ class ClientSignUp : Fragment() {
                         dateJoined,
                         userPhoneNumber
                     )
+                    hideProgress()
 //                    userId = Common.mAuth.currentUser?.uid
                     val navBackToSign =
                         ClientSignUpDirections.actionClientSignUpToSignIn(role = "client")
