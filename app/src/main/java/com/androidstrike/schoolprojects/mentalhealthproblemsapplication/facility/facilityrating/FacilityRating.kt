@@ -96,7 +96,7 @@ class FacilityRating : Fragment() {
                     holder.timeCreated.text = model.timeCreated
                     holder.clientName.text = resources.getString(R.string.facility_generate_request_invoice_customer_name, customer.customerFirstName, customer.customerLastName)
                     holder.serviceName.text = service.serviceName
-                    holder.serviceRating.numberOfStars = model.ratings.toInt()
+                    holder.serviceRating.numberOfStars = model.ratings.toFloat().toInt()
                     holder.serviceRatingText.text = model.feedBackText
 
                 }
