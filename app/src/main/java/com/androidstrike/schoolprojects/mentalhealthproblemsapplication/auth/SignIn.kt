@@ -125,10 +125,12 @@ class SignIn : Fragment() {
     private fun signIn(email: String, password: String) {
         requireContext().showProgress()
         val mAuth = Firebase.auth
-        if (role == "client") {
+
             email.let { auth.signInWithEmailAndPassword(it, password) }
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+
+                        if (role == "client") {
 
                         CoroutineScope(Dispatchers.IO).launch {
                             try {
@@ -162,7 +164,15 @@ class SignIn : Fragment() {
                                 }
                             }
                         }
-                    } else {
+                    }
+                        else {
+                            facilityName =
+                                getOrganisation(auth.uid!!)!!.organisationName
+                            val navToFacilityHome =
+                                SignInDirections.actionSignInToFacilityBaseScreen()
+                            findNavController().navigate(navToFacilityHome)
+                        }
+                }else {
                         hideProgress()
                         requireView().snackBar(resources.getString(R.string.user_records_not_found))
                         //activity?.toast(it.exception?.message.toString())
@@ -170,14 +180,7 @@ class SignIn : Fragment() {
 
 
                     }
-                }
 
-        } else {
-            facilityName =
-                getOrganisation(auth.uid!!)!!.organisationName
-            val navToFacilityHome =
-                SignInDirections.actionSignInToFacilityBaseScreen()
-            findNavController().navigate(navToFacilityHome)
         }
 
     }
@@ -273,6 +276,7 @@ class SignIn : Fragment() {
         val organisation = runBlocking { deferred.await() }
         hideProgress()
 
+        Log.d(TAG, "getOrganisation: $organisation")
         return organisation
     }
 
