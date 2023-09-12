@@ -1,6 +1,7 @@
 package com.androidstrike.schoolprojects.mentalhealthproblemsapplication.facility.facilityrating
 
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.R
@@ -14,7 +15,7 @@ class FacilityRatingAdapter(itemView: View): RecyclerView.ViewHolder(itemView) {
     var serviceName: TextView
     var serviceRating: SimpleRatingBar
     var serviceRatingText: TextView
-    //var rateServiceButton: Button
+    var ratingDetailButton: Button
 
 
     init {
@@ -24,7 +25,7 @@ class FacilityRatingAdapter(itemView: View): RecyclerView.ViewHolder(itemView) {
         serviceName = itemView.findViewById(R.id.txt_facility_rated_service_name)
         serviceRating = itemView.findViewById(R.id.txt_client_service_rating)
         serviceRatingText = itemView.findViewById(R.id.txt_facility_rated_text)
-        //rateServiceButton = itemView.findViewById(R.id.btn_client_rate_invoice_generated)
+        ratingDetailButton = itemView.findViewById(R.id.btn_facility_view_ratings_details)
 
 
 

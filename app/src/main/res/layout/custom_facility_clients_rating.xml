@@ -70,6 +70,14 @@
             android:id="@+id/txt_facility_rated_text"
             android:padding="@dimen/padding_mini"/>
 
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="@dimen/button_width_xxl"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_facility_rated_text"
+            android:layout_centerHorizontal="true"
+            android:text="@string/view_details"
+            android:id="@+id/btn_facility_view_ratings_details"/>
+
     </RelativeLayout>
 
 </com.google.android.material.card.MaterialCardView>

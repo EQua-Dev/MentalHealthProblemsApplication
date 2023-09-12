@@ -217,6 +217,7 @@
     <string name="email_verification_subtitle">Confirm Sign In</string>
     <string name="email_verification_btn">I Have Verified</string>
     <string name="email_not_verified">Verify Sign from Email Link</string>
+    <string name="view_details">View Details</string>
 
     <string-array name="service_available_places_option">
         <item>Yes</item>
