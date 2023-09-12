@@ -28,7 +28,7 @@ class ClientNotificationPagerAdapter (//var context: FragmentActivity?,
 
     private val TAG = "ClientNotificationPagerAdapter"
     override fun getCount(): Int {
-        return 5
+        return 2
     }
 
     //when each tab is selected, define the fragment to be implemented

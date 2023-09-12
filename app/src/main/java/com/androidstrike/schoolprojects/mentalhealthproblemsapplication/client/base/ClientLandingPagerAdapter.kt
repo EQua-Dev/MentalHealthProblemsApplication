@@ -16,6 +16,7 @@ import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.c
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.clientinvoice.InvoicePayment
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.clientnotification.ClientNotification
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.clientfeedback.FeedbackRating
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.clientnotification.ClientNotificationBase
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.client.landing.MapsFragment
 
 /**
@@ -42,7 +43,7 @@ class ClientLandingPagerAdapter (//var context: FragmentActivity?,
                 DigitalWallet()
             }
             2 -> {
-                ClientNotification()
+                ClientNotificationBase()
             }
             3 -> {
                 InvoicePayment()

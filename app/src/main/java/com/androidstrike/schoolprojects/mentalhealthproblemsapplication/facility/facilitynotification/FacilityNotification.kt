@@ -31,6 +31,7 @@ import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Co
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.ACCEPTED_TEXT
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.PROCESSED_TEXT
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.REJECTED_TEXT
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.auth
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.meetingScheduleFormCollectionRef
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.requestResponseNotificationCollectionRef
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.enable
@@ -374,6 +375,7 @@ class FacilityNotification : Fragment() {
                                 notificationOfCustomerRequestFormID = facilityRequestResponse.notificationID,
                                 requestFormID = facilityRequestResponse.requestFormID,
                                 customerID = facilityRequestResponse.customerID,
+                        organisationID = facilityRequestResponse.organisationID,
                                 organisationProfileServiceID = facilityRequestResponse.organisationProfileServiceID,
                                 serviceType = facilityRequestResponse.typeOfServiceID,
                                 requestFormStatus = facilityRequestResponse.requestFormStatus,
@@ -596,8 +598,6 @@ class FacilityNotification : Fragment() {
                         invoiceBankName,
                         invoiceAccountIBAN,
                         invoiceAccountName,
-                        currentDate,
-                        currentTime
                     ),
                     dateCreated = currentDate,
                     timeCreated = currentTime

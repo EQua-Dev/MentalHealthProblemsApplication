@@ -152,8 +152,8 @@ private val TAG = "ClientNotification"
         val tvCompanyEmail = builder.findViewById<TextView>(R.id.txt_client_booking_response_detail_company_email)
         val tvCompanyContactNumber = builder.findViewById<TextView>(R.id.txt_client_booking_response_detail_company_contact_number)
         val tvNotificationText = builder.findViewById<TextView>(R.id.txt_client_booking_result_detail_notification_text)
-        val tvDateCreated = builder.findViewById<TextView>(R.id.txt_client_booking_response_detail_date_created)
-        val tvTimeCreated = builder.findViewById<TextView>(R.id.txt_client_booking_response_detail_time_created)
+//        val tvDateCreated = builder.findViewById<TextView>(R.id.txt_client_booking_response_detail_date_created)
+//        val tvTimeCreated = builder.findViewById<TextView>(R.id.txt_client_booking_response_detail_time_created)
 
         val btnOkay = builder.findViewById<Button>(R.id.btn_client_booking_response_detail_okay)
 
@@ -164,8 +164,8 @@ private val TAG = "ClientNotification"
         tvCompanyEmail.text = resources.getString(R.string.facility_generate_request_invoice_company_email, organisation.organisationEmail)
         tvCompanyContactNumber.text = resources.getString(R.string.facility_generate_request_invoice_company_contact_number, organisation.organisationPhoneNumber)
         tvNotificationText.text = model.notificationText
-        tvDateCreated.text = resources.getString(R.string.txt_client_booking_response_detail_date_created, model.dateCreated)
-        tvTimeCreated.text = resources.getString(R.string.txt_client_booking_response_detail_time_created, model.timeCreated)
+//        tvDateCreated.text = resources.getString(R.string.txt_client_booking_response_detail_date_created, model.dateCreated)
+//        tvTimeCreated.text = resources.getString(R.string.txt_client_booking_response_detail_time_created, model.timeCreated)
 
 //        tvDateCreated.text = getDate(model.dateResponded.toLong(), "dd MMMM, yyyy")
 //        tvDateTimeCreated.text = getDate(model.dateResponded.toLong(), "hh:mm a")
