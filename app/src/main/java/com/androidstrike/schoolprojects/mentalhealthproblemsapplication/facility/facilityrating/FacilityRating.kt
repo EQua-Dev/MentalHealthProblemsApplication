@@ -3,6 +3,7 @@ package com.androidstrike.schoolprojects.mentalhealthproblemsapplication.facilit
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -97,6 +98,7 @@ class FacilityRating : Fragment() {
                     holder.clientName.text = resources.getString(R.string.facility_generate_request_invoice_customer_name, customer.customerFirstName, customer.customerLastName)
                     holder.serviceName.text = service.serviceName
                     holder.serviceRating.numberOfStars = model.ratings.toFloat().toInt()
+                    Log.d("TAG", "ratings: ${model.ratings.toFloat().toInt()}")
                     holder.serviceRatingText.text = model.feedBackText
 
                 }
