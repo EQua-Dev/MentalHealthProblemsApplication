@@ -179,6 +179,15 @@ fun convertISODateToMillis(isoDate: String): Long {
     return date!!.time
 }
 
+fun changeFirstCharacter(inputString: String, newChar: String): String {
+    if (inputString.isEmpty()) {
+        // Handle the case where the input string is empty
+        return inputString
+    }
+    // Create a new string by concatenating the replacement and the rest of the original string
+    return newChar + inputString.substring(1)
+}
+
 fun hashString(input: String): String {
     val messageDigest = MessageDigest.getInstance("MD5")
     val bytes = messageDigest.digest(input.toByteArray())

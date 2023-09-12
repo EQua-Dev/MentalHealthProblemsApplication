@@ -31,6 +31,12 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <!-- TODO: Change the link -->
+                <data android:scheme="https"/>
+                <data android:host="mentalhealthproblemsapplication.page.link"/>
+                <data android:scheme="http"/>
+                <data android:host="mentalhealthproblemsapplication.page.link"/>
             </intent-filter>
         </activity>
     </application>

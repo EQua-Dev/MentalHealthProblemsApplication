@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace 'com.androidstrike.schoolprojects.mentalhealthproblemsapplication'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.androidstrike.schoolprojects.mentalhealthproblemsapplication"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -65,14 +65,14 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:21.0.1'
 
     //Navigation Component
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
-    implementation 'androidx.navigation:navigation-fragment:2.6.0'
-    implementation 'androidx.navigation:navigation-ui:2.6.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.2'
+    implementation 'androidx.navigation:navigation-fragment:2.7.2'
+    implementation 'androidx.navigation:navigation-ui:2.7.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.2'
 
     //Firebase
 
-    implementation 'com.google.firebase:firebase-auth:22.1.0'
+    implementation 'com.google.firebase:firebase-auth:22.1.1'
 
     implementation platform('com.google.firebase:firebase-bom:32.0.0')
 
@@ -82,9 +82,9 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-core:21.1.1'
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.7.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.7.1'
     implementation 'com.firebaseui:firebase-ui-firestore:8.0.0'
-    implementation 'com.google.firebase:firebase-firestore:24.7.0'
+    implementation 'com.google.firebase:firebase-firestore:24.7.1'
 
 
     //Kotlin Coroutines

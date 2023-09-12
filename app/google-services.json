@@ -43,6 +43,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "183765329212-g899dmvkeda3906q3q6dcfuj5jtjsbt0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.androidstrike.schoolprojects.mentalhealthproblemsapplication",
+            "certificate_hash": "bffb4d9e77a4c4b72463f5b3438c463d63f97cc8"
+          }
+        },
+        {
           "client_id": "183765329212-80ibpoqa8f2f7h3a1jhb2l95qq7hkm03.apps.googleusercontent.com",
           "client_type": 3
         }

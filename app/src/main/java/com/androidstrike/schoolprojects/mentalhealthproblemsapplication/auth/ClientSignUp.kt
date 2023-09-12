@@ -8,27 +8,45 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginBottom
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.R
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.databinding.FragmentClientSignUpBinding
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.model.Client
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.auth
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.hideProgress
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.showProgress
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.toast
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
+import com.google.firebase.auth.PhoneMultiFactorAssertion
+import com.google.firebase.auth.PhoneMultiFactorGenerator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,6 +54,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class ClientSignUp : Fragment() {
 
@@ -59,6 +78,7 @@ class ClientSignUp : Fragment() {
 
     var firstNameOkay = false
     var lastNameOkay = false
+
     //var addressOkay = false
     var passwordOkay = false
     var emailOkay = false
@@ -72,6 +92,11 @@ class ClientSignUp : Fragment() {
     private val binding get() = _binding!!
 
     private val locationPermissionCode = 101
+
+    private var credential: PhoneAuthCredential? = null
+    private var verificationId: String = ""
+    private var verificationCode: String = ""
+    private var forceResendingToken: ForceResendingToken? = null
 
 
     override fun onCreateView(
@@ -125,12 +150,15 @@ class ClientSignUp : Fragment() {
             val phoneNumberText = phoneNumberLayout.text.toString()
             userPhoneNumber = phoneNumberText
             if (!hasFocus) {
-                val isIrishNumber = userPhoneNumber.startsWith("083")|| userPhoneNumber.startsWith("085")|| userPhoneNumber.startsWith("086")|| userPhoneNumber.startsWith("087")|| userPhoneNumber.startsWith("089")
+                val isIrishNumber =
+                    userPhoneNumber.startsWith("083") || userPhoneNumber.startsWith("085") || userPhoneNumber.startsWith(
+                        "086"
+                    ) || userPhoneNumber.startsWith("087") || userPhoneNumber.startsWith("089")
 
 
                 if (userPhoneNumber.isEmpty() || userPhoneNumber.length < resources.getInteger(R.integer.phone_number_length) || !isIrishNumber) {
                     binding.textInputLayoutSignUpPhoneNumber.error =
-                       resources.getString(R.string.invalid_phone_number)
+                        resources.getString(R.string.invalid_phone_number)
                 } else {
                     binding.textInputLayoutSignUpPhoneNumber.error =
                         null // Clear any previous error
@@ -203,6 +231,7 @@ class ClientSignUp : Fragment() {
 
             if (!firstNameOkay || !lastNameOkay || !emailOkay || !phoneNumberOkay || !passwordOkay || !confirmPasswordOkay) {
                 requireContext().toast("Invalid input")
+                return@setOnClickListener
             }
             if (
                 userFirstName.isEmpty() ||
@@ -213,6 +242,7 @@ class ClientSignUp : Fragment() {
                 userPhoneNumber.isEmpty()
             ) {
                 requireContext().toast("Missing fields")
+                return@setOnClickListener
             } else {
                 registerClient(
                     userFirstName,
@@ -229,6 +259,48 @@ class ClientSignUp : Fragment() {
 
 
     }
+
+    val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+            // This callback will be invoked in two situations:
+            // 1) Instant verification. In some cases, the phone number can be
+            //    instantly verified without needing to send or enter a verification
+            //    code. You can disable this feature by calling
+            //    PhoneAuthOptions.builder#requireSmsValidation(true) when building
+            //    the options to pass to PhoneAuthProvider#verifyPhoneNumber().
+            // 2) Auto-retrieval. On some devices, Google Play services can
+            //    automatically detect the incoming verification SMS and perform
+            //    verification without user action.
+            this@ClientSignUp.credential = credential
+        }
+
+        override fun onVerificationFailed(e: FirebaseException) {
+            // This callback is invoked in response to invalid requests for
+            // verification, like an incorrect phone number.
+            if (e is FirebaseAuthInvalidCredentialsException) {
+                // Invalid request
+                // ...
+            } else if (e is FirebaseTooManyRequestsException) {
+                // The SMS quota for the project has been exceeded
+                // ...
+            }
+            // Show a message and update the UI
+            // ...
+        }
+
+        override fun onCodeSent(
+            verificationId: String, forceResendingToken: PhoneAuthProvider.ForceResendingToken
+        ) {
+            // The SMS verification code has been sent to the provided phone number.
+            // We now need to ask the user to enter the code and then construct a
+            // credential by combining the code with a verification ID.
+            // Save the verification ID and resending token for later use.
+            this@ClientSignUp.verificationId = verificationId
+            this@ClientSignUp.forceResendingToken = forceResendingToken
+            // ...
+        }
+    }
+
 
     private fun registerClient(
         userFirstName: String,
@@ -257,10 +329,10 @@ class ClientSignUp : Fragment() {
                         userPhoneNumber
                     )
 //                    userId = Common.mAuth.currentUser?.uid
-                    hideProgress()
                     val navBackToSign =
                         ClientSignUpDirections.actionClientSignUpToSignIn(role = "client")
                     findNavController().navigate(navBackToSign)
+
                 } else {
                     it.exception?.message?.let { message ->
                         hideProgress()
@@ -270,6 +342,8 @@ class ClientSignUp : Fragment() {
                 }
             }
     }
+
+
 
     private fun saveUser(
         userFirstName: String,
@@ -304,6 +378,7 @@ class ClientSignUp : Fragment() {
             }
         }
     }
+
 
     private fun getClientUser(
         userFirstName: String,

@@ -213,6 +213,10 @@
     <string name="enter_code">Enter OTP Code</string>
     <string name="two_fa_btn">Verify Code</string>
     <string name="scheduled_meeting_text">Dear %s,\n\nThis is to confirm that your request has been accepted for service: %s.\n\nMeeting date is: %s\nMeeting time is : %s</string>
+    <string name="email_sent">Check email for verification link</string>
+    <string name="email_verification_subtitle">Confirm Sign In</string>
+    <string name="email_verification_btn">I Have Verified</string>
+    <string name="email_not_verified">Verify Sign from Email Link</string>
 
     <string-array name="service_available_places_option">
         <item>Yes</item>

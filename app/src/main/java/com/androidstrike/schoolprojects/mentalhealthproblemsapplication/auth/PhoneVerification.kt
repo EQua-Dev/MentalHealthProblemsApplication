@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.databinding.FragmentPhoneVerificationBinding
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.Common.auth
+import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.changeFirstCharacter
 import com.androidstrike.schoolprojects.mentalhealthproblemsapplication.utils.toast
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
@@ -33,7 +34,6 @@ class PhoneVerification : Fragment() {
     val TAG = "PhoneVerification"
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,9 +48,12 @@ class PhoneVerification : Fragment() {
 
         userPhoneNumber = arg.phoneNumber
         role = arg.role
+        val numberToSend = changeFirstCharacter(userPhoneNumber, "+353")
+        Log.d(TAG, "numberToSend: $numberToSend")
 
         val options = PhoneAuthOptions.newBuilder(auth)
-            .setPhoneNumber(userPhoneNumber) // Phone number to verify
+//            .setPhoneNumber(userPhoneNumber) // Phone number to verify
+            .setPhoneNumber(numberToSend) // Phone number to verify
             .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
             .setActivity(requireActivity()) // Activity (for callback binding)
             .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
@@ -73,17 +76,12 @@ class PhoneVerification : Fragment() {
             Log.d(TAG, "onVerificationCompleted:$credential")
             binding.twoFaBtn.setOnClickListener {
                 val enteredCode = binding.phoneVerificationCode.text.toString().trim()
-                if (enteredCode == credential.smsCode){
+                if (enteredCode == credential.smsCode) {
                     requireContext().toast("code valid")
-                    if (role == "client"){
-                        val navToClientHome = PhoneVerificationDirections.actionPhoneVerificationToClientBaseScreen()
-                        findNavController().navigate(navToClientHome)
-                    }else{
-                        val navToFacilityHome = PhoneVerificationDirections.actionPhoneVerificationToFacilityBaseScreen()
-                        findNavController().navigate(navToFacilityHome)
-                    }
-                }
-                else{
+                    val navToHome =
+                        PhoneVerificationDirections.actionPhoneVerificationToClientBaseScreen()
+                    findNavController().navigate(navToHome)
+                } else {
                     requireContext().toast("code invalid")
                 }
             }
@@ -126,17 +124,18 @@ class PhoneVerification : Fragment() {
             val enteredCode = binding.phoneVerificationCode.text.toString().trim()
             val credential = PhoneAuthProvider.getCredential(sentCode, enteredCode)
             Log.d(TAG, "verifyCode: ${this.sentCode} $enteredCode ${credential.smsCode}")
-            if (enteredCode == credential.smsCode){
+            if (enteredCode == credential.smsCode) {
                 requireContext().toast("code valid")
-                if (role == "client"){
-                    val navToClientHome = PhoneVerificationDirections.actionPhoneVerificationToClientBaseScreen()
+                if (role == "client") {
+                    val navToClientHome =
+                        PhoneVerificationDirections.actionPhoneVerificationToClientBaseScreen()
                     findNavController().navigate(navToClientHome)
-                }else{
-                    val navToFacilityHome = PhoneVerificationDirections.actionPhoneVerificationToFacilityBaseScreen()
+                } else {
+                    val navToFacilityHome =
+                        PhoneVerificationDirections.actionPhoneVerificationToFacilityBaseScreen()
                     findNavController().navigate(navToFacilityHome)
                 }
-            }
-            else{
+            } else {
                 requireContext().toast("code invalid")
             }
         }
